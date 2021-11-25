@@ -1,0 +1,32 @@
+ManagedPerson:
+	- ID nên sửa thành CCCD
+	- bỏ MANAGER
+
+Account: 
+	- thêm constaint cho field roles: tồn tại trong 3 roles ["admin","manager", "user"]
+	- Tạo FK cho USERID đến bảng MANAGEDPERSON
+	- Password nên đổi thành varchar 50 or 100 (để phù hợp với giá trị 
+sau khi encode)
+	- Status có constraints: ["Khỏi bệnh", "F0", "F1","F2","F3", "F4", "F5"]
+		trường này không null
+
+Manager: (bỏ luôn table MANAGER)
+ManageHistory:
+	- thêm field status: quản lý trạng thái bệnh	
+Related:
+	- thêm field RECORD datetime: chứa ngày tiếp xúc, liên quan
+	- Bỏ Debt, paymentHistory
+
+package: 
+	- thêm field: quantiy quản lý số lượng hiện có của package
+
+CONSUMEHISTORY: bỏ bảng này
+PACKAGEREGISTER: (này sẽ là tiêu thụ)
+	- thêm field: quantity quản lý số lượng đã mua của id
+	- thêm record: ngày mua. 
+
+Tạo bảng Lịch sử hoạt động riêng:
+- USERNAME
+- LOGIN: ngày giờ vào
+- LOGOUT: ngày giờ out
+

@@ -1,0 +1,23 @@
+Treatmentplace:
+	 - trigger kiểm tra quantity: 
+		khi insert,update 1 người có vào 1 treatment
+			nếu số lương > sức chứa thì xuất ra lỗi -> raise error đẻ bắt và xuất ra màn hình gui
+			(kiểm tra số lượng trước khi chuyển vào) -> quantity < capacity 
+			(tăng số lương lên khi có người chuyển vào)
+		khi delete 1 người có treatment
+			(giảm số lương xuống 1 khi)
+	
+PackageRegister:
+	- trigger kiểm tra Limitnum:
+		khi insert 1 column đăng ký nếu số lượng vướt quá limitnum thì raise error
+		khi update 1 column đăng ký thì cập nhật số lượng và kiểm tra như insert, đồng thời update
+ngày.
+	- trigger kiểm tra limittime
+		khi insert, update column thì kiểm tra ngày giới hạn đăng ký.
+
+		
+
+
+Trigger bank:
+- Insert 1 transaction: -> giảm balanced = balancecd - money trong Account_Bank của Customer_ID tương ứng
+đồng thời tăng balanced = balanced + money của Id có roles = admin (duy nhất 1 admin) trong Account_Bank
