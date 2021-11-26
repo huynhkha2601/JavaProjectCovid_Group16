@@ -21,3 +21,6 @@ ngày.
 Trigger bank:
 - Insert 1 transaction: -> giảm balanced = balancecd - money trong Account_Bank của Customer_ID tương ứng
 đồng thời tăng balanced = balanced + money của Id có roles = admin (duy nhất 1 admin) trong Account_Bank
+
+- Insert 1 transaction: -> Giảm debt trong ManagedPerson
+- Delete 1 transaction: -> Tăng debt trong ManagedPerson
