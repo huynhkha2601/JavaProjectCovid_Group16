@@ -1,0 +1,38 @@
+use [Covid-19]
+go
+
+create or alter trigger Treatment_Insert_Quantiy on ManagedPerson
+for insert as
+begin
+	update tp
+	set tp.QUANTITY = tp.QUANTITY +	tb.newquantity
+	from treatmentplace tp
+	join (select i.TREATMENT, count(*) as newquantity
+	from inserted i
+	group by i.TREATMENT) as tb on tp.ID = tb.TREATMENT
+end
+go
+
+create or alter trigger Treatment_Update_Quantiy on ManagedPerson
+after update as
+begin
+	update TREATMENTPLACE
+	set QUANTITY = QUANTITY + 1 where ID = (select TREATMENT from inserted)
+	update TREATMENTPLACE
+	set QUANTITY = QUANTITY - 1 where ID = (select TREATMENT from deleted)
+end
+go
+
+
+create or alter trigger Treatment_Delete_Quantiy on ManagedPerson
+for delete as
+begin
+	update tp
+	set tp.QUANTITY = tp.QUANTITY -	tb.newquantity
+	from treatmentplace tp
+	join (select d.TREATMENT, count(*) as newquantity
+	from deleted d
+	group by d.TREATMENT) as tb on tp.ID = tb.TREATMENT
+end
+go
+
