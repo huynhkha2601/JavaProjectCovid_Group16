@@ -36,3 +36,69 @@ begin
 end
 go
 
+
+
+/*-------------------------------------------------------------------------------------------------*/
+/*Trigger for "He thong thanh toan"*/
+/*Trigger when insert 1 traction:*/
+create or alter trigger Insert_transaction on [Transaction] after insert as
+begin
+	declare @money int;
+	select @money = [money]
+	from inserted
+
+	update [Account_Bank]
+	set [Balance] = [Balance] + @money
+	where [Role] = 'admin'
+
+	update [Account_Bank]
+	set [Balance] = [Balance] - @money
+	where [ID] = (select i.[Customer_ID]
+				  from [inserted] as i inner join [Customer] as c
+				  on i.[Customer_ID] = c.[BankID])
+end
+go
+
+
+/*Trigger when delete 1 traction:*/
+create or alter trigger Delete_transaction on [Transaction] for delete as
+begin
+	declare @money int;
+	select @money = [money]
+	from deleted
+
+	update [Account_Bank]
+	set [Balance] = [Balance] - @money
+	where [Role] = 'admin'
+
+	update [Account_Bank]
+	set [Balance] = [Balance] + @money
+	where [ID] = (select d.[Customer_ID]
+				  from [deleted] as d inner join [Customer] as c
+				  on d.[Customer_ID] = c.[BankID])
+end
+go
+
+
+/*Trigger when update 1 traction:*/
+create or alter trigger Update_transaction on [Transaction] after update as
+begin
+	declare @new_money int;
+	select @new_money = [money]
+	from inserted
+
+	declare @old_money int;
+	select @old_money = [money]
+	from deleted
+
+	update [Account_Bank]
+	set [Balance] = [Balance] + (@new_money - @old_money)
+	where [Role] = 'admin'
+
+	update [Account_Bank]
+	set [Balance] = [Balance] - (@new_money - @old_money)
+	where [ID] = (select i.[Customer_ID]
+				  from inserted as i inner join [Customer] as c
+				  on i.[Customer_ID] = c.[BankID])
+end
+go
