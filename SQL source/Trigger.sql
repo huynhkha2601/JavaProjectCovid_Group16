@@ -68,28 +68,26 @@ begin
 	where ID = (select PACKAGEID from inserted)
 end
 go
-/*	Trigger when delete 1 PackageRegister
-	if delete a column to PackageRegister -> the quantity of package increases by 1 quantity of register
-		and debt in MANAGEDPERSON decreases by price * quantity of register
-*/
+/*-------------------------------------------------------------------------------------------------*/
+/*	Trigger when update 1 PackageRegister */
 create or alter trigger PackageRegister_Update on PackageRegister
 for update as
 begin
-	--Declare @tiencong int = (select (d.QUANTITY*p.PRICE) from deleted d join PACKAGE p on p.ID = d.PACKAGEID)
-	--declare @tientru int = (select (i.QUANTITY*p.PRICE) from inserted i join PACKAGE p on p.ID = i.PACKAGEID)
-	--select *, debt - @tiencong + @tientru from MANAGEDPERSON
-	--select * from deleted
-	--select * from inserted
-	update MANAGEDPERSON
-	set DEBT -= (select (d.QUANTITY*p.PRICE) from deleted d join PACKAGE p on p.ID = d.PACKAGEID) 
-				+ (select (i.QUANTITY*p.PRICE) from inserted i join PACKAGE p on p.ID = i.PACKAGEID)
-	where ID = (select PERSONID from inserted)
+
+	update mp
+	set mp.DEBT = (select sum(sl*PRICE) from Package p join
+	(select PACKAGEID ,sum(QUANTITY) as sl from PACKAGEREGISTER pr
+	group by PACKAGEID) as t
+	on p.ID = t.PACKAGEID)
+	from MANAGEDPERSON mp join inserted i on i.PERSONID = mp.ID
 
 	update PACKAGE
 	set QUANTITY += (select QUANTITY from deleted) - (select QUANTITY from inserted)
 	where ID = (select PACKAGEID from inserted)
 end
 go
+
+/*-------------------------------------------------------------------------------------------------*/
 /*	Trigger when delete 1 PackageRegister
 	if delete a column to PackageRegister -> the quantity of package increases by 1 quantity of register
 		and debt in MANAGEDPERSON decreases by price * quantity of register
@@ -108,16 +106,41 @@ end
 go
 
 /*-------------------------------------------------------------------------------------------------*/
+/*	Trigger when insert,update 1 column of ManageHistory
+	if insert,update a column to ManageHistory -> change status of ManagedPerson
+*/
+
+create or alter trigger ManageHistory_Insert_Update on ManageHistory
+for insert, update as
+begin
+	update MANAGEDPERSON
+	set STATUS = (select TOSTATUS from inserted)
+	where ID = (select ID from inserted)
+end
+go
+/*-------------------------------------------------------------------------------------------------*/
+/*	Trigger when delete 1 column of ManageHistory
+	if delete a column to ManageHistory -> change status of ManagedPerson
+*/
+
+create or alter trigger ManageHistory_Delete on ManageHistory
+for delete as
+begin
+	update MANAGEDPERSON
+	set [STATUS] = (select FROMSTATUS from deleted)
+	where ID = (select ID from deleted)
+end
+go
+
+/*-------------------------------------------------------------------------------------------------*/
 /*Trigger for "He thong thanh toan"*/
 /*Trigger when insert 1 traction:*/
-create or alter trigger Insert_transaction on [Transaction] after insert as
+create or alter trigger Insert_transaction on [Transaction]
+after insert as
 begin
 	declare @money int;
-	select @money = [money]
-	from inserted
+	select @money = [money] from inserted
 
-	--update MANAGEDPERSON
-	--set DEBT -= @money 
 	update MANAGEDPERSON
 	set DEBT -= @money where ID = 
 	(select mp.ID from inserted i join Customer c on c.BankID = i.Customer_ID
@@ -143,6 +166,11 @@ begin
 	select @money = [money]
 	from deleted
 
+	update MANAGEDPERSON
+	set DEBT += @money where ID = 
+	(select mp.ID from deleted d join Customer c on c.BankID = d.Customer_ID
+	join MANAGEDPERSON mp on mp.ID = c.CCCD)
+
 	update [Account_Bank]
 	set [Balance] = [Balance] - @money
 	where [Role] = 'Admin'
@@ -163,9 +191,17 @@ begin
 	select @new_money = [money]
 	from inserted
 
+	
 	declare @old_money int;
 	select @old_money = [money]
 	from deleted
+
+	update MANAGEDPERSON
+	set DEBT += @old_money - @new_money where ID = 
+	(select mp.ID from inserted i join Customer c on c.BankID = i.Customer_ID
+	join MANAGEDPERSON mp on mp.ID = c.CCCD)
+
+
 
 	update [Account_Bank]
 	set [Balance] = [Balance] + (@new_money - @old_money)
@@ -178,7 +214,3 @@ begin
 				  on i.[Customer_ID] = c.[BankID])
 end
 go
-
-select * from TREATMENTPLACE
-update TREATMENTPLACE set QUANTITY = 1 where id = '5'
-
