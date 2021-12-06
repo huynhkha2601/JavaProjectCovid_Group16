@@ -87,7 +87,9 @@
                   <Component id="jComboBox1" min="-2" pref="123" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="119" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jTextField1" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Component id="jScrollPane1" alignment="1" pref="968" max="32767" attributes="0"/>
           </Group>
@@ -100,9 +102,10 @@
                       <Component id="jComboBox1" alignment="0" pref="35" max="32767" attributes="0"/>
                       <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextField1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="427" max="-2" attributes="0"/>
+                  <EmptySpace pref="52" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="381" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -157,6 +160,11 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JTextField" name="jTextField1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jTextField1"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -14,7 +14,7 @@ public class Covid19Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
+        new SignInFrame().setVisible(true);
     }
     
 }

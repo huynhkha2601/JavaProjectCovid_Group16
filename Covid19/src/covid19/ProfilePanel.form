@@ -64,7 +64,7 @@
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin ca&#x301; nh&#xe2;n"/>
+        <Property name="text" type="java.lang.String" value="Personal Information"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
             <EtchetBorder/>

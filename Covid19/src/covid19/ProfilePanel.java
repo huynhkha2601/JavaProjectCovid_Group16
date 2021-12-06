@@ -62,7 +62,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Thông tin cá nhân");
+        lblTitle.setText("Personal Information");
         lblTitle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         pnlLeft.setBorder(javax.swing.BorderFactory.createEtchedBorder());

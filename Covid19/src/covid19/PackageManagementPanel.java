@@ -60,7 +60,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Quản lý các gói nhu yếu phẩm");
+        lblTitle.setText("Package Management");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,7 +83,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
 
         pntSubtitleLeft.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         pntSubtitleLeft.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pntSubtitleLeft.setText("Thông tin gói nhu yếu phẩm");
+        pntSubtitleLeft.setText("Package Information");
 
         lblName.setText("Package Name:");
 
@@ -299,7 +299,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
 
         lblSubtiitleRight.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblSubtiitleRight.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSubtiitleRight.setText("Danh sách các gói nhu yếu phẩm:");
+        lblSubtiitleRight.setText("List of Packages");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
