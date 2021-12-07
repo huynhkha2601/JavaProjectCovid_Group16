@@ -26,8 +26,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblTitle" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="pnlLeft" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlLeft" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pnlMHistory" max="32767" attributes="0"/>
                           <Component id="pnlMPackage" max="32767" attributes="0"/>
@@ -41,18 +41,18 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="lblTitle" min="-2" pref="64" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlLeft" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="pnlMHistory" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="pnlMPackage" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="pnlLeft" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,24 +84,24 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="pnlButton" max="32767" attributes="0"/>
                       <Component id="pnlInformation" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pnlInformation" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="pnlInformation" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="pnlButton" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -113,41 +113,37 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnEdit" max="32767" attributes="0"/>
-                          <Component id="btnChangePw" pref="133" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="btnEdit" pref="127" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnRefresh" pref="89" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="btnChangePw" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnRefresh" max="32767" attributes="0"/>
-                          <Component id="btnViewDebt" pref="145" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnPayment" max="32767" attributes="0"/>
-                          <Component id="btnBuyPackage" pref="145" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="btnBuyPackage" pref="87" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnEdit" min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="btnRefresh" min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="btnPayment" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnChangePw" pref="48" max="32767" attributes="0"/>
-                          <Component id="btnViewDebt" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="btnBuyPackage" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="btnRefresh" linkSize="19" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="btnEdit" linkSize="19" min="-2" pref="33" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnChangePw" linkSize="19" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -161,17 +157,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnPayment">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Payment"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaymentActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="btnBuyPackage">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buy Package"/>
+                <Property name="text" type="java.lang.String" value="Payment"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuyPackageActionPerformed"/>
@@ -189,13 +177,8 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Change password"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnViewDebt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="View Debt"/>
-              </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewDebtActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChangePwActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -206,40 +189,39 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblStatus" linkSize="2" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
-                                  <Component id="lblAddress" linkSize="2" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txfAddress" max="32767" attributes="0"/>
-                                  <Component id="txfStatus" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
                           <Component id="jLabel2" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="lblYob" linkSize="2" pref="106" max="32767" attributes="0"/>
-                                  <Component id="lblFullname" linkSize="2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblCccd" linkSize="2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblStatus" linkSize="16" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblCccd1" linkSize="16" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblAddress" linkSize="16" alignment="0" pref="100" max="32767" attributes="0"/>
+                                  <Component id="lblTreatment" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txfFullname" alignment="0" pref="329" max="32767" attributes="0"/>
-                                  <Component id="txfCCCD" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txfYob" alignment="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txfTreatment" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="txfStatus" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="txfAddress" max="32767" attributes="0"/>
+                                  <Component id="jLabel1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblTreatment" linkSize="2" min="-2" pref="105" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txfTreatment" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="lblYob" linkSize="16" pref="100" max="32767" attributes="0"/>
+                                  <Component id="lblFullname" linkSize="16" max="32767" attributes="0"/>
+                                  <Component id="lblCccd" linkSize="16" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txfFullname" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txfYob" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="txfCCCD" alignment="1" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -247,38 +229,43 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblCccd" linkSize="3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txfCCCD" linkSize="5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblCccd" linkSize="17" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="txfCCCD" linkSize="14" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblFullname" linkSize="3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txfFullname" linkSize="5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblFullname" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfFullname" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txfYob" linkSize="5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="lblYob" linkSize="3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblYob" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfYob" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblAddress" linkSize="3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txfAddress" linkSize="5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblAddress" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfAddress" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblStatus" linkSize="3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txfStatus" linkSize="5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblStatus" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfStatus" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblTreatment" linkSize="3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txfTreatment" linkSize="5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblTreatment" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfTreatment" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblCccd1" linkSize="17" pref="23" max="32767" attributes="0"/>
+                          <Component id="jLabel1" linkSize="14" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -287,7 +274,7 @@
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="14" style="0"/>
+                  <Font name="Tahoma" size="14" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Information:"/>
@@ -312,6 +299,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="jTextField1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txfCCCDActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txfFullname">
               <Properties>
@@ -359,6 +349,16 @@
                 <Property name="text" type="java.lang.String" value="jTextField1"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="lblCccd1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Debt:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -375,7 +375,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="475" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="587" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel9" max="32767" attributes="0"/>
@@ -386,10 +386,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="132" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -406,10 +407,10 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="31">
-                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                    <Column editable="true" title="ID" type="java.lang.Object"/>
+                    <Column editable="true" title="From Status" type="java.lang.Object"/>
+                    <Column editable="true" title="To Status" type="java.lang.Object"/>
+                    <Column editable="true" title="Date" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -446,7 +447,7 @@
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
+              <Font name="Tahoma" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Management history:"/>
@@ -477,10 +478,10 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="tblMPackage" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="161" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -496,17 +497,23 @@
             <Component class="javax.swing.JTable" name="jTable2">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="15">
-                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
-                    <Column editable="true" title="null" type="java.lang.Object"/>
+                  <Table columnCount="6" rowCount="15">
+                    <Column editable="true" title="Package ID" type="java.lang.Object"/>
+                    <Column editable="true" title="Package Name" type="java.lang.Object"/>
+                    <Column editable="true" title="Date Register" type="java.lang.Object"/>
+                    <Column editable="true" title="Quantity" type="java.lang.Object"/>
+                    <Column editable="true" title="Price" type="java.lang.Object"/>
+                    <Column editable="true" title="Total" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="140" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -543,7 +550,7 @@
         <Component class="javax.swing.JLabel" name="tblMPackage">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
+              <Font name="Tahoma" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Consumption history of essential packages:"/>

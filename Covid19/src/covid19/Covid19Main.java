@@ -4,6 +4,8 @@
  */
 package covid19;
 
+import covid19.AccountFrame.SignInFrame;
+
 /**
  *
  * @author PC

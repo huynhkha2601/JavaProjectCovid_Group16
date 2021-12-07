@@ -325,6 +325,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton3.setBackground(new java.awt.Color(204, 204, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
         jButton3.setText("Add");
         jButton3.setMaximumSize(new java.awt.Dimension(120, 35));
         jButton3.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -335,6 +336,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         });
 
         jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         jButton1.setText("Edit");
         jButton1.setMaximumSize(new java.awt.Dimension(100, 35));
         jButton1.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -345,6 +347,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         });
 
         jButton4.setBackground(new java.awt.Color(204, 204, 255));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sub.png"))); // NOI18N
         jButton4.setText("Delete");
         jButton4.setMaximumSize(new java.awt.Dimension(100, 35));
         jButton4.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -355,12 +358,13 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         });
 
         jButton2.setBackground(new java.awt.Color(204, 204, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/refresh.png"))); // NOI18N
         jButton2.setText("Refresh");
         jButton2.setMaximumSize(new java.awt.Dimension(100, 35));
         jButton2.setPreferredSize(new java.awt.Dimension(100, 35));
 
         jButton5.setBackground(new java.awt.Color(204, 204, 255));
-        jButton5.setText("Import");
+        jButton5.setText("Statictis Debt");
         jButton5.setMaximumSize(new java.awt.Dimension(100, 35));
         jButton5.setPreferredSize(new java.awt.Dimension(100, 35));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -370,7 +374,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         });
 
         jButton6.setBackground(new java.awt.Color(204, 204, 255));
-        jButton6.setText("Export");
+        jButton6.setText("Statictis Package");
         jButton6.setMaximumSize(new java.awt.Dimension(100, 35));
         jButton6.setPreferredSize(new java.awt.Dimension(100, 35));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -386,18 +390,14 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -455,11 +455,11 @@ public class PackageManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        new StatisticDebtFrame().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        new StatisticPackageFrame().setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

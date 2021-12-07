@@ -244,7 +244,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="pnlFind1" alignment="0" pref="185" max="32767" attributes="0"/>
-                          <Component id="pnlFind" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnFind" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnManagePackage" max="32767" attributes="0"/>
                           <Component id="btnManageRelated" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnProfile" alignment="0" max="32767" attributes="0"/>
@@ -266,11 +266,11 @@
                       <Component id="btnManageRelated" min="-2" pref="48" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnManagePackage" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="pnlFind" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="pnlFind1" min="-2" pref="48" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnFind" min="-2" pref="48" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="pnlFind1" min="-2" pref="48" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="pnlFind2" min="-2" pref="48" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -286,7 +286,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Qua&#x309;n ly&#x301; ng&#x1b0;&#x1a1;&#x300;i li&#xea;n quan"/>
+                <Property name="text" type="java.lang.String" value="Patient Management"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[115, 60]"/>
@@ -299,7 +299,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManagePersonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="pnlFind">
+            <Component class="javax.swing.JButton" name="btnFind">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="33" red="ff" type="rgb"/>
@@ -307,7 +307,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ti&#x300;m ki&#xea;&#x301;m"/>
+                <Property name="text" type="java.lang.String" value="Find &amp; Purchase"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[115, 60]"/>
@@ -316,6 +316,9 @@
                   <Dimension value="[130, 40]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFindActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnProfile">
               <Properties>
@@ -325,7 +328,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin ca&#x301; nh&#xe2;n"/>
+                <Property name="text" type="java.lang.String" value="User Profile"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[115, 60]"/>
@@ -346,7 +349,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Qua&#x309;n ly&#x301; li&#x323;ch s&#x1b0;&#x309; ti&#xea;&#x301;p xu&#x301;c"/>
+                <Property name="text" type="java.lang.String" value="Status Management"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[115, 60]"/>
@@ -367,7 +370,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Qua&#x309;n ly&#x301; go&#x301;i nhu y&#xea;&#x301;u ph&#xe2;&#x309;m"/>
+                <Property name="text" type="java.lang.String" value="Package Management"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[115, 60]"/>

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package covid19;
+package covid19.AccountFrame;
 
 /**
  *
@@ -37,7 +37,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         btnChange = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thay đổi mật khẩu");
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -69,6 +69,11 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
 
         btnClose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnClose.setText("Cancel");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,6 +138,10 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnChangeActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments

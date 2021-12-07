@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package covid19;
+package covid19.AccountFrame;
+import covid19.AccountBankFrame;
+import covid19.MainFrame;
 import java.awt.Component;
 import javax.swing.*;
 import test_code.AdminManagementPanel;
@@ -13,6 +15,8 @@ import test_code.AdminManagementPanel;
  */
 public class SignInFrame extends javax.swing.JFrame {
     
+    private String userString;
+    private int role;
     /**
      * Creates new form SignInFrame
      */
@@ -42,7 +46,6 @@ public class SignInFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
-        setPreferredSize(new java.awt.Dimension(400, 300));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -163,32 +166,20 @@ public class SignInFrame extends javax.swing.JFrame {
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         String username = txtUsername.getText();
-        String password = new String(txtPassword.getPassword());
-        StringBuilder s = new StringBuilder();
-        if (username.equals("") ||password.equals(""))
-            s.append("Vui lòng nhập tài khoản hoặc mật khẩu");
-        if(s.length()>0)
-        {
-            JOptionPane.showMessageDialog(this,s.toString(),"Lỗi",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (username.equals("admin")&&password.equals("123456"))
-        {
-            if(RememberCheckBox.isSelected())
-                {
-                    
-                }
-        }
-        else
-            JOptionPane.showMessageDialog(this,"Tên đăng nhập hoặc mật khẩu không đúng","Lỗi",JOptionPane.ERROR_MESSAGE);
-        
-        if (username.equals("admin")){
-            this.setVisible(false);
-            new AdminManagementPanel().setVisible(true);
-        }
-        else{
-            this.setVisible(false);
-            new MainFrame().setVisible(true);
+        switch (username) {
+            case "admin" -> {
+                this.setVisible(false);
+                new AdminManagementPanel().setVisible(true);
+            }
+            case "manager" -> {
+                this.setVisible(false);
+                new MainFrame(1).setVisible(true);
+            }
+            case "user" ->{
+                this.setVisible(false);
+                new MainFrame(2).setVisible(true);
+            }
+            default -> new AccountBankFrame().setVisible(true);
         }
     }//GEN-LAST:event_btnSignInActionPerformed
 

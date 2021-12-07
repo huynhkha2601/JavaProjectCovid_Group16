@@ -4,6 +4,7 @@
  */
 package covid19;
 
+import covid19.AccountFrame.SignInFrame;
 import java.awt.Component;
 import javax.swing.JFrame;
 
@@ -13,19 +14,23 @@ import javax.swing.JFrame;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private int role;
+    
     private int packageFlag = 0;
     private int aboutUsFlag = 0;
     private int helpFlag = 0;
     private int profileFlag = 0;
-    private int relatedFlag = 0;
+    private int statusFlag = 0;
     private int patientFlag = 0;
+    private int findFlag = 0;
     
     private PackageManagementPanel pkmp = new PackageManagementPanel();
     private AboutUsPanel abup = new AboutUsPanel();
     private HelpPanel hpn = new HelpPanel();
     private ProfilePanel pfp = new ProfilePanel();
-    private RelatedManagementPanel rmp = new RelatedManagementPanel();
+    private StatusManagementPanel rmp = new StatusManagementPanel();
     private PatientManagementPanel ptmp = new PatientManagementPanel();
+    private FindAndPurchasePanel  fpn = new FindAndPurchasePanel();
 
     /**
      * Creates new form MainFrame
@@ -34,7 +39,21 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        tpnContent.add("Tìm kiếm", new FindPanel());
+    }
+    
+    public MainFrame(int role) {
+        this.role = role;
+        initComponents();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        if (role == 1){
+            btnProfile.setEnabled(false);
+            btnFind.setEnabled(false);
+        }else if(role == 2){
+            btnManagePackage.setEnabled(false);
+                        btnManagePerson.setEnabled(false);
+            btnManageRelated.setEnabled(false);
+        }
     }
 
     /**
@@ -53,7 +72,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlContent = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnManagePerson = new javax.swing.JButton();
-        pnlFind = new javax.swing.JButton();
+        btnFind = new javax.swing.JButton();
         btnProfile = new javax.swing.JButton();
         btnManageRelated = new javax.swing.JButton();
         btnManagePackage = new javax.swing.JButton();
@@ -128,7 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnManagePerson.setBackground(new java.awt.Color(153, 255, 204));
         btnManagePerson.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnManagePerson.setText("Quản lý người liên quan");
+        btnManagePerson.setText("Patient Management");
         btnManagePerson.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnManagePerson.setMaximumSize(new java.awt.Dimension(115, 60));
         btnManagePerson.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -138,16 +157,21 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        pnlFind.setBackground(new java.awt.Color(255, 51, 255));
-        pnlFind.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        pnlFind.setText("Tìm kiếm");
-        pnlFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pnlFind.setMaximumSize(new java.awt.Dimension(115, 60));
-        pnlFind.setPreferredSize(new java.awt.Dimension(130, 40));
+        btnFind.setBackground(new java.awt.Color(255, 51, 255));
+        btnFind.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnFind.setText("Find & Purchase");
+        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFind.setMaximumSize(new java.awt.Dimension(115, 60));
+        btnFind.setPreferredSize(new java.awt.Dimension(130, 40));
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         btnProfile.setBackground(new java.awt.Color(52, 188, 52));
         btnProfile.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnProfile.setText("Thông tin cá nhân");
+        btnProfile.setText("User Profile");
         btnProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProfile.setMaximumSize(new java.awt.Dimension(115, 60));
         btnProfile.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -159,7 +183,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnManageRelated.setBackground(new java.awt.Color(255, 204, 153));
         btnManageRelated.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnManageRelated.setText("Quản lý lịch sử tiếp xúc");
+        btnManageRelated.setText("Status Management");
         btnManageRelated.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnManageRelated.setMaximumSize(new java.awt.Dimension(115, 60));
         btnManageRelated.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -171,7 +195,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnManagePackage.setBackground(new java.awt.Color(255, 0, 0));
         btnManagePackage.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnManagePackage.setText("Quản lý gói nhu yếu phẩm");
+        btnManagePackage.setText("Package Management");
         btnManagePackage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnManagePackage.setMaximumSize(new java.awt.Dimension(115, 60));
         btnManagePackage.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -213,7 +237,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(pnlFind1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(pnlFind, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFind, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnManagePackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnManageRelated, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -232,9 +256,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnManageRelated, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnManagePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlFind, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
+                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(pnlFind1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlFind2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -336,14 +360,14 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProfileActionPerformed
 
     private void btnManageRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRelatedActionPerformed
-         if (relatedFlag == 0) {
+         if (statusFlag == 0) {
             tpnContent.add("Quản lý người tiếp xúc", rmp);
-            relatedFlag++;
+            statusFlag++;
             tpnContent.setSelectedComponent(rmp);
 
         } else {
             tpnContent.remove(rmp);
-            relatedFlag--;
+            statusFlag--;
         }
     }//GEN-LAST:event_btnManageRelatedActionPerformed
 
@@ -402,6 +426,19 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pnlFind2ActionPerformed
 
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+        if (findFlag == 0) {
+            tpnContent.add("Find & Purchase", fpn);
+            findFlag++;
+            tpnContent.setSelectedComponent(fpn);
+
+        } else {
+            tpnContent.remove(fpn);
+            findFlag--;
+        }
+          
+    }//GEN-LAST:event_btnFindActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,6 +476,7 @@ public class MainFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnManagePackage;
     private javax.swing.JButton btnManagePerson;
@@ -460,7 +498,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPanel pnlContent;
-    private javax.swing.JButton pnlFind;
     private javax.swing.JButton pnlFind1;
     private javax.swing.JButton pnlFind2;
     private javax.swing.JPanel pnlWelcome;
