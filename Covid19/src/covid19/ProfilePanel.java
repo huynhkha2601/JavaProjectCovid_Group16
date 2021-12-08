@@ -37,7 +37,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         btnChangePw = new javax.swing.JButton();
         pnlInformation = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblSubtittleLeft = new javax.swing.JLabel();
         lblCccd = new javax.swing.JLabel();
         lblFullname = new javax.swing.JLabel();
         lblYob = new javax.swing.JLabel();
@@ -51,15 +51,15 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblTreatment = new javax.swing.JLabel();
         txfTreatment = new javax.swing.JTextField();
         lblCccd1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblDebt = new javax.swing.JLabel();
         pnlMHistory = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollpnlMH = new javax.swing.JScrollPane();
         tblMHistory = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
+        lblMHistory = new javax.swing.JLabel();
         pnlMPackage = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        tblMPackage = new javax.swing.JLabel();
+        scrollpnlMP = new javax.swing.JScrollPane();
+        tblMPackage = new javax.swing.JTable();
+        lblMPackage = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(988, 529));
 
@@ -70,6 +70,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         pnlLeft.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/refresh.png"))); // NOI18N
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +78,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
+        btnBuyPackage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/payment.png"))); // NOI18N
         btnBuyPackage.setText("Payment");
         btnBuyPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +86,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +94,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
+        btnChangePw.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/changepassword.png"))); // NOI18N
         btnChangePw.setText("Change password");
         btnChangePw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,12 +110,12 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlButtonLayout.createSequentialGroup()
-                        .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnChangePw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(14, 14, 14)
-                .addComponent(btnBuyPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addComponent(btnBuyPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlButtonLayout.setVerticalGroup(
@@ -131,9 +135,9 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         pnlButtonLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnChangePw, btnEdit, btnRefresh});
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Information:");
+        lblSubtittleLeft.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblSubtittleLeft.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubtittleLeft.setText("Information:");
 
         lblCccd.setText("CCCD:");
 
@@ -176,7 +180,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         lblCccd1.setText("Debt:");
 
-        jLabel1.setText("0");
+        lblDebt.setText("0");
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
@@ -185,7 +189,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSubtittleLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlInformationLayout.createSequentialGroup()
                         .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -197,7 +201,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                             .addComponent(txfTreatment, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txfStatus, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txfAddress)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(lblDebt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(pnlInformationLayout.createSequentialGroup()
                         .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblYob, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
@@ -217,7 +221,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSubtittleLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCccd, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,11 +249,11 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblCccd1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblDebt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        pnlInformationLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, txfAddress, txfCCCD, txfFullname, txfStatus, txfTreatment, txfYob});
+        pnlInformationLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblDebt, txfAddress, txfCCCD, txfFullname, txfStatus, txfTreatment, txfYob});
 
         pnlInformationLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblAddress, lblCccd, lblCccd1, lblFullname, lblStatus, lblTreatment, lblYob});
 
@@ -314,35 +318,35 @@ public class ProfilePanel extends javax.swing.JPanel {
                 "ID", "From Status", "To Status", "Date"
             }
         ));
-        jScrollPane1.setViewportView(tblMHistory);
+        scrollpnlMH.setViewportView(tblMHistory);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Management history:");
+        lblMHistory.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblMHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMHistory.setText("Management history:");
 
         javax.swing.GroupLayout pnlMHistoryLayout = new javax.swing.GroupLayout(pnlMHistory);
         pnlMHistory.setLayout(pnlMHistoryLayout);
         pnlMHistoryLayout.setHorizontalGroup(
             pnlMHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+            .addComponent(scrollpnlMH, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
             .addGroup(pnlMHistoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblMHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlMHistoryLayout.setVerticalGroup(
             pnlMHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMHistoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollpnlMH, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlMPackage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblMPackage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -364,14 +368,14 @@ public class ProfilePanel extends javax.swing.JPanel {
                 "Package ID", "Package Name", "Date Register", "Quantity", "Price", "Total"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(140);
+        scrollpnlMP.setViewportView(tblMPackage);
+        if (tblMPackage.getColumnModel().getColumnCount() > 0) {
+            tblMPackage.getColumnModel().getColumn(1).setPreferredWidth(140);
         }
 
-        tblMPackage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tblMPackage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tblMPackage.setText("Consumption history of essential packages:");
+        lblMPackage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblMPackage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMPackage.setText("Consumption history of essential packages:");
 
         javax.swing.GroupLayout pnlMPackageLayout = new javax.swing.GroupLayout(pnlMPackage);
         pnlMPackage.setLayout(pnlMPackageLayout);
@@ -379,17 +383,17 @@ public class ProfilePanel extends javax.swing.JPanel {
             pnlMPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMPackageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tblMPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblMPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jScrollPane2)
+            .addComponent(scrollpnlMP)
         );
         pnlMPackageLayout.setVerticalGroup(
             pnlMPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMPackageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tblMPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(scrollpnlMP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -458,17 +462,15 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JButton btnChangePw;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblCccd;
     private javax.swing.JLabel lblCccd1;
+    private javax.swing.JLabel lblDebt;
     private javax.swing.JLabel lblFullname;
+    private javax.swing.JLabel lblMHistory;
+    private javax.swing.JLabel lblMPackage;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblSubtittleLeft;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTreatment;
     private javax.swing.JLabel lblYob;
@@ -477,8 +479,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlLeft;
     private javax.swing.JPanel pnlMHistory;
     private javax.swing.JPanel pnlMPackage;
+    private javax.swing.JScrollPane scrollpnlMH;
+    private javax.swing.JScrollPane scrollpnlMP;
     private javax.swing.JTable tblMHistory;
-    private javax.swing.JLabel tblMPackage;
+    private javax.swing.JTable tblMPackage;
     private javax.swing.JTextField txfAddress;
     private javax.swing.JTextField txfCCCD;
     private javax.swing.JTextField txfFullname;
