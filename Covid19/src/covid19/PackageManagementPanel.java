@@ -309,7 +309,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlListPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSubtiitleRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollpnlPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE))
+                    .addComponent(scrollpnlPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlListPackageLayout.setVerticalGroup(
@@ -364,6 +364,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         btnRefresh.setPreferredSize(new java.awt.Dimension(100, 35));
 
         btnSDebt.setBackground(new java.awt.Color(204, 204, 255));
+        btnSDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dollar.png"))); // NOI18N
         btnSDebt.setText("Statictis Debt");
         btnSDebt.setMaximumSize(new java.awt.Dimension(100, 35));
         btnSDebt.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -374,6 +375,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         });
 
         btnSPackage.setBackground(new java.awt.Color(204, 204, 255));
+        btnSPackage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/package.png"))); // NOI18N
         btnSPackage.setText("Statictis Package");
         btnSPackage.setMaximumSize(new java.awt.Dimension(100, 35));
         btnSPackage.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -390,12 +392,12 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSDebt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(btnSPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                     .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -431,7 +433,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
                             .addComponent(pnlButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlListPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)))
+                        .addComponent(pnlListPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

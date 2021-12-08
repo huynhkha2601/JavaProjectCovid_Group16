@@ -268,6 +268,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        btnHosptTranfer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/hospital.png"))); // NOI18N
         btnHosptTranfer.setText("Hospital Transfer");
         btnHosptTranfer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
