@@ -28,14 +28,14 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
-        lblCurrenPw = new javax.swing.JLabel();
-        lblNewPw = new javax.swing.JLabel();
-        lblConfirmPw = new javax.swing.JLabel();
-        txtOldPassword = new javax.swing.JPasswordField();
-        txtNewPassword = new javax.swing.JPasswordField();
-        txtConfirmPassword = new javax.swing.JPasswordField();
-        btnChange = new javax.swing.JButton();
-        btnClose = new javax.swing.JButton();
+        lblCurPwd = new javax.swing.JLabel();
+        lblNewPwd = new javax.swing.JLabel();
+        lblConfirmPwd = new javax.swing.JLabel();
+        tfCurPwd = new javax.swing.JPasswordField();
+        tfNewPwd = new javax.swing.JPasswordField();
+        tfConfirmPwd = new javax.swing.JPasswordField();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thay đổi mật khẩu");
@@ -44,34 +44,36 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Change Password");
 
-        lblCurrenPw.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblCurrenPw.setText("Current Password:");
+        lblCurPwd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCurPwd.setText("Current Password:");
 
-        lblNewPw.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblNewPw.setText("New Password:");
+        lblNewPwd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNewPwd.setText("New Password:");
 
-        lblConfirmPw.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblConfirmPw.setText("Confirm Password:");
+        lblConfirmPwd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblConfirmPwd.setText("Confirm Password:");
 
-        txtNewPassword.addActionListener(new java.awt.event.ActionListener() {
+        tfNewPwd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewPasswordActionPerformed(evt);
+                tfNewPwdActionPerformed(evt);
             }
         });
 
-        btnChange.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnChange.setText("Save Changes");
-        btnChange.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/save.png"))); // NOI18N
+        btnSave.setText("Save Changes");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        btnClose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnClose.setText("Cancel");
-        btnClose.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cancel.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -85,19 +87,19 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNewPw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCurrenPw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblConfirmPw, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                            .addComponent(lblNewPwd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCurPwd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblConfirmPwd, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnChange)
+                                .addComponent(btnSave)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
-                            .addComponent(txtNewPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtOldPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 26, Short.MAX_VALUE))
+                                .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
+                            .addComponent(tfNewPwd, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfCurPwd, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfConfirmPwd, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 6, Short.MAX_VALUE))
                     .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -108,40 +110,40 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCurPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(lblCurrenPw, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblCurPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNewPw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNewPassword))
+                    .addComponent(lblNewPwd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfNewPwd))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfirmPw, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblConfirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfConfirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnChange)
-                    .addComponent(btnClose))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(btnSave)
+                    .addComponent(btnCancel))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordActionPerformed
+    private void tfNewPwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNewPwdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewPasswordActionPerformed
+    }//GEN-LAST:event_tfNewPwdActionPerformed
 
-    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnChangeActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_btnCloseActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,14 +182,14 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChange;
-    private javax.swing.JButton btnClose;
-    private javax.swing.JLabel lblConfirmPw;
-    private javax.swing.JLabel lblCurrenPw;
-    private javax.swing.JLabel lblNewPw;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JLabel lblConfirmPwd;
+    private javax.swing.JLabel lblCurPwd;
+    private javax.swing.JLabel lblNewPwd;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JPasswordField txtConfirmPassword;
-    private javax.swing.JPasswordField txtNewPassword;
-    private javax.swing.JPasswordField txtOldPassword;
+    private javax.swing.JPasswordField tfConfirmPwd;
+    private javax.swing.JPasswordField tfCurPwd;
+    private javax.swing.JPasswordField tfNewPwd;
     // End of variables declaration//GEN-END:variables
 }
