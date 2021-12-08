@@ -26,8 +26,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="pnlTitle" alignment="1" max="32767" attributes="0"/>
+                  <Component id="pnlHelp" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -37,23 +37,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="pnlTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jPanel2" max="32767" attributes="0"/>
+              <Component id="pnlHelp" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="pnlTitle">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="lblTitle" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -62,13 +62,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="112" max="-2" attributes="0"/>
+                  <Component id="lblTitle" min="-2" pref="112" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lblTitle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="3"/>
@@ -79,7 +79,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="pnlHelp">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -87,12 +87,12 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel3" alignment="0" pref="948" max="32767" attributes="0"/>
-                      <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblHelp1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblHelp3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblHelp2" alignment="0" pref="948" max="32767" attributes="0"/>
+                      <Component id="lblHelp6" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblHelp5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblHelp4" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -102,24 +102,24 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jLabel8" pref="45" max="32767" attributes="0"/>
+                  <Component id="lblHelp1" pref="45" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" pref="45" max="32767" attributes="0"/>
+                  <Component id="lblHelp2" pref="45" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" pref="45" max="32767" attributes="0"/>
+                  <Component id="lblHelp3" pref="45" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" pref="45" max="32767" attributes="0"/>
+                  <Component id="lblHelp4" pref="45" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" pref="46" max="32767" attributes="0"/>
+                  <Component id="lblHelp5" pref="46" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel7" pref="45" max="32767" attributes="0"/>
+                  <Component id="lblHelp6" pref="45" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="lblHelp2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="0"/>
@@ -127,7 +127,7 @@
             <Property name="text" type="java.lang.String" value="- S&#x1b0;&#x309; du&#x323;ng ca&#x301;c nu&#x301;t b&#xe2;&#x301;m b&#xea;n tra&#x301;i &#x111;&#xea;&#x309; hi&#xea;&#x309;n thi&#x323; ca&#x301;c h&#xf4;&#x323;p thoa&#x323;i: xem th&#xf4;ng tin ca&#x301; nh&#xe2;n, qua&#x309;n ly&#x301; ng&#x1b0;&#x1a1;&#x300;i b&#xea;&#x323;nh, qua&#x309;n ly&#x301; li&#x323;ch s&#x1b0;&#x309; ti&#xea;&#x301;p xu&#x301;c, qua&#x309;n ly&#x301; th&#xf4;ng tin ch&#x1b0;&#x303;a b&#xea;nh."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="lblHelp3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="0"/>
@@ -135,7 +135,7 @@
             <Property name="text" type="java.lang.String" value="- Khi b&#xe2;&#x323;t thi&#x300; se&#x303; hi&#xea;&#x309;n thi&#x323; ca&#x301;c tab b&#xea;n pha&#x309;i (la&#x300; ph&#xe2;&#x300;n n&#xf4;&#x323;i dung ch&#x1b0;&#x301;c n&#x103;ng cu&#x309;a m&#xf4;&#x303;i  nu&#x301;t nh&#xe2;&#x301;n b&#xea;n tr&#xea;n). N&#xea;&#x301;u ba&#x323;n ti&#xea;&#x301;p tu&#x323;c nh&#xe2;&#x301;n va&#x300;o nu&#x301;t b&#xe2;&#x301;m se&#x303; t&#x103;&#x301;t trang &#x111;o&#x301; &#x111;i."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JLabel" name="lblHelp4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="0"/>
@@ -143,7 +143,7 @@
             <Property name="text" type="java.lang.String" value="- &#x110;&#xea;&#x309; chuy&#xea;&#x309;n tab ba&#x323;n chi&#x309; c&#xe2;&#x300;n th&#x1b0;&#x323;c hi&#xea;&#x323;n nh&#xe2;&#x301;n chu&#xf4;&#x323;t va&#x300;o ca&#x301;c tab &#x111;ang hi&#xea;&#x309;n thi&#x323;. "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
+        <Component class="javax.swing.JLabel" name="lblHelp5">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="0"/>
@@ -151,7 +151,7 @@
             <Property name="text" type="java.lang.String" value="- Tu&#x300;y thu&#xf4;&#x323;c va&#x300;o m&#xf4;&#x303;i vai tro&#x300; cu&#x309;a ng&#x1b0;&#x1a1;&#x300;i du&#x300;ng, ca&#x301;c nu&#x301;t nh&#xe2;&#x301;n se&#x303; &#x111;&#x1b0;&#x1a1;&#x323;c hi&#xea;&#x309;n thi&#x323; &#x111;&#xea;&#x309; s&#x1b0;&#x309; du&#x323;ng ho&#x103;&#x323;c &#xe2;&#x309;n &#x111;i."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="lblHelp6">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="0"/>
@@ -159,7 +159,7 @@
             <Property name="text" type="java.lang.String" value="- Nh&#xe2;&#x301;n va&#x300;o nu&#x301;t thoa&#x301;t b&#xea;n tra&#x301;i phi&#x301;a tr&#xea;n cu&#x309;a ch&#x1b0;&#x1a1;ng tri&#x300;nh se&#x303; tr&#x1a1;&#x309; v&#xea;&#x300; ma&#x300;n hi&#x300;nh &#x111;&#x103;ng nh&#xe2;&#x323;p."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="lblHelp1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="0"/>
