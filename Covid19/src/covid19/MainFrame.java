@@ -149,6 +149,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnManagePerson.setBackground(new java.awt.Color(153, 255, 204));
         btnManagePerson.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnManagePerson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/patients.png"))); // NOI18N
         btnManagePerson.setText("Patient Management");
         btnManagePerson.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnManagePerson.setMaximumSize(new java.awt.Dimension(115, 60));
@@ -161,6 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnFind.setBackground(new java.awt.Color(255, 51, 255));
         btnFind.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnFind.setText("Find & Purchase");
         btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnFind.setMaximumSize(new java.awt.Dimension(115, 60));
@@ -173,6 +175,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnProfile.setBackground(new java.awt.Color(52, 188, 52));
         btnProfile.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile.png"))); // NOI18N
         btnProfile.setText("User Profile");
         btnProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProfile.setMaximumSize(new java.awt.Dimension(115, 60));
@@ -185,6 +188,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnManageRelated.setBackground(new java.awt.Color(255, 204, 153));
         btnManageRelated.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnManageRelated.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/status_warn.png"))); // NOI18N
         btnManageRelated.setText("Status Management");
         btnManageRelated.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnManageRelated.setMaximumSize(new java.awt.Dimension(115, 60));
@@ -197,6 +201,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnManagePackage.setBackground(new java.awt.Color(255, 0, 0));
         btnManagePackage.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnManagePackage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/package.png"))); // NOI18N
         btnManagePackage.setText("Package Management");
         btnManagePackage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnManagePackage.setMaximumSize(new java.awt.Dimension(115, 60));
@@ -209,6 +214,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         pnlFind1.setBackground(new java.awt.Color(51, 51, 255));
         pnlFind1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        pnlFind1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/about.png"))); // NOI18N
         pnlFind1.setText("About Us");
         pnlFind1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlFind1.setMaximumSize(new java.awt.Dimension(115, 60));
@@ -221,6 +227,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         pnlFind2.setBackground(new java.awt.Color(102, 255, 255));
         pnlFind2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        pnlFind2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/help.png"))); // NOI18N
         pnlFind2.setText("Help");
         pnlFind2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlFind2.setMaximumSize(new java.awt.Dimension(115, 60));
