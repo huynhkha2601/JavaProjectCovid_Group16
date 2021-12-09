@@ -32,7 +32,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         tbdpAdministratorManagement = new javax.swing.JTabbedPane();
-        pnlAccountManager = new javax.swing.JPanel();
+        pnlAccountManagement = new javax.swing.JPanel();
         pnlAccountInfor = new javax.swing.JPanel();
         pnlInfor = new javax.swing.JPanel();
         lblUsername = new javax.swing.JLabel();
@@ -417,27 +417,27 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout pnlAccountManagerLayout = new javax.swing.GroupLayout(pnlAccountManager);
-        pnlAccountManager.setLayout(pnlAccountManagerLayout);
-        pnlAccountManagerLayout.setHorizontalGroup(
-            pnlAccountManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAccountManagerLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAccountManagementLayout = new javax.swing.GroupLayout(pnlAccountManagement);
+        pnlAccountManagement.setLayout(pnlAccountManagementLayout);
+        pnlAccountManagementLayout.setHorizontalGroup(
+            pnlAccountManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAccountManagementLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAccountManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAccountManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlAccountInfor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlAccountList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        pnlAccountManagerLayout.setVerticalGroup(
-            pnlAccountManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAccountManagerLayout.createSequentialGroup()
+        pnlAccountManagementLayout.setVerticalGroup(
+            pnlAccountManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAccountManagementLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlAccountInfor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlAccountList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tbdpAdministratorManagement.addTab("Account Management", pnlAccountManager);
+        tbdpAdministratorManagement.addTab("Account Management", pnlAccountManagement);
 
         pnlAccountBankInfor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Account Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
@@ -1439,7 +1439,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JPanel pnlAccountHistory;
     private javax.swing.JPanel pnlAccountInfor;
     private javax.swing.JPanel pnlAccountList;
-    private javax.swing.JPanel pnlAccountManager;
+    private javax.swing.JPanel pnlAccountManagement;
     private javax.swing.JPanel pnlAcitivyBankDetail;
     private javax.swing.JPanel pnlActivityUserDetail;
     private javax.swing.JPanel pnlActivityandTransaction;
