@@ -47,7 +47,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="pnlTitle" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tbdpAdministratorManagement" max="32767" attributes="0"/>
+              <Component id="tbdpAdministratorManagement" pref="538" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -142,24 +142,19 @@
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtfUserID" max="32767" attributes="0"/>
+                                  <Component id="txtfUserID" pref="327" max="32767" attributes="0"/>
                                   <Component id="txtfPassword" alignment="1" max="32767" attributes="0"/>
                                   <Component id="txtfUsername" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel1" min="-2" pref="229" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblState" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
-                                          <Component id="lblRole" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="cbbState" max="32767" attributes="0"/>
-                                          <Component id="cbbRole" pref="220" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblState" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+                                  <Component id="lblRole" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbbState" max="32767" attributes="0"/>
+                                  <Component id="cbbRole" pref="220" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           </Group>
@@ -178,27 +173,18 @@
                                   <Component id="lblUsername" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblPassword" linkSize="5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                          <Component id="txtfPassword" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblRole" linkSize="5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                          <Component id="cbbRole" linkSize="5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txtfUserID" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblUserID" linkSize="5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel1" min="-2" pref="19" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblPassword" linkSize="5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="txtfPassword" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblRole" linkSize="5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="cbbRole" linkSize="5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblUserID" linkSize="5" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="txtfUserID" min="-2" pref="25" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -288,8 +274,6 @@
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel1">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -407,7 +391,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="pnlAttribute" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Component id="srlpList" pref="269" max="32767" attributes="0"/>
+                          <Component id="srlpList" pref="250" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -918,7 +902,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="pnlBankAccountListAttribute" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Component id="srlpBanklList" pref="270" max="32767" attributes="0"/>
+                          <Component id="srlpBanklList" pref="251" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1103,8 +1087,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pnlAcitivyBankDetail" pref="126" max="32767" attributes="0"/>
-                          <Component id="pnlActivityUserDetail" pref="126" max="32767" attributes="0"/>
+                          <Component id="pnlAcitivyBankDetail" max="32767" attributes="0"/>
+                          <Component id="pnlActivityUserDetail" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -1179,7 +1163,7 @@
                                       <Component id="lblActivityDateEnd" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="txtfActivityDateEnd" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Component id="btnActivityFindbyDate" alignment="1" max="32767" attributes="0"/>
                               <Component id="cbbActivityLogIn" alignment="0" max="32767" attributes="0"/>
@@ -1290,7 +1274,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="srlpAccountHistory" alignment="0" pref="352" max="32767" attributes="0"/>
+                      <Component id="srlpAccountHistory" alignment="0" pref="335" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1448,7 +1432,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="btnAcitivyFindbyBankID" pref="32" max="32767" attributes="0"/>
+                              <Component id="btnAcitivyFindbyBankID" max="32767" attributes="0"/>
                               <Component id="txtfActivityBankID" max="32767" attributes="0"/>
                               <Component id="lblActivityBankID" max="32767" attributes="0"/>
                           </Group>
@@ -1561,7 +1545,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlTreatment" pref="506" max="32767" attributes="0"/>
+                      <Component id="pnlTreatment" pref="487" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1595,9 +1579,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="pnlTreamentDetail" pref="484" max="32767" attributes="0"/>
+                              <Component id="pnlTreamentDetail" pref="465" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="pnlTreatmentInput" pref="299" max="32767" attributes="0"/>
+                                  <Component id="pnlTreatmentInput" pref="280" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="pnlTreatmentButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
@@ -1630,7 +1614,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="srlpTreatment" pref="462" max="32767" attributes="0"/>
+                              <Component id="srlpTreatment" pref="443" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1947,6 +1931,9 @@
               <Font name="Tahoma" size="24" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Images/admin-48.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Administrator Management"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">

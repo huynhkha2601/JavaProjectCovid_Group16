@@ -31,14 +31,16 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
 
         pnlTitle = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
-        pnlHospitalTrasnferDetail = new javax.swing.JPanel();
+        pnlTable = new javax.swing.JPanel();
         srlHospitalTrasnferDetail = new javax.swing.JScrollPane();
         tblHospitalTransferDetail = new javax.swing.JTable();
-        pnlHospitalTransfer = new javax.swing.JPanel();
-        lblFromTreatment = new javax.swing.JLabel();
-        txtfFromTreatment = new javax.swing.JTextField();
+        pnlInfo = new javax.swing.JPanel();
+        lblID = new javax.swing.JLabel();
         lblToTreatment = new javax.swing.JLabel();
         txtfToTreatment = new javax.swing.JTextField();
+        lblFromTreatment1 = new javax.swing.JLabel();
+        txtfFromTreatment1 = new javax.swing.JTextField();
+        lblIDisplayID = new javax.swing.JLabel();
         pnlButton = new javax.swing.JPanel();
         btnConfirm = new javax.swing.JButton();
         btnGoBack = new javax.swing.JButton();
@@ -47,6 +49,7 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/hospital-48.png"))); // NOI18N
         lblTitle.setText("Hospital Transfer");
 
         javax.swing.GroupLayout pnlTitleLayout = new javax.swing.GroupLayout(pnlTitle);
@@ -62,7 +65,7 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
             pnlTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTitleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -79,58 +82,69 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
         ));
         srlHospitalTrasnferDetail.setViewportView(tblHospitalTransferDetail);
 
-        javax.swing.GroupLayout pnlHospitalTrasnferDetailLayout = new javax.swing.GroupLayout(pnlHospitalTrasnferDetail);
-        pnlHospitalTrasnferDetail.setLayout(pnlHospitalTrasnferDetailLayout);
-        pnlHospitalTrasnferDetailLayout.setHorizontalGroup(
-            pnlHospitalTrasnferDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHospitalTrasnferDetailLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
+        pnlTable.setLayout(pnlTableLayout);
+        pnlTableLayout.setHorizontalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(srlHospitalTrasnferDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        pnlHospitalTrasnferDetailLayout.setVerticalGroup(
-            pnlHospitalTrasnferDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHospitalTrasnferDetailLayout.createSequentialGroup()
+        pnlTableLayout.setVerticalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(srlHospitalTrasnferDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        lblFromTreatment.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblFromTreatment.setText("From Treatment: ");
-
-        txtfFromTreatment.setText("jTextField1");
+        lblID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblID.setText("Patient ID:");
 
         lblToTreatment.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblToTreatment.setText("To Treatment:");
 
         txtfToTreatment.setText("jTextField1");
 
-        javax.swing.GroupLayout pnlHospitalTransferLayout = new javax.swing.GroupLayout(pnlHospitalTransfer);
-        pnlHospitalTransfer.setLayout(pnlHospitalTransferLayout);
-        pnlHospitalTransferLayout.setHorizontalGroup(
-            pnlHospitalTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHospitalTransferLayout.createSequentialGroup()
+        lblFromTreatment1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblFromTreatment1.setText("From Treatment: ");
+
+        txtfFromTreatment1.setText("jTextField1");
+
+        lblIDisplayID.setText("CMND/CCCD");
+
+        javax.swing.GroupLayout pnlInfoLayout = new javax.swing.GroupLayout(pnlInfo);
+        pnlInfo.setLayout(pnlInfoLayout);
+        pnlInfoLayout.setHorizontalGroup(
+            pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlHospitalTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFromTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblToTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlHospitalTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblFromTreatment1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblToTreatment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtfToTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                    .addComponent(txtfFromTreatment))
+                    .addComponent(txtfFromTreatment1)
+                    .addComponent(lblIDisplayID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        pnlHospitalTransferLayout.setVerticalGroup(
-            pnlHospitalTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHospitalTransferLayout.createSequentialGroup()
+        pnlInfoLayout.setVerticalGroup(
+            pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlHospitalTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtfFromTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(lblFromTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(lblIDisplayID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlHospitalTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtfToTreatment)
+                .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtfToTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFromTreatment1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtfFromTreatment1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -143,7 +157,7 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
             }
         });
 
-        btnGoBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/goback.png"))); // NOI18N
+        btnGoBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/back.png"))); // NOI18N
         btnGoBack.setText("Go Back");
         btnGoBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,7 +171,7 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
             pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addGap(113, 113, 113)
-                .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -182,10 +196,10 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
                     .addComponent(pnlTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlHospitalTransfer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlHospitalTrasnferDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -196,11 +210,11 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlHospitalTransfer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 137, Short.MAX_VALUE))
-                    .addComponent(pnlHospitalTrasnferDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -254,16 +268,18 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnGoBack;
-    private javax.swing.JLabel lblFromTreatment;
+    private javax.swing.JLabel lblFromTreatment1;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblIDisplayID;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblToTreatment;
     private javax.swing.JPanel pnlButton;
-    private javax.swing.JPanel pnlHospitalTransfer;
-    private javax.swing.JPanel pnlHospitalTrasnferDetail;
+    private javax.swing.JPanel pnlInfo;
+    private javax.swing.JPanel pnlTable;
     private javax.swing.JPanel pnlTitle;
     private javax.swing.JScrollPane srlHospitalTrasnferDetail;
     private javax.swing.JTable tblHospitalTransferDetail;
-    private javax.swing.JTextField txtfFromTreatment;
+    private javax.swing.JTextField txtfFromTreatment1;
     private javax.swing.JTextField txtfToTreatment;
     // End of variables declaration//GEN-END:variables
 }

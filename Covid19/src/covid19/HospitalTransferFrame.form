@@ -29,11 +29,11 @@
                   <Component id="pnlTitle" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pnlHospitalTransfer" max="32767" attributes="0"/>
+                          <Component id="pnlInfo" max="32767" attributes="0"/>
                           <Component id="pnlButton" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlHospitalTrasnferDetail" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlTable" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -48,12 +48,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="pnlHospitalTransfer" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlInfo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="pnlButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="137" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="pnlHospitalTrasnferDetail" max="32767" attributes="0"/>
+                  <Component id="pnlTable" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -77,7 +77,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblTitle" pref="48" max="32767" attributes="0"/>
+                  <Component id="lblTitle" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -90,12 +90,15 @@
               <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Images/hospital-48.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Hospital Transfer"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="pnlHospitalTrasnferDetail">
+    <Container class="javax.swing.JPanel" name="pnlTable">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -168,21 +171,23 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="pnlHospitalTransfer">
+    <Container class="javax.swing.JPanel" name="pnlInfo">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblFromTreatment" max="32767" attributes="0"/>
-                      <Component id="lblToTreatment" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="lblFromTreatment1" max="32767" attributes="0"/>
+                      <Component id="lblID" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblToTreatment" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txtfToTreatment" pref="256" max="32767" attributes="0"/>
-                      <Component id="txtfFromTreatment" max="32767" attributes="0"/>
+                      <Component id="txtfFromTreatment1" max="32767" attributes="0"/>
+                      <Component id="lblIDisplayID" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -193,13 +198,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtfFromTreatment" pref="41" max="32767" attributes="0"/>
-                      <Component id="lblFromTreatment" max="32767" attributes="0"/>
+                      <Component id="lblID" pref="41" max="32767" attributes="0"/>
+                      <Component id="lblIDisplayID" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtfToTreatment" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblToTreatment" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtfToTreatment" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="lblFromTreatment1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtfFromTreatment1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="lblToTreatment" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -207,15 +217,10 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblFromTreatment">
+        <Component class="javax.swing.JLabel" name="lblID">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="From Treatment: "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtfFromTreatment">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
+            <Property name="text" type="java.lang.String" value="Patient ID:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblToTreatment">
@@ -229,6 +234,22 @@
             <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="lblFromTreatment1">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="From Treatment: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtfFromTreatment1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jTextField1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblIDisplayID">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CMND/CCCD"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="pnlButton">
@@ -238,7 +259,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                  <Component id="btnConfirm" pref="119" max="32767" attributes="0"/>
+                  <Component id="btnConfirm" pref="116" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnGoBack" min="-2" pref="116" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -273,7 +294,7 @@
         <Component class="javax.swing.JButton" name="btnGoBack">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Images/goback.png"/>
+              <Image iconType="3" name="/Images/back.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Go Back"/>
           </Properties>

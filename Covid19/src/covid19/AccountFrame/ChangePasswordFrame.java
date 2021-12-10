@@ -42,6 +42,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/changepassword-48.png"))); // NOI18N
         lblTitle.setText("Change Password");
 
         lblCurPwd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -99,7 +100,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
                             .addComponent(tfNewPwd, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfCurPwd, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfConfirmPwd, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 6, Short.MAX_VALUE))
+                        .addGap(0, 33, Short.MAX_VALUE))
                     .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -107,8 +108,8 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfCurPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()

@@ -65,6 +65,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile-48.png"))); // NOI18N
         lblTitle.setText("Personal Information");
         lblTitle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -137,6 +138,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         lblSubtittleLeft.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblSubtittleLeft.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubtittleLeft.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/about.png"))); // NOI18N
         lblSubtittleLeft.setText("Information:");
 
         lblCccd.setText("CCCD:");
@@ -375,6 +377,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         lblMPackage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblMPackage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMPackage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/package.png"))); // NOI18N
         lblMPackage.setText("Consumption history of essential packages:");
 
         javax.swing.GroupLayout pnlMPackageLayout = new javax.swing.GroupLayout(pnlMPackage);
@@ -421,7 +424,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlMHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlMPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(pnlLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())

@@ -52,6 +52,7 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
 
         lblSDebt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblSDebt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/statisics-48.png"))); // NOI18N
         lblSDebt.setText("Statistic Debt Table:");
 
         javax.swing.GroupLayout pnlSDebtLayout = new javax.swing.GroupLayout(pnlSDebt);

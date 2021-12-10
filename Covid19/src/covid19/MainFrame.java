@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 public class MainFrame extends javax.swing.JFrame {
 
     private int role;
-    
+
     private int packageFlag = 0;
     private int aboutUsFlag = 0;
     private int helpFlag = 0;
@@ -23,14 +23,14 @@ public class MainFrame extends javax.swing.JFrame {
     private int statusFlag = 0;
     private int patientFlag = 0;
     private int findFlag = 0;
-    
+
     private PackageManagementPanel pkmp = new PackageManagementPanel();
     private AboutUsPanel abup = new AboutUsPanel();
     private HelpPanel hpn = new HelpPanel();
     private ProfilePanel pfp = new ProfilePanel();
     private StatusManagementPanel rmp = new StatusManagementPanel();
     private PatientManagementPanel ptmp = new PatientManagementPanel();
-    private FindAndPurchasePanel  fpn = new FindAndPurchasePanel();
+    private FindAndPurchasePanel fpn = new FindAndPurchasePanel();
 
     /**
      * Creates new form MainFrame
@@ -40,18 +40,18 @@ public class MainFrame extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
-    
+
     public MainFrame(int role) {
         this.role = role;
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        if (role == 1){
+        if (role == 1) {
             btnProfile.setEnabled(false);
             btnFind.setEnabled(false);
-        }else if(role == 2){
+        } else if (role == 2) {
             btnManagePackage.setEnabled(false);
-                        btnManagePerson.setEnabled(false);
+            btnManagePerson.setEnabled(false);
             btnManageRelated.setEnabled(false);
         }
     }
@@ -70,7 +70,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         lblWelcome = new javax.swing.JLabel();
         pnlContent = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pnlButton = new javax.swing.JPanel();
         btnManagePerson = new javax.swing.JButton();
         btnFind = new javax.swing.JButton();
         btnProfile = new javax.swing.JButton();
@@ -79,16 +79,28 @@ public class MainFrame extends javax.swing.JFrame {
         pnlFind1 = new javax.swing.JButton();
         pnlFind2 = new javax.swing.JButton();
         tpnContent = new javax.swing.JTabbedPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mitNew = new javax.swing.JMenuItem();
+        mitReload = new javax.swing.JMenuItem();
+        sptFile = new javax.swing.JPopupMenu.Separator();
+        mitFileLogout = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mitUndo = new javax.swing.JMenuItem();
+        mitRedo = new javax.swing.JMenuItem();
+        sptEditTop = new javax.swing.JPopupMenu.Separator();
+        mitCopy = new javax.swing.JMenuItem();
+        mitCut = new javax.swing.JMenuItem();
+        mitPaste = new javax.swing.JMenuItem();
+        sptEditBottom = new javax.swing.JPopupMenu.Separator();
+        mitFind = new javax.swing.JMenuItem();
+        mitReplace = new javax.swing.JMenuItem();
         menuManagement = new javax.swing.JMenu();
+        mitMUserProfile = new javax.swing.JMenuItem();
+        mitMPatientManagement = new javax.swing.JMenuItem();
+        mitMStatusManagement = new javax.swing.JMenuItem();
+        mitMPackageManagement = new javax.swing.JMenuItem();
+        mitMFindAndPurchase = new javax.swing.JMenuItem();
         menuAboutUs = new javax.swing.JMenu();
         menuHelp = new javax.swing.JMenu();
 
@@ -97,10 +109,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         pnlWelcome.setMaximumSize(new java.awt.Dimension(120, 48));
         pnlWelcome.setMinimumSize(new java.awt.Dimension(120, 30));
-        pnlWelcome.setPreferredSize(new java.awt.Dimension(1200, 48));
 
         lblAppTittle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblAppTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAppTittle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/virus-remove-48.png"))); // NOI18N
         lblAppTittle.setText("Ứng dụng quản lý thông tin dịch bệnh Covid-19");
         lblAppTittle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lblAppTittle.setMaximumSize(new java.awt.Dimension(443, 30));
@@ -108,6 +120,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png"))); // NOI18N
         btnLogout.setText("Log out");
+        btnLogout.setMaximumSize(new java.awt.Dimension(60, 30));
+        btnLogout.setMinimumSize(new java.awt.Dimension(60, 25));
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -123,35 +137,34 @@ public class MainFrame extends javax.swing.JFrame {
             pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlWelcomeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnLogout)
+                .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(lblAppTittle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAppTittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlWelcomeLayout.setVerticalGroup(
             pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlWelcomeLayout.createSequentialGroup()
+            .addGroup(pnlWelcomeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblAppTittle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                        .addComponent(lblWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAppTittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pnlContent.setPreferredSize(new java.awt.Dimension(800, 490));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(200, 420));
-        jPanel1.setMinimumSize(new java.awt.Dimension(200, 100));
+        pnlButton.setMaximumSize(new java.awt.Dimension(200, 420));
+        pnlButton.setMinimumSize(new java.awt.Dimension(200, 100));
 
         btnManagePerson.setBackground(new java.awt.Color(153, 255, 204));
         btnManagePerson.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnManagePerson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/patients.png"))); // NOI18N
         btnManagePerson.setText("Patient Management");
-        btnManagePerson.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnManagePerson.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnManagePerson.setMaximumSize(new java.awt.Dimension(115, 60));
         btnManagePerson.setPreferredSize(new java.awt.Dimension(130, 40));
         btnManagePerson.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +177,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnFind.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnFind.setText("Find & Purchase");
-        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnFind.setMaximumSize(new java.awt.Dimension(115, 60));
         btnFind.setPreferredSize(new java.awt.Dimension(130, 40));
         btnFind.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +190,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnProfile.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile.png"))); // NOI18N
         btnProfile.setText("User Profile");
-        btnProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProfile.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnProfile.setMaximumSize(new java.awt.Dimension(115, 60));
         btnProfile.setPreferredSize(new java.awt.Dimension(130, 40));
         btnProfile.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +203,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnManageRelated.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnManageRelated.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/status_warn.png"))); // NOI18N
         btnManageRelated.setText("Status Management");
-        btnManageRelated.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnManageRelated.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnManageRelated.setMaximumSize(new java.awt.Dimension(115, 60));
         btnManageRelated.setPreferredSize(new java.awt.Dimension(130, 40));
         btnManageRelated.addActionListener(new java.awt.event.ActionListener() {
@@ -203,7 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnManagePackage.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnManagePackage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/package.png"))); // NOI18N
         btnManagePackage.setText("Package Management");
-        btnManagePackage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnManagePackage.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnManagePackage.setMaximumSize(new java.awt.Dimension(115, 60));
         btnManagePackage.setPreferredSize(new java.awt.Dimension(130, 40));
         btnManagePackage.addActionListener(new java.awt.event.ActionListener() {
@@ -216,7 +229,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlFind1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         pnlFind1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/about.png"))); // NOI18N
         pnlFind1.setText("About Us");
-        pnlFind1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlFind1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         pnlFind1.setMaximumSize(new java.awt.Dimension(115, 60));
         pnlFind1.setPreferredSize(new java.awt.Dimension(130, 40));
         pnlFind1.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +242,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlFind2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         pnlFind2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/help.png"))); // NOI18N
         pnlFind2.setText("Help");
-        pnlFind2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlFind2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         pnlFind2.setMaximumSize(new java.awt.Dimension(115, 60));
         pnlFind2.setPreferredSize(new java.awt.Dimension(130, 40));
         pnlFind2.addActionListener(new java.awt.event.ActionListener() {
@@ -238,14 +251,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlButtonLayout = new javax.swing.GroupLayout(pnlButton);
+        pnlButton.setLayout(pnlButtonLayout);
+        pnlButtonLayout.setHorizontalGroup(
+            pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(pnlFind1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pnlFind1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                     .addComponent(btnFind, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnManagePackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnManageRelated, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -254,22 +267,22 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(pnlFind2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlButtonLayout.setVerticalGroup(
+            pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnManagePerson, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnManageRelated, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnManagePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFind1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFind2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -283,9 +296,9 @@ public class MainFrame extends javax.swing.JFrame {
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tpnContent, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE)
+                .addComponent(tpnContent, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlContentLayout.setVerticalGroup(
@@ -295,44 +308,132 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(tpnContent, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(pnlContentLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(pnlButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(13, 13, 13))
         );
 
         menuFile.setText("File");
 
-        jMenuItem2.setText("jMenuItem2");
-        menuFile.add(jMenuItem2);
+        mitNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
+        mitNew.setText("New Window");
+        menuFile.add(mitNew);
 
-        jMenuItem3.setText("jMenuItem3");
-        menuFile.add(jMenuItem3);
+        mitReload.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/refresh.png"))); // NOI18N
+        mitReload.setText("Reload");
+        mitReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitReloadActionPerformed(evt);
+            }
+        });
+        menuFile.add(mitReload);
+        menuFile.add(sptFile);
 
-        jMenuItem4.setText("jMenuItem4");
-        menuFile.add(jMenuItem4);
-        menuFile.add(jSeparator1);
+        mitFileLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitFileLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png"))); // NOI18N
+        mitFileLogout.setText("Log out");
+        mitFileLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitFileLogoutActionPerformed(evt);
+            }
+        });
+        menuFile.add(mitFileLogout);
 
-        jMenuItem5.setText("jMenuItem5");
-        menuFile.add(jMenuItem5);
-
-        jMenuBar1.add(menuFile);
+        menuBar.add(menuFile);
 
         menuEdit.setText("Edit");
 
-        jMenuItem1.setText("jMenuItem1");
-        menuEdit.add(jMenuItem1);
+        mitUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/undo.png"))); // NOI18N
+        mitUndo.setText("Undo");
+        menuEdit.add(mitUndo);
 
-        jMenuBar1.add(menuEdit);
+        mitRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/redo.png"))); // NOI18N
+        mitRedo.setText("Redo");
+        mitRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitRedoActionPerformed(evt);
+            }
+        });
+        menuEdit.add(mitRedo);
+        menuEdit.add(sptEditTop);
+
+        mitCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/copy.png"))); // NOI18N
+        mitCopy.setText("Copy");
+        mitCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitCopyActionPerformed(evt);
+            }
+        });
+        menuEdit.add(mitCopy);
+
+        mitCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cut.png"))); // NOI18N
+        mitCut.setText("Cut");
+        menuEdit.add(mitCut);
+
+        mitPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/paste.png"))); // NOI18N
+        mitPaste.setText("Paste");
+        mitPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitPasteActionPerformed(evt);
+            }
+        });
+        menuEdit.add(mitPaste);
+        menuEdit.add(sptEditBottom);
+
+        mitFind.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
+        mitFind.setText("Find");
+        menuEdit.add(mitFind);
+
+        mitReplace.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitReplace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/replace.png"))); // NOI18N
+        mitReplace.setText("Replace");
+        menuEdit.add(mitReplace);
+
+        menuBar.add(menuEdit);
 
         menuManagement.setText("Management");
-        jMenuBar1.add(menuManagement);
+
+        mitMUserProfile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitMUserProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile.png"))); // NOI18N
+        mitMUserProfile.setText("User Profile");
+        menuManagement.add(mitMUserProfile);
+
+        mitMPatientManagement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitMPatientManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/patients.png"))); // NOI18N
+        mitMPatientManagement.setText("Patient Management");
+        menuManagement.add(mitMPatientManagement);
+
+        mitMStatusManagement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitMStatusManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/status_warn.png"))); // NOI18N
+        mitMStatusManagement.setText("Status Management");
+        menuManagement.add(mitMStatusManagement);
+
+        mitMPackageManagement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitMPackageManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/package.png"))); // NOI18N
+        mitMPackageManagement.setText("Package Management");
+        menuManagement.add(mitMPackageManagement);
+
+        mitMFindAndPurchase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mitMFindAndPurchase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
+        mitMFindAndPurchase.setText("Find & Purchase");
+        menuManagement.add(mitMFindAndPurchase);
+
+        menuBar.add(menuManagement);
 
         menuAboutUs.setText("Abous Us");
-        jMenuBar1.add(menuAboutUs);
+        menuBar.add(menuAboutUs);
 
         menuHelp.setText("Help");
-        jMenuBar1.add(menuHelp);
+        menuBar.add(menuHelp);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -340,7 +441,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlContent, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+                    .addComponent(pnlContent, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1185, Short.MAX_VALUE)
                     .addComponent(pnlWelcome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
@@ -349,7 +450,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -357,7 +458,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
-         if (profileFlag == 0) {
+        if (profileFlag == 0) {
             tpnContent.add("Thông tin cá nhân", pfp);
             profileFlag++;
             tpnContent.setSelectedComponent(pfp);
@@ -369,7 +470,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProfileActionPerformed
 
     private void btnManageRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRelatedActionPerformed
-         if (statusFlag == 0) {
+        if (statusFlag == 0) {
             tpnContent.add("Quản lý người tiếp xúc", rmp);
             statusFlag++;
             tpnContent.setSelectedComponent(rmp);
@@ -445,8 +546,28 @@ public class MainFrame extends javax.swing.JFrame {
             tpnContent.remove(fpn);
             findFlag--;
         }
-          
+
     }//GEN-LAST:event_btnFindActionPerformed
+
+    private void mitReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitReloadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mitReloadActionPerformed
+
+    private void mitFileLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitFileLogoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mitFileLogoutActionPerformed
+
+    private void mitCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCopyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mitCopyActionPerformed
+
+    private void mitRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitRedoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mitRedoActionPerformed
+
+    private void mitPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitPasteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mitPasteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,25 +612,37 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnManagePerson;
     private javax.swing.JButton btnManageRelated;
     private javax.swing.JButton btnProfile;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblAppTittle;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JMenu menuAboutUs;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuManagement;
+    private javax.swing.JMenuItem mitCopy;
+    private javax.swing.JMenuItem mitCut;
+    private javax.swing.JMenuItem mitFileLogout;
+    private javax.swing.JMenuItem mitFind;
+    private javax.swing.JMenuItem mitMFindAndPurchase;
+    private javax.swing.JMenuItem mitMPackageManagement;
+    private javax.swing.JMenuItem mitMPatientManagement;
+    private javax.swing.JMenuItem mitMStatusManagement;
+    private javax.swing.JMenuItem mitMUserProfile;
+    private javax.swing.JMenuItem mitNew;
+    private javax.swing.JMenuItem mitPaste;
+    private javax.swing.JMenuItem mitRedo;
+    private javax.swing.JMenuItem mitReload;
+    private javax.swing.JMenuItem mitReplace;
+    private javax.swing.JMenuItem mitUndo;
+    private javax.swing.JPanel pnlButton;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JButton pnlFind1;
     private javax.swing.JButton pnlFind2;
     private javax.swing.JPanel pnlWelcome;
+    private javax.swing.JPopupMenu.Separator sptEditBottom;
+    private javax.swing.JPopupMenu.Separator sptEditTop;
+    private javax.swing.JPopupMenu.Separator sptFile;
     private javax.swing.JTabbedPane tpnContent;
     // End of variables declaration//GEN-END:variables
 }

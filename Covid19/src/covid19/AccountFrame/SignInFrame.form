@@ -29,18 +29,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblUser" pref="95" max="32767" attributes="0"/>
+                          <Component id="lblUser" pref="112" max="32767" attributes="0"/>
                           <Component id="lblPwd" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="btnSignUp" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnSignIn" min="-2" pref="93" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnSignIn" max="32767" attributes="0"/>
                           </Group>
                           <Component id="tfPwd" max="32767" attributes="0"/>
-                          <Component id="RememberCheckBox" alignment="1" pref="195" max="32767" attributes="0"/>
+                          <Component id="RememberCheckBox" alignment="1" pref="213" max="32767" attributes="0"/>
                           <Component id="btnExit" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfUser" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -58,7 +58,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="lblTitle" pref="28" max="32767" attributes="0"/>
+              <Component id="lblTitle" pref="37" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblUser" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -70,14 +70,14 @@
                   <Component id="tfPwd" linkSize="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Component id="RememberCheckBox" pref="22" max="32767" attributes="0"/>
+              <Component id="RememberCheckBox" pref="33" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSignIn" alignment="3" max="32767" attributes="0"/>
                   <Component id="btnSignUp" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Component id="btnExit" max="32767" attributes="0"/>
+              <Component id="btnExit" pref="34" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -90,6 +90,9 @@
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Images/sign-in-36.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Sign In"/>
       </Properties>
     </Component>

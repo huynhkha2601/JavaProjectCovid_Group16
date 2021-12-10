@@ -60,6 +60,7 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/related-48.png"))); // NOI18N
         lblTitle.setText("Covid-19 Related Management");
         lblTitle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

@@ -30,7 +30,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="lblTitle" pref="37" max="32767" attributes="0"/>
+              <Component id="lblTitle" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="pnlMember" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -45,6 +45,9 @@
           <Font name="Tahoma" size="24" style="3"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Images/Java-Project-48.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Java Project Covid-19 - Backspace"/>
       </Properties>
     </Component>
