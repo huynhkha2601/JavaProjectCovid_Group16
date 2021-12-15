@@ -5,17 +5,24 @@
 package covid19;
 
 import covid19.AccountFrame.ChangePasswordFrame;
+import Account.AccountBank;
 
 /**
  *
  * @author PC
  */
 public class AccountBankFrame extends javax.swing.JFrame {
-
+    AccountBank userBank = new AccountBank();
     /**
      * Creates new form AccountBankFrame
      */
     public AccountBankFrame() {
+        initComponents();
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+    }
+    public AccountBankFrame(AccountBank a){
+        userBank = a;
         initComponents();
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -270,7 +277,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnPaymentActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed

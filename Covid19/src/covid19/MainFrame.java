@@ -4,16 +4,17 @@
  */
 package covid19;
 
-import covid19.AccountFrame.SignInFrame;
+import covid19.AccountFrame.SignInFrame;    
 import java.awt.Component;
 import javax.swing.JFrame;
+import Account.Account;
 
 /**
  *
  * @author PC
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    Account user = new Account();
     private int role;
 
     private int packageFlag = 0;
@@ -41,11 +42,12 @@ public class MainFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public MainFrame(int role) {
+    public MainFrame(Account a,int role) {
         this.role = role;
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        user = a;
         if (role == 1) {
             btnProfile.setEnabled(false);
             btnFind.setEnabled(false);

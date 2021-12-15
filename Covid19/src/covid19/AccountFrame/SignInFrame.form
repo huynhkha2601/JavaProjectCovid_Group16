@@ -37,10 +37,9 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="btnSignUp" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnSignIn" max="32767" attributes="0"/>
+                              <Component id="btnSignIn" pref="108" max="32767" attributes="0"/>
                           </Group>
                           <Component id="tfPwd" max="32767" attributes="0"/>
-                          <Component id="RememberCheckBox" alignment="1" pref="213" max="32767" attributes="0"/>
                           <Component id="btnExit" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfUser" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -69,9 +68,7 @@
                   <Component id="lblPwd" linkSize="2" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="tfPwd" linkSize="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Component id="RememberCheckBox" pref="33" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSignIn" alignment="3" max="32767" attributes="0"/>
                   <Component id="btnSignUp" alignment="3" max="32767" attributes="0"/>
@@ -150,14 +147,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignInActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="RememberCheckBox">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Save Password"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RememberCheckBoxActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnExit">
