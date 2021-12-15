@@ -13,7 +13,7 @@ import java.math.*;
 import java.nio.charset.*;
 import java.security.*;
 import javax.swing.*;
-import test_code.AdminManagementPanel;
+import covid19.AdminManagementPanel;
 import java.sql.*;
 import java.util.logging.*;
 
@@ -47,11 +47,12 @@ public class SignInFrame extends javax.swing.JFrame{
 
         return hexString.toString();
     }
+    
     Connection conn = null;
     Statement stmt = null;
     Statement stmtBank = null;
     static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=Covid-19;user=sa;password=Bin0904411741";
+    static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=Covid-19;user=sa;password=sa";
 
     public SignInFrame() {
         initComponents();

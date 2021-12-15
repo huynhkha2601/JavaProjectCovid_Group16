@@ -47,7 +47,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="pnlTitle" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tbdpAdministratorManagement" pref="538" max="32767" attributes="0"/>
+              <Component id="tbdpAdministratorManagement" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
