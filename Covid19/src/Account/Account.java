@@ -4,6 +4,8 @@
  */
 package Account;
 
+import java.util.Date;
+
 /**
  *
  * @author Thong
@@ -11,12 +13,14 @@ package Account;
 public class Account {
     String username,password,role,userid;
     int activated;
+    Date datePublished;
     public Account(){
         username="";
         password="";
         role="";
         userid="";
         activated = 0;
+        datePublished = null;
     }
     public void show()
     {
@@ -26,11 +30,12 @@ public class Account {
         System.out.println(userid);
         System.out.println(activated);
     }
-    public void setAccount(String Username, String Password, String Role, String Userid, int Activated){
+    public void setAccount(String Username, String Password, String Role, String Userid, int Activated,Date DatePublished){
         username=Username;
         password =Password;
         role = Role;
         userid = Userid;
         activated = Activated;
+        datePublished = DatePublished;
     }
 }

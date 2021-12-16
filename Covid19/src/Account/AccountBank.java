@@ -4,6 +4,8 @@
  */
 package Account;
 
+import java.util.Date;
+
 /**
  *
  * @author Thong
@@ -11,16 +13,19 @@ package Account;
 public class AccountBank {
     String id,password,role;
     float balance;
+    Date datePublished;
     public AccountBank(){
         id ="";
         password="";
         role="";
         balance = 0;
+        datePublished=null;
     }
-    public void setAccountBank(String ID, String Password, String Role, float Balance){
+    public void setAccountBank(String ID, String Password, String Role, float Balance,Date DatePublished){
         id=ID;
         password=Password;
         role=Role;
         balance=Balance;
+        datePublished = DatePublished;
     }
 }

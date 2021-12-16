@@ -190,7 +190,7 @@ public class SignInFrame extends javax.swing.JFrame{
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         Account a = new Account();
         AccountBank b = new AccountBank();
-        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED FROM ACCOUNT";
+        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
         String sqlBank = "SELECT ID, PASSWORD, BALANCE, ROLE FROM Account_Bank";
         String usernameInput = tfUser.getText();
         String passwordInput = new String(tfPwd.getPassword());
@@ -229,7 +229,7 @@ public class SignInFrame extends javax.swing.JFrame{
                             return;
                         }
                         case "User" -> {
-                            a.setAccount(username,password,role,rs.getString("USERID"),rs.getInt("ACTIVATED"));
+                            a.setAccount(username,password,role,rs.getString("USERID"),rs.getInt("ACTIVATED"),rs.getDate("DATEPUBLISHED"));
                             this.setVisible(false);
                             new MainFrame(a,2).setVisible(true);
                             return;
@@ -242,7 +242,7 @@ public class SignInFrame extends javax.swing.JFrame{
                 String password = rsBank.getString("PASSWORD");
                 if (usernameInput.equals(id) && passwordHash.equals(password)){
                     flag = 1;
-                    b.setAccountBank(id,password,rsBank.getString("ROLE"),rs.getFloat("Balance"));
+                    b.setAccountBank(id,password,rsBank.getString("ROLE"),rsBank.getFloat("Balance"),rsBank.getDate("DATEPUBLISHED"));
                     this.setVisible(false);
                     new AccountBankFrame(b).setVisible(true);
                     break;
