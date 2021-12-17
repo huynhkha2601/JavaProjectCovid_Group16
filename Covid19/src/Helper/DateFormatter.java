@@ -40,11 +40,11 @@ public class DateFormatter {
     }
     
     public static String parse(LocalDate date){        
-       return  date.format(DateTimeFormatter.ofPattern("dd MM yyyy"));
+       return  date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
     
     public static String parse(LocalDateTime date){             
-        return  date.format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm:ss"));
+        return  date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
     
     

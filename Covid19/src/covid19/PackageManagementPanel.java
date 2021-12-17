@@ -26,8 +26,8 @@ public class PackageManagementPanel extends javax.swing.JPanel {
     public PackageManagementPanel() {
         initComponents();
         sb = new StringBuilder();
-        displayDataTable();
-        
+//        displayDataTable();
+
     }
 
     /**
@@ -130,7 +130,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             tblPackage.getColumnModel().getColumn(1).setPreferredWidth(200);
             tblPackage.getColumnModel().getColumn(2).setPreferredWidth(100);
             tblPackage.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblPackage.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tblPackage.getColumnModel().getColumn(4).setPreferredWidth(60);
         }
 
         lblSubtiitleRight.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -230,27 +230,27 @@ public class PackageManagementPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfId))
+                    .addComponent(txfId, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfName)
+                    .addComponent(txfName, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                     .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfNumber)
+                    .addComponent(txfNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                     .addComponent(lblLnumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblExpiration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfExpiration))
+                    .addComponent(txfExpiration, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfPrice))
+                    .addComponent(txfPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfQuantity))
+                    .addComponent(txfQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -372,8 +372,8 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(pnlButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -452,7 +452,8 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         } else {
             MessageDialog.showErrorDialog(this, "Add package Failed!", "Error!");
         }
-
+        displayDataTable();
+        btnRefreshActionPerformed(evt);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -473,25 +474,22 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         } else {
             MessageDialog.showErrorDialog(this, "Edit package Failed!", "Error!");
         }
-
+        displayDataTable();
+        btnRefreshActionPerformed(evt);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tblPackageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPackageMouseClicked
 
-        try {
-            int row = 0;
-            row = tblPackage.getSelectedRow();
-            DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
+        int row = 0;
+        row = tblPackage.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
 
-            txfId.setText((String) model.getValueAt(row, 0));
-            txfName.setText((String) model.getValueAt(row, 1));
-            txfNumber.setText((String) model.getValueAt(row, 2));
-            txfExpiration.setText((String) model.getValueAt(row, 3));
-            txfPrice.setText((String) model.getValueAt(row, 4));
-            txfQuantity.setText((String) model.getValueAt(row, 5));
-        } catch (Exception e) {
-
-        }
+        txfId.setText((String) model.getValueAt(row, 0));
+        txfName.setText((String) model.getValueAt(row, 1));
+        txfNumber.setText(model.getValueAt(row, 2).toString());
+        txfExpiration.setText((String) model.getValueAt(row, 3));
+        txfPrice.setText((String) model.getValueAt(row, 4).toString());
+        txfQuantity.setText((String) model.getValueAt(row, 5).toString());
 
     }//GEN-LAST:event_tblPackageMouseClicked
 

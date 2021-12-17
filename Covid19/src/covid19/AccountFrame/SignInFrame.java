@@ -8,7 +8,6 @@ import covid19.AccountBankFrame;
 import Account.Account;
 import Account.*;
 import covid19.MainFrame;
-import java.awt.Component;
 import java.math.*;
 import java.nio.charset.*;
 import java.security.*;
@@ -250,15 +249,11 @@ public class SignInFrame extends javax.swing.JFrame{
             }
             if (flag == 0) {
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Invalidation", JOptionPane.ERROR_MESSAGE);
-                return;
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

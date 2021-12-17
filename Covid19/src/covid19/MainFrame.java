@@ -42,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        
+        new SQLConnection();
     }
 
     public MainFrame(Account a,int role) {
