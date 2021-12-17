@@ -5,12 +5,17 @@
 package covid19;
 
 import DbConnection.SQLConnection;
+import Helper.DateFormatter;
+import Helper.Validator;
 import ManagedHistory.ManagedHistory;
 import ManagedHistory.ManagedHistoryInf;
-import Packages.Package;
+import Packages.Packages;
 import Packages.PackageInf;
 import covid19.AccountFrame.SignInFrame;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -24,22 +29,28 @@ public class Covid19Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new SQLConnection();
+        new SQLConnection().setConn();
         
-//      Testing Package
+//      Testing Packages
 //        Date d = new Date(2021,12,16);
-//        System.out.println(PackageInf.updatePackages(new Package("6","H",30,new Date(2021,12,16), 250, 67)));
+
 //        System.out.println(PackageInf.removePackages("6"));
 //        List<Object> lst = PackageInf.statisticsPackages();
-
+//        java.sql.Date sql = java.sql.Date.valueOf(d);
+//        System.out.println(sql.toString());
+//        
+//        LocalDate dw = sql.toLocalDate();
+//        System.out.println(dw);
 
 //      Testing managedhistory
-//        List<ManagedHistory> list = ManagedHistoryInf.getAllManagedHistorys();
-//        System.out.println(ManagedHistoryInf.addManagedHistory(new ManagedHistory("3", "F1","F2", new Date(2021, 12, 16, 10, 39, 59))));
-        List<ManagedHistory> lst = ManagedHistoryInf.filterManageHistory(new Date(121,10,15,00 ,00, 00), new Date(121,10,22,23 ,59, 59));
-
-
+      
+//        System.out.println(dateString);
+        new MainFrame().setVisible(true);
 //        new SignInFrame().setVisible(true);
+//        List<ManagedHistory> list = ManagedHistoryInf.getAllManagedHistorys();
+//        System.out.println(ManagedHistoryInf.searchManageHistory(new ManagedHistory("3", "F1","F2", new Date(2021, 12, 16, 10, 39, 59))));
+//        List<ManagedHistory> lst = ManagedHistoryInf.filterManageHistory(new Date(121,10,15,00 ,00, 00), new Date(121,10,22,23 ,59, 59));
+
     }
 
 }

@@ -21,7 +21,10 @@ public class SQLConnection {
     private String password = "sa";
 
     public SQLConnection() {
-        try {
+    }
+    
+    public void setConn(){
+         try {
             SQLConnection.conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException ex) {
             System.out.println("Can't connect to database");

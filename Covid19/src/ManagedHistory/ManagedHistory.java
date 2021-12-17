@@ -4,7 +4,7 @@
  */
 package ManagedHistory;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -12,12 +12,12 @@ import java.util.Date;
  */
 public class ManagedHistory {
     private String mID, fromStatus, toStatus;
-    private Date record;
+    private LocalDateTime record;
 
     public ManagedHistory() {
     }
 
-    public ManagedHistory(String mID, String fromStatus, String toStatus, Date record) {
+    public ManagedHistory(String mID, String fromStatus, String toStatus, LocalDateTime record) {
         this.mID = mID;
         this.fromStatus = fromStatus;
         this.toStatus = toStatus;
@@ -48,11 +48,11 @@ public class ManagedHistory {
         this.toStatus = toStatus;
     }
 
-    public Date getRecord() {
+    public LocalDateTime getRecord() {
         return record;
     }
 
-    public void setRecord(Date record) {
+    public void setRecord(LocalDateTime record) {
         this.record = record;
     }
 

@@ -4,17 +4,30 @@
  */
 package covid19;
 
+import Helper.DateFormatter;
+import Helper.MessageDialog;
+import Helper.Validator;
+import Packages.*;
+import java.time.LocalDate;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PC
  */
 public class PackageManagementPanel extends javax.swing.JPanel {
 
+    private StringBuilder sb;
+
     /**
      * Creates new form PackageManagementPanel
      */
     public PackageManagementPanel() {
         initComponents();
+        sb = new StringBuilder();
+        displayDataTable();
+        
     }
 
     /**
@@ -58,17 +71,20 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(988, 529));
 
         pnlTittle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlTittle.setPreferredSize(new java.awt.Dimension(968, 74));
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/package-48.png"))); // NOI18N
         lblTitle.setText("Package Management");
+        lblTitle.setMaximumSize(new java.awt.Dimension(944, 48));
+        lblTitle.setPreferredSize(new java.awt.Dimension(944, 48));
 
         javax.swing.GroupLayout pnlTittleLayout = new javax.swing.GroupLayout(pnlTittle);
         pnlTittle.setLayout(pnlTittleLayout);
         pnlTittleLayout.setHorizontalGroup(
             pnlTittleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTittleLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTittleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -82,110 +98,13 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         );
 
         pnlListPackage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        pnlListPackage.setPreferredSize(new java.awt.Dimension(620, 475));
+        pnlListPackage.setPreferredSize(new java.awt.Dimension(620, 424));
+
+        scrollpnlPackage.setPreferredSize(new java.awt.Dimension(592, 364));
 
         tblPackage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Limited Number", "Expiration", "Price", "Quantity"
@@ -199,6 +118,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblPackage.setPreferredSize(new java.awt.Dimension(596, 366));
         tblPackage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPackageMouseClicked(evt);
@@ -207,13 +127,16 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         scrollpnlPackage.setViewportView(tblPackage);
         if (tblPackage.getColumnModel().getColumnCount() > 0) {
             tblPackage.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tblPackage.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblPackage.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblPackage.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblPackage.getColumnModel().getColumn(3).setPreferredWidth(100);
             tblPackage.getColumnModel().getColumn(4).setPreferredWidth(40);
         }
 
         lblSubtiitleRight.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblSubtiitleRight.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSubtiitleRight.setText("List of Packages");
+        lblSubtiitleRight.setPreferredSize(new java.awt.Dimension(596, 17));
 
         javax.swing.GroupLayout pnlListPackageLayout = new javax.swing.GroupLayout(pnlListPackage);
         pnlListPackage.setLayout(pnlListPackageLayout);
@@ -221,11 +144,9 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             pnlListPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListPackageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlListPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlListPackageLayout.createSequentialGroup()
-                        .addComponent(scrollpnlPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
-                        .addGap(15, 15, 15))
-                    .addComponent(lblSubtiitleRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlListPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSubtiitleRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollpnlPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlListPackageLayout.setVerticalGroup(
@@ -234,11 +155,12 @@ public class PackageManagementPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblSubtiitleRight, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollpnlPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(scrollpnlPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pnlInformation.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlInformation.setPreferredSize(new java.awt.Dimension(322, 253));
 
         pntSubtitleLeft.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         pntSubtitleLeft.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -304,35 +226,33 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pntSubtitleLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                .addComponent(pntSubtitleLeft)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfId, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfName)
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfNumber)
+                    .addComponent(lblLnumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblExpiration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfExpiration))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfPrice))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfQuantity))
                 .addContainerGap())
         );
-
-        pnlInformationLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblExpiration, lblId, lblLnumber, lblName, lblPrice, lblQuantity, txfExpiration, txfId, txfName, txfNumber, txfPrice, txfQuantity});
 
         pnlButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -374,6 +294,11 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         btnRefresh.setText("Refresh");
         btnRefresh.setMaximumSize(new java.awt.Dimension(100, 35));
         btnRefresh.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         btnSDebt.setBackground(new java.awt.Color(204, 204, 255));
         btnSDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dollar.png"))); // NOI18N
@@ -404,12 +329,12 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSDebt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(btnSPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                     .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -447,9 +372,9 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -457,31 +382,42 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlTittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlListPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)))
+                        .addComponent(pnlListPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlTittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlTittle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlListPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                    .addComponent(pnlListPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                     .addComponent(pnlInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        Validator.validateEmpty(txfId);
+        if (showStringBuilder()) {
+            return;
+        }
+
+        if (PackageInf.removePackages(txfId.getText())) {
+            MessageDialog.showMessageDialog(this, "Remove package successfully!", "Notification!");
+        } else {
+            MessageDialog.showErrorDialog(this, "Remove package Failed!", "Error!");
+        }
+
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSDebtActionPerformed
@@ -493,23 +429,134 @@ public class PackageManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSPackageActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+
+        validateAllField();
+        if (showStringBuilder()) {
+            return;
+        }
+
+        if (PackageInf.searchPackage(txfId.getText())) {
+            MessageDialog.showErrorDialog(this, "This package has already existed!!", "Error!");
+            return;
+        }
+
+        Packages pk = getPackageInformation();
+
+        constraintCheck(pk);
+        if (showStringBuilder()) {
+            return;
+        }
+
+        if (PackageInf.addPackages(pk)) {
+            MessageDialog.showMessageDialog(this, "Add package successfully!", "Notification!");
+        } else {
+            MessageDialog.showErrorDialog(this, "Add package Failed!", "Error!");
+        }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        validateAllField();
+        if (showStringBuilder()) {
+            return;
+        }
+
+        Packages pk = getPackageInformation();
+
+        constraintCheck(pk);
+        if (showStringBuilder()) {
+            return;
+        }
+
+        if (PackageInf.updatePackages(pk)) {
+            MessageDialog.showMessageDialog(this, "Edit package successfully!", "Notification!");
+        } else {
+            MessageDialog.showErrorDialog(this, "Edit package Failed!", "Error!");
+        }
+
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tblPackageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPackageMouseClicked
-        String i = (String) tblPackage.getModel().getValueAt( tblPackage.getSelectedRow(),tblPackage.getSelectedColumn());
-        System.out.println(i);
-        
+
+        try {
+            int row = 0;
+            row = tblPackage.getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
+
+            txfId.setText((String) model.getValueAt(row, 0));
+            txfName.setText((String) model.getValueAt(row, 1));
+            txfNumber.setText((String) model.getValueAt(row, 2));
+            txfExpiration.setText((String) model.getValueAt(row, 3));
+            txfPrice.setText((String) model.getValueAt(row, 4));
+            txfQuantity.setText((String) model.getValueAt(row, 5));
+        } catch (Exception e) {
+
+        }
+
     }//GEN-LAST:event_tblPackageMouseClicked
 
     private void txfNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfNumberActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        txfId.setText("");
+        txfNumber.setText("");
+        txfName.setText("");
+        txfPrice.setText("");
+        txfExpiration.setText("");
+        txfQuantity.setText("");
+        sb.setLength(0);
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void displayDataTable() {
+        DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
+        model.setRowCount(0);
+
+        List<Packages> lst = PackageInf.getAllPackages();
+        for (Packages packages : lst) {
+            Object[] obj = {packages.getpID(), packages.getpName(), packages.getLimitNum(), DateFormatter.parse(packages.getLimitTime()),
+                packages.getPrice(), packages.getQuantity()};
+            model.addRow(obj);
+        }
+
+    }
+
+    private Packages getPackageInformation() {
+
+        String id = txfId.getText();
+        String name = txfName.getText();
+        int numb = Integer.parseInt(txfNumber.getText());
+        LocalDate exp = LocalDate.parse(DateFormatter.formatToSQLDate(txfExpiration.getText()));
+        float price = Float.parseFloat(txfPrice.getText());
+        int quantity = Integer.parseInt(txfQuantity.getText());
+
+        return new Packages(id, name, numb, exp, price, quantity);
+    }
+
+    private void validateAllField() {
+        Validator.validateEmpty(txfId, sb, "Empty ID!");
+        Validator.validateEmpty(txfName, sb, "Empty Name!");
+        Validator.validateEmpty(txfPrice, sb, "Empty Price!");
+        Validator.validateEmpty(txfQuantity, sb, "Empty Quantity!");
+        Validator.validateEmpty(txfExpiration, sb, "Empty Expiration!");
+        Validator.validateEmpty(txfNumber, sb, "Empty Limited Number!");
+    }
+
+    private void constraintCheck(Packages pk) {
+        Validator.validate((pk.getLimitNum() <= 0), txfNumber, sb, "Limit Number can be 0 or negative!");
+        Validator.validate((pk.getQuantity() <= 0), txfQuantity, sb, "Quantity can't be 0!");
+        Validator.validate((!pk.getLimitTime().isAfter(LocalDate.now())), txfExpiration, sb, "Expiration must be after Now!");
+        Validator.validate((pk.getPrice() <= 0), txfPrice, sb, "Price can't be 0!");
+    }
+
+    private boolean showStringBuilder() {
+        if (sb.length() > 0) {
+            MessageDialog.showMessageDialog(this, sb.toString(), "Error!");
+            return true;
+        }
+        return false;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

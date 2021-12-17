@@ -6,13 +6,12 @@ package Packages;
 
 import DbConnection.SQLConnection;
 import java.util.List;
-import Packages.Package;
+import Packages.Packages;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -21,16 +20,17 @@ import java.util.ArrayList;
  */
 public class PackageInf {
 
-    public static List<Package> getAllPackages() {
-        List<Package> list = new ArrayList<>();
+    public static List<Packages> getAllPackages() {
+        List<Packages> list = new ArrayList<>();
         String sql = "Select * from PACKAGE";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                 Connection connection = SQLConnection.conn;  
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Package pk = new Package(rs.getString("ID"), rs.getString("NAME"), rs.getInt("LIMITNUM"),
-                        rs.getDate("LIMITTIME"), rs.getFloat("PRICE"), rs.getInt("QUANTITY"));
+                Packages pk = new Packages(rs.getString("ID"), rs.getString("NAME"), rs.getInt("LIMITNUM"),
+                        rs.getDate("LIMITTIME").toLocalDate(), rs.getFloat("PRICE"), rs.getInt("QUANTITY"));
 //                System.out.println(pk.toString());
                 list.add(pk);
             }
@@ -42,7 +42,7 @@ public class PackageInf {
         return null;
     }
 
-    public static boolean addPackages(Package pk) {
+    public static boolean addPackages(Packages pk) {
         String sql = "Insert into PACKAGE (ID, NAME, LIMITNUM, LIMITTIME, PRICE, QUANTITY)"
                 + "VALUES (?,?,?,?,?,?)";
         try (
@@ -51,21 +51,20 @@ public class PackageInf {
             pstmt.setString(1, pk.getpID());
             pstmt.setString(2, pk.getpName());
             pstmt.setInt(3, pk.getLimitNum());
-            pstmt.setDate(4, new java.sql.Date(pk.getLimitTime().getTime()));
+            pstmt.setDate(4, Date.valueOf(pk.getLimitTime()));
             pstmt.setFloat(5, pk.getPrice());
             pstmt.setInt(6, pk.getQuantity());
-
+//            System.out.println("A");
             pstmt.executeUpdate();
-
             return true;
         } catch (SQLException e) {
             System.out.println("Can't add packages to database");
-//            e.printStackTrace();
+            e.printStackTrace();
         }
         return false;
     }
 
-    public static boolean removePackages(Package pk) {
+    public static boolean removePackages(Packages pk) {
         String sql = "Delete from PACKAGE where ID=? and NAME=? and LIMITNUM=? and"
                 + " LIMITTIME = ? and PRICE =? and QUANTITY=?";
         try (
@@ -74,7 +73,7 @@ public class PackageInf {
             pstmt.setString(1, pk.getpID());
             pstmt.setString(2, pk.getpName());
             pstmt.setInt(3, pk.getLimitNum());
-            pstmt.setDate(4, new java.sql.Date(pk.getLimitTime().getTime()));
+            pstmt.setDate(4, java.sql.Date.valueOf(pk.getLimitTime()));
             pstmt.setFloat(5, pk.getPrice());
             pstmt.setInt(6, pk.getQuantity());
 
@@ -101,15 +100,14 @@ public class PackageInf {
         return false;
     }
 
-    public static boolean updatePackages(Package pk) {
+    public static boolean updatePackages(Packages pk) {
         String sql = "Update PACKAGE set NAME=?, LIMITNUM=?, "
-                + " LIMITTIME = ?, PRICE =?, QUANTITY=? where ID=?"
-                + "GO";
+                + " LIMITTIME = ?, PRICE =?, QUANTITY=? where ID=?";
         try (
                  Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
             pstmt.setString(1, pk.getpName());
             pstmt.setInt(2, pk.getLimitNum());
-            pstmt.setDate(3, new java.sql.Date(pk.getLimitTime().getTime()));
+            pstmt.setDate(3, java.sql.Date.valueOf(pk.getLimitTime()));
             pstmt.setFloat(4, pk.getPrice());
             pstmt.setInt(5, pk.getQuantity());
             pstmt.setString(6, pk.getpID());
@@ -118,7 +116,7 @@ public class PackageInf {
             return true;
         } catch (SQLException e) {
             System.out.println("Can't update package to database");
-//            e.printStackTrace();
+            e.printStackTrace();
         }
         return false;
     }
@@ -134,7 +132,7 @@ public class PackageInf {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Object[] obj = {rs.getString("ID"), rs.getString("NAME"), rs.getFloat("PRICE"),
-                        rs.getInt("REGISTER"), rs.getFloat("TOTAL")};
+                    rs.getInt("REGISTER"), rs.getFloat("TOTAL")};
                 list.add(obj);
 //                System.out.println(obj[0] + " " + obj[1] + " " + obj[2] + " " + obj[3] + " " + obj[4]);
             }
@@ -146,5 +144,25 @@ public class PackageInf {
         }
         return null;
     }
-    
+
+    public static boolean searchPackage(String ID) {
+        String sql = "select * from PACKAGE where ID=?";
+        try (
+                 Connection connection = SQLConnection.conn;  
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+
+            pstmt.setString(1, ID);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Can't search package by id");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

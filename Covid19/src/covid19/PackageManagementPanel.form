@@ -21,14 +21,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pnlTittle" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="pnlInfo" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="pnlListPackage" pref="650" max="32767" attributes="0"/>
+                      <Component id="pnlInfo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlListPackage" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -38,11 +38,11 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="pnlTittle" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnlTittle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlListPackage" pref="426" max="32767" attributes="0"/>
+                  <Component id="pnlListPackage" pref="427" max="32767" attributes="0"/>
                   <Component id="pnlInfo" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -58,12 +58,15 @@
             <EtchetBorder/>
           </Border>
         </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[968, 74]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblTitle" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -91,6 +94,12 @@
               <Image iconType="3" name="/Images/package-48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Package Management"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[944, 48]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[944, 48]"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -103,7 +112,7 @@
           </Border>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[620, 475]"/>
+          <Dimension value="[620, 424]"/>
         </Property>
       </Properties>
 
@@ -112,12 +121,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="scrollpnlPackage" pref="611" max="32767" attributes="0"/>
-                          <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblSubtiitleRight" max="32767" attributes="0"/>
+                      <Component id="scrollpnlPackage" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -129,7 +135,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="lblSubtiitleRight" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollpnlPackage" pref="0" max="32767" attributes="0"/>
+                  <Component id="scrollpnlPackage" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -137,6 +143,11 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JScrollPane" name="scrollpnlPackage">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[592, 364]"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -146,7 +157,7 @@
             <Component class="javax.swing.JTable" name="tblPackage">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="100">
+                  <Table columnCount="6" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Object"/>
                     <Column editable="false" title="Name" type="java.lang.Object"/>
                     <Column editable="false" title="Limited Number" type="java.lang.Object"/>
@@ -162,17 +173,17 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -188,6 +199,9 @@
                       <Renderer/>
                     </Column>
                   </TableColumnModel>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[596, 366]"/>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -206,6 +220,9 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="List of Packages"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[596, 17]"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -218,7 +235,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="pnlInformation" alignment="0" max="32767" attributes="0"/>
+                      <Component id="pnlInformation" max="32767" attributes="0"/>
                       <Component id="pnlButton" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -229,9 +246,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="pnlInformation" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pnlButton" max="32767" attributes="0"/>
+                  <Component id="pnlInformation" pref="251" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <Component id="pnlButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -244,6 +261,9 @@
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder/>
               </Border>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[322, 253]"/>
             </Property>
           </Properties>
 
@@ -282,36 +302,36 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="pntSubtitleLeft" pref="18" max="32767" attributes="0"/>
+                      <Component id="pntSubtitleLeft" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblId" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="txfId" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="lblId" max="32767" attributes="0"/>
+                          <Component id="txfId" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txfName" linkSize="9" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="lblName" linkSize="9" min="-2" pref="22" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txfNumber" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="lblLnumber" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="txfName" max="32767" attributes="0"/>
+                          <Component id="lblName" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblExpiration" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="txfExpiration" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="txfNumber" max="32767" attributes="0"/>
+                          <Component id="lblLnumber" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblPrice" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="txfPrice" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="lblExpiration" max="32767" attributes="0"/>
+                          <Component id="txfExpiration" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblQuantity" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="txfQuantity" linkSize="9" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="lblPrice" max="32767" attributes="0"/>
+                          <Component id="txfPrice" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblQuantity" max="32767" attributes="0"/>
+                          <Component id="txfQuantity" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -411,13 +431,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnAdd" pref="122" max="32767" attributes="0"/>
+                          <Component id="btnAdd" pref="137" max="32767" attributes="0"/>
                           <Component id="btnDelete" alignment="1" max="32767" attributes="0"/>
                           <Component id="btnSDebt" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnSPackage" pref="140" max="32767" attributes="0"/>
+                          <Component id="btnSPackage" pref="155" max="32767" attributes="0"/>
                           <Component id="btnRefresh" max="32767" attributes="0"/>
                           <Component id="btnEdit" max="32767" attributes="0"/>
                       </Group>
@@ -525,6 +545,9 @@
                   <Dimension value="[100, 35]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSDebt">
               <Properties>

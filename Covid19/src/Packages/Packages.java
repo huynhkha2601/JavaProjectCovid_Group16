@@ -4,23 +4,23 @@
  */
 package Packages;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author PC
  */
-public class Package {
+public class Packages {
     private String pID,pName;
     private int limitNum,quantity;
     private float price;
-    private Date limitTime;
+    private LocalDate limitTime;
 
     // get Constructor
-    public Package() {
+    public Packages() {
     }
 
-    public Package(String pID, String pName, int limitNum, Date limitTime, float price, int quantity) {
+    public Packages(String pID, String pName, int limitNum, LocalDate limitTime, float price, int quantity) {
         this.pID = pID;
         this.pName = pName;
         this.limitNum = limitNum;
@@ -70,11 +70,11 @@ public class Package {
         this.price = price;
     }
 
-    public Date getLimitTime() {
+    public LocalDate getLimitTime() {
         return limitTime;
     }
 
-    public void setLimitTime(Date limitTime) {
+    public void setLimitTime(LocalDate limitTime) {
         this.limitTime = limitTime;
     }
 

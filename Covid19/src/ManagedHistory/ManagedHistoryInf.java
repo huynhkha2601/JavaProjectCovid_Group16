@@ -9,8 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,9 +29,9 @@ public class ManagedHistoryInf {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 ManagedHistory mh = new ManagedHistory(rs.getString("ID"), rs.getString("FROMSTATUS"), rs.getString("TOSTATUS"),
-                        new java.util.Date(rs.getTimestamp("RECORD").getTime()));
+                rs.getTimestamp("RECORD").toLocalDateTime());
                 list.add(mh);
-                System.out.println(mh.toString());
+//                System.out.println(mh.toString());
             }
             return list;
         } catch (SQLException e) {
@@ -49,7 +50,7 @@ public class ManagedHistoryInf {
             pstmt.setString(1, mh.getmID());
             pstmt.setString(2, mh.getFromStatus());
             pstmt.setString(3, mh.getToStatus());
-            pstmt.setTimestamp(4, new java.sql.Timestamp(mh.getRecord().getTime()));
+            pstmt.setTimestamp(4, Timestamp.valueOf(mh.getRecord()));
 
             pstmt.executeUpdate();
 
@@ -70,7 +71,7 @@ public class ManagedHistoryInf {
             pstmt.setString(1, mh.getmID());
             pstmt.setString(2, mh.getFromStatus());
             pstmt.setString(3, mh.getToStatus());
-            pstmt.setTimestamp(4, new java.sql.Timestamp(mh.getRecord().getTime()));
+            pstmt.setTimestamp(4, Timestamp.valueOf(mh.getRecord()));
 
             pstmt.executeUpdate();
             return true;
@@ -105,7 +106,7 @@ public class ManagedHistoryInf {
             pstmt.setString(1, mh.getFromStatus());
             pstmt.setString(2, mh.getToStatus());
             pstmt.setString(3, mh.getmID());
-            pstmt.setTimestamp(4, new java.sql.Timestamp(mh.getRecord().getTime()));
+            pstmt.setTimestamp(4, Timestamp.valueOf(mh.getRecord()));
 
             pstmt.executeUpdate();
             return true;
@@ -124,7 +125,7 @@ public class ManagedHistoryInf {
                 pstmt.setString(1, managedHistory.getFromStatus());
                 pstmt.setString(2, managedHistory.getToStatus());
                 pstmt.setString(3, managedHistory.getmID());
-                pstmt.setTimestamp(4, new java.sql.Timestamp(managedHistory.getRecord().getTime()));
+                pstmt.setTimestamp(4, Timestamp.valueOf(managedHistory.getRecord()));
 
                 pstmt.executeUpdate();
             }
@@ -145,14 +146,15 @@ public class ManagedHistoryInf {
             pstmt.setString(1, mh.getmID());
             pstmt.setString(2, mh.getFromStatus());
             pstmt.setString(3, mh.getToStatus());
-            pstmt.setTimestamp(4, new java.sql.Timestamp(mh.getRecord().getTime()));
+            pstmt.setTimestamp(4, Timestamp.valueOf(mh.getRecord()));
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 ManagedHistory obj = new ManagedHistory(rs.getString("ID"), rs.getString("FROMSTATUS"), rs.getString("TOSTATUS"),
-                        new java.util.Date(rs.getTimestamp("RECORD").getTime()));
+                rs.getTimestamp("RECORD").toLocalDateTime());
+//                System.out.println(LocalDateFormatter.parseToLocalDateTime(date));
 //                System.out.println(mh.toString());
-                return mh;
+                return obj;
             }
 
         } catch (SQLException e) {
@@ -162,18 +164,18 @@ public class ManagedHistoryInf {
         return null;
     }
 
-    public static List<ManagedHistory> searchManageHistory(Date record) {
+    public static List<ManagedHistory> searchManageHistory(LocalDateTime record) {
         List<ManagedHistory> list = new ArrayList<>();
         String sql = "select * from MANAGEHISTORY where RECORD=?";
         try (
                  Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
-            pstmt.setTimestamp(1, new java.sql.Timestamp(record.getTime()));
+            pstmt.setTimestamp(1, Timestamp.valueOf(record));
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 ManagedHistory mh = new ManagedHistory(rs.getString("ID"), rs.getString("FROMSTATUS"), rs.getString("TOSTATUS"),
-                        new java.util.Date(rs.getTimestamp("RECORD").getTime()));
+                rs.getTimestamp("RECORD").toLocalDateTime());
                 list.add(mh);
 //                System.out.println(mh.toString());
             }
@@ -196,7 +198,7 @@ public class ManagedHistoryInf {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 ManagedHistory mh = new ManagedHistory(rs.getString("ID"), rs.getString("FROMSTATUS"), rs.getString("TOSTATUS"),
-                        new java.util.Date(rs.getTimestamp("RECORD").getTime()));
+                rs.getTimestamp("RECORD").toLocalDateTime());
                 list.add(mh);
 //                System.out.println(mh.toString());
             }
@@ -208,19 +210,19 @@ public class ManagedHistoryInf {
         return null;
     }
 
-    public static List<ManagedHistory> filterManageHistory(Date fromDate, Date toDate) {
+    public static List<ManagedHistory> filterManageHistory(LocalDateTime fromDate, LocalDateTime toDate) {
         List<ManagedHistory> list = new ArrayList<>();
         String sql = "select * from MANAGEHISTORY where RECORD between ? and ?";
         try (
                  Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
             
-            pstmt.setTimestamp(1, new java.sql.Timestamp(fromDate.getTime()));
-            pstmt.setTimestamp(2, new java.sql.Timestamp(toDate.getTime()));
+            pstmt.setTimestamp(1, Timestamp.valueOf(fromDate));
+            pstmt.setTimestamp(2, Timestamp.valueOf(toDate));
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                ManagedHistory mh = new ManagedHistory(rs.getString("ID"), rs.getString("FROMSTATUS"), rs.getString("TOSTATUS"),
-                        new java.util.Date(rs.getTimestamp("RECORD").getTime()));
+                 ManagedHistory mh = new ManagedHistory(rs.getString("ID"), rs.getString("FROMSTATUS"), rs.getString("TOSTATUS"),
+                rs.getTimestamp("RECORD").toLocalDateTime());
                 list.add(mh);
 //                System.out.println(mh.toString());
             }
