@@ -46,7 +46,8 @@ public class PackageInf {
         String sql = "Insert into PACKAGE (ID, NAME, LIMITNUM, LIMITTIME, PRICE, QUANTITY)"
                 + "VALUES (?,?,?,?,?,?)";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                 Connection connection = SQLConnection.conn;  
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, pk.getpID());
             pstmt.setString(2, pk.getpName());

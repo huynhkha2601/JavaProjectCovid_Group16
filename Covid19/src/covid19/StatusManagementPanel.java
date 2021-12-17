@@ -9,15 +9,15 @@ import ManagedHistory.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-
 /**
  *
  * @author PC
  */
 public class StatusManagementPanel extends javax.swing.JPanel {
+
     final String[] status;
     private StringBuilder sb;
-    
+
     /**
      * Creates new form StatusManagementPanel
      */
@@ -343,14 +343,14 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        
+
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         txfID.setText("");
         txfFromStat.setText("");
-        txfDate.setText("");
         txfToStat.setText("");
+        txfDate.setText("");
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -359,19 +359,18 @@ public class StatusManagementPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         validateAllField();
-        if(showStringBuilder())
+        if (showStringBuilder()) {
             return;
-        
-        ManagedHistory mh =getManagedHistoryInformation();
+        }
+        ManagedHistory mh = getManagedHistoryInformation();
         constraintCheck(mh);
-        if(showStringBuilder())
+        if (showStringBuilder()) {
             return;
-        
-        
-        
+        }
+
         // get ToStatus to change other related to ToStatus++;
         int idx = Arrays.asList(this.status).indexOf(mh.getToStatus());
-        if(idx < 6){
+        if (idx < 6) {
             idx++;
         }
         
@@ -381,6 +380,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             MessageDialog.showErrorDialog(this, "Add status Failed!", "Error!");
         }
         
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnViewProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewProfileActionPerformed
@@ -388,7 +388,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewProfileActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txfFromStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFromStatActionPerformed
@@ -402,7 +402,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         String toStatus = txfToStat.getText();
         LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDate(txfDate.getText()));
 
-        return new ManagedHistory(id, fromStatus, toStatus,record);
+        return new ManagedHistory(id, fromStatus, toStatus, record);
     }
 
     private void validateAllField() {
@@ -413,10 +413,10 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     }
 
     private void constraintCheck(ManagedHistory mh) {
-        Validator.validate((!Arrays.asList(this.status).contains(mh.getFromStatus().toUpperCase().trim()))
-                , txfFromStat, sb, "Error in From Status input!");
-        Validator.validate((!Arrays.asList(this.status).contains(mh.getToStatus().toUpperCase().trim()))
-                , txfToStat, sb, "Error in From Status input!");
+        Validator.validate((!Arrays.asList(this.status).contains(mh.getFromStatus().toUpperCase().trim())),
+                txfFromStat, sb, "Error in From Status input!");
+        Validator.validate((!Arrays.asList(this.status).contains(mh.getToStatus().toUpperCase().trim())),
+                txfToStat, sb, "Error in From Status input!");
     }
 
     private boolean showStringBuilder() {
@@ -426,7 +426,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         }
         return false;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

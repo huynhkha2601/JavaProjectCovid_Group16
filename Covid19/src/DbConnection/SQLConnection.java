@@ -15,17 +15,14 @@ import java.sql.SQLException;
  */
 public class SQLConnection {
 
-    public static Connection conn = null;
-    private String url = "jdbc:sqlserver://localhost:1433;databaseName=Covid-19"; 
-    private String username = "sa";
-    private String password = "sa";
-
-    public SQLConnection() {
-    }
+    private static final String url = "jdbc:sqlserver://localhost:1433;databaseName=Covid-19"; 
+    private static final String username = "sa";
+    private static final String password = "sa";
+    public static Connection conn;
     
-    public void setConn(){
+    public static void getConnection(){
          try {
-            SQLConnection.conn = DriverManager.getConnection(url, username, password);
+            SQLConnection.conn = DriverManager.getConnection(url,username,password);
         } catch (SQLException ex) {
             System.out.println("Can't connect to database");
         }

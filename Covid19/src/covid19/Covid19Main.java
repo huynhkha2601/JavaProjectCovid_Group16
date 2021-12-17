@@ -32,7 +32,7 @@ public class Covid19Main {
         Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
-                new SQLConnection().setConn();
+                SQLConnection.getConnection();
                 new MainFrame().setVisible(true);
             }
         });

@@ -256,8 +256,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pnlWelcome" max="32767" attributes="0"/>
-          <Component id="pnlContent" alignment="0" max="32767" attributes="0"/>
+          <Component id="pnlWelcome" pref="1228" max="32767" attributes="0"/>
+          <Component id="pnlContent" alignment="0" pref="1228" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -294,7 +294,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblWelcome" min="-2" pref="91" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblAppTittle" max="32767" attributes="0"/>
+                  <Component id="lblAppTittle" pref="1012" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
