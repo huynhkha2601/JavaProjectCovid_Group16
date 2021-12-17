@@ -4,15 +4,31 @@
  */
 package covid19.AccountFrame;
 
+import Account.Account;
+import static covid19.AccountFrame.SignInFrame.DB_URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static covid19.AccountFrame.SignInFrame.*;
+import java.security.NoSuchAlgorithmException;
+
 /**
  *
  * @author Thong
  */
 public class SignUpFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SignUpFrame
-     */
+    Connection conn = null;
+    Statement stmt = null, stmt2 = null;
+    static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+
     public SignUpFrame() {
         initComponents();
         this.setResizable(false);
@@ -181,9 +197,74 @@ public class SignUpFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tfConfirmPwdActionPerformed
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        // TODO add your handling code here:
+        String idInput = tfID.getText();
+        String usernameInput = tfUser.getText();
+        String passwordInput = new String(tfPwd.getPassword());
+        String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
+        StringBuilder sb = new StringBuilder();
+        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
+        String sql2 = "SELECT ID FROM MANAGEDPERSON";
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL);
+            stmt = conn.createStatement();
+            stmt2 = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs2 = stmt2.executeQuery(sql2);
+            while (rs.next()) {
+                if (usernameInput.equals(rs.getString("USERNAME"))) {
+                    sb.append("Username has already existed");
+                    JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            while (rs2.next()) {
+                if (idInput.equals(rs2.getString("ID"))) {
+                    sb.append("ID has already existed");
+                    JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            if (idInput.equals("") || usernameInput.equals("") || passwordInput.equals("") || confirmPasswordInput.equals("")) {
+                sb.append("Please enter all information");
+            }
+            if (!passwordInput.equals(confirmPasswordInput)) {
+                sb.append("Password don't match");
+            }
+            if (sb.length() > 0) {
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String sql3 = "INSERT INTO MANAGEDPERSON(ID,STATUS) VALUES (?,?)";
+            PreparedStatement preparedStmt2 = conn.prepareStatement(sql3);
+            preparedStmt2.setString(1, idInput);
+            preparedStmt2.setString(2, "F3");
+            preparedStmt2.execute();
+            String sql1 = "INSERT INTO ACCOUNT(USERNAME,PASSWORD,ROLE,USERID,ACTIVATED,DATEPUBLISHED) VALUES(?,?,?,?,?,?)";
+            PreparedStatement preparedStmt = conn.prepareStatement(sql1);
+            String passwordHash = toHexString(getSHA(passwordInput));
+            preparedStmt.setString(1, usernameInput);
+            preparedStmt.setString(2, passwordHash);
+            preparedStmt.setString(3, "User");
+            preparedStmt.setString(4, idInput);
+            preparedStmt.setInt(5, 1);
+            Date now = new Date();
+            long javaTime = now.getTime();
+            java.sql.Date sqlDate = new java.sql.Date(javaTime);
+            preparedStmt.setDate(6, sqlDate);
+            preparedStmt.execute();
+            String success="Sign up successfully";
+            JOptionPane.showMessageDialog(this, success,"Succesful",JOptionPane.INFORMATION_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnSignUpActionPerformed
-    
+
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.setVisible(false);
         new SignInFrame().setVisible(true);

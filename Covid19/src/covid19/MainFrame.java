@@ -9,6 +9,7 @@ import java.awt.Component;
 import javax.swing.JFrame;
 import Account.Account;
 import DbConnection.SQLConnection;
+import java.time.LocalDate;
 
 /**
  *
@@ -16,6 +17,7 @@ import DbConnection.SQLConnection;
  */
 public class MainFrame extends javax.swing.JFrame {
     Account user = new Account();
+    LocalDate login;
     private int role;
 
     private int packageFlag = 0;
@@ -55,6 +57,22 @@ public class MainFrame extends javax.swing.JFrame {
             btnProfile.setEnabled(false);
             btnFind.setEnabled(false);
         } else if (role == 2) {
+            btnManagePackage.setEnabled(false);
+            btnManagePerson.setEnabled(false);
+            btnManageRelated.setEnabled(false);
+        }
+    }
+        public MainFrame(Account a,int role,LocalDate now) {
+        this.role = role;
+        initComponents();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        user = a;
+        if (role == 1) {
+            btnProfile.setEnabled(false);
+            btnFind.setEnabled(false);
+        } else if (role == 2) {
+            login = now;
             btnManagePackage.setEnabled(false);
             btnManagePerson.setEnabled(false);
             btnManageRelated.setEnabled(false);
