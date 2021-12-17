@@ -4,6 +4,7 @@
  */
 package Account;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
 public class Account {
     String username,password,role,userid;
     int activated;
-    Date datePublished;
+    LocalDate datePublished;
     public Account(){
         username="";
         password="";
@@ -30,7 +31,7 @@ public class Account {
         System.out.println(userid);
         System.out.println(activated);
     }
-    public void setAccount(String Username, String Password, String Role, String Userid, int Activated,Date DatePublished){
+    public void setAccount(String Username, String Password, String Role, String Userid, int Activated,LocalDate DatePublished){
         username=Username;
         password =Password;
         role = Role;
