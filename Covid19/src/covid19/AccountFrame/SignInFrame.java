@@ -16,6 +16,7 @@ import covid19.AdminManagementPanel;
 import java.sql.*;
 import java.util.logging.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 /**
@@ -225,7 +226,7 @@ public class SignInFrame extends javax.swing.JFrame{
                             return;
                         }
                         case "Manager" -> {
-                            LocalDate now = LocalDate.now();
+                            LocalDateTime now = LocalDateTime.now();
                             new MainFrame(a,1,now).setVisible(true);
                             this.setVisible(false);
                             return;

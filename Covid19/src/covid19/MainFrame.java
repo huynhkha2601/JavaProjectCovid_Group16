@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import Account.Account;
 import DbConnection.SQLConnection;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.time.LocalDate;
  */
 public class MainFrame extends javax.swing.JFrame {
     Account user = new Account();
-    LocalDate login;
+    LocalDateTime login;
     private int role;
 
     private int packageFlag = 0;
@@ -62,7 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
             btnManageRelated.setEnabled(false);
         }
     }
-        public MainFrame(Account a,int role,LocalDate now) {
+        public MainFrame(Account a,int role,LocalDateTime now) {
         this.role = role;
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
