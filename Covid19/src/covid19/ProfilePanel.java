@@ -6,6 +6,8 @@ package covid19;
 
 import covid19.AccountFrame.ChangePasswordFrame;
 import covid19.AccountFrame.SignInFrame;
+import Profile.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,8 +18,24 @@ public class ProfilePanel extends javax.swing.JPanel {
     /**
      * Creates new form ProfilePanel
      */
+    String id = "1";
     public ProfilePanel() {
         initComponents();
+        
+ 
+        Profile resultProfile = ProfileInf.getProfile(id);
+        txfCCCD.setText(resultProfile.getID());
+        txfFullname.setText(resultProfile.getFullName());
+        txfAddress.setText(resultProfile.getAddress());
+        txfStatus.setText(resultProfile.getStatus());
+        txfYob.setText(Integer.toString(resultProfile.getYoB()));
+        txfTreatment.setText(resultProfile.getTreatment());
+        txfDebt.setText(Double.toString(resultProfile.getDebt()));
+        
+        txfCCCD.setEditable(false);
+        txfTreatment.setEditable(false);
+        txfStatus.setEditable(false);
+        txfDebt.setEditable(false);
     }
 
     /**
@@ -50,7 +68,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblTreatment = new javax.swing.JLabel();
         txfTreatment = new javax.swing.JTextField();
         lblCccd1 = new javax.swing.JLabel();
-        lblDebt = new javax.swing.JLabel();
+        txfDebt = new javax.swing.JTextField();
         lblSubtittleLeft = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         pnlMHistory = new javax.swing.JPanel();
@@ -73,7 +91,6 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         pnlLeft.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlLeft.setMaximumSize(null);
-        pnlLeft.setMinimumSize(null);
 
         pnlButton.setPreferredSize(new java.awt.Dimension(396, 99));
 
@@ -196,8 +213,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblCccd1.setText("Debt:");
         lblCccd1.setPreferredSize(new java.awt.Dimension(100, 27));
 
-        lblDebt.setText("0");
-        lblDebt.setPreferredSize(new java.awt.Dimension(304, 27));
+        txfDebt.setText("jTextField1");
+        txfDebt.setPreferredSize(new java.awt.Dimension(304, 27));
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
@@ -221,7 +238,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                     .addComponent(txfYob, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                     .addComponent(txfStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                     .addComponent(txfTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addComponent(lblDebt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addComponent(txfDebt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlInformationLayout.setVerticalGroup(
@@ -254,7 +271,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCccd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDebt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txfDebt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -288,7 +305,6 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.setMinimumSize(null);
         jPanel1.setPreferredSize(new java.awt.Dimension(542, 425));
 
         pnlMHistory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -482,7 +498,22 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txfYobActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        String tempFullName = txfFullname.getText();
+        String tempAddress = txfAddress.getText();
+        String tempYoB = txfYob.getText();
+        int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.YES_OPTION){
+            if(ProfileInf.updateProfile(txfCCCD.getText(), txfFullname.getText(), txfAddress.getText(), Integer.parseInt(txfYob.getText())))
+                JOptionPane.showMessageDialog(pnlInformation, "All changes have been saved", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(pnlInformation, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            Profile resultProfile = ProfileInf.getProfile(id);
+            txfFullname.setText(resultProfile.getFullName());
+            txfAddress.setText(resultProfile.getAddress());
+            txfYob.setText(Integer.toString(resultProfile.getYoB()));
+        } 
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -511,7 +542,6 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblCccd;
     private javax.swing.JLabel lblCccd1;
-    private javax.swing.JLabel lblDebt;
     private javax.swing.JLabel lblFullname;
     private javax.swing.JLabel lblMHistory;
     private javax.swing.JLabel lblMPackage;
@@ -531,6 +561,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JTable tblMPackage;
     private javax.swing.JTextField txfAddress;
     private javax.swing.JTextField txfCCCD;
+    private javax.swing.JTextField txfDebt;
     private javax.swing.JTextField txfFullname;
     private javax.swing.JTextField txfStatus;
     private javax.swing.JTextField txfTreatment;

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package covid19;
+import Profile.*;
 
 /**
  *
@@ -17,6 +18,22 @@ public class ProfileFrame extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        
+        String id = "1";
+        Profile result = ProfileInf.getProfile(id);
+        txfCCCD.setText(result.getID());
+        txfFullname.setText(result.getFullName());
+        txfAddress.setText(result.getAddress());
+        txfStatus.setText(result.getStatus());
+        txfYob.setText(Integer.toString(result.getYoB()));
+        txfTreatment.setText(result.getTreatment());
+        
+        txfAddress.setEditable(false);
+        txfCCCD.setEditable(false);
+        txfFullname.setEditable(false);
+        txfStatus.setEditable(false);
+        txfYob.setEditable(false);
+        txfTreatment.setEditable(false);
     }
 
     /**
@@ -50,7 +67,7 @@ public class ProfileFrame extends javax.swing.JFrame {
         lblTittle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTittle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile-48.png"))); // NOI18N
-        lblTittle.setText("Profile:");
+        lblTittle.setText("Profile");
 
         lblCccd.setText("CCCD:");
 
