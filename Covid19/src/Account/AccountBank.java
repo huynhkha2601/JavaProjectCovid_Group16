@@ -4,7 +4,7 @@
  */
 package Account;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -12,21 +12,50 @@ import java.util.Date;
  * @author Thong
  */
 public class AccountBank {
-    String id,password,role;
+    String id,password,role, userid;
+    int activated;
     float balance;
-    LocalDate datePublished;
+    LocalDateTime datepublished;
     public AccountBank(){
         id ="";
         password="";
         role="";
+        activated = 0;
         balance = 0;
-        datePublished=null;
+        userid = "";
+        datepublished = null;
     }
-    public void setAccountBank(String ID, String Password, String Role, float Balance,LocalDate DatePublished){
+    public void setAccountBank(String ID, String Password, String Role, 
+                               int Activated, float Balance, String Userid,
+                               LocalDateTime DatePublished){
         id=ID;
         password=Password;
         role=Role;
+        activated = Activated;
         balance=Balance;
-        datePublished = DatePublished;
+        userid = Userid;
+        datepublished = DatePublished;
+    }
+    
+    public String getBankid(){
+        return id;
+    }
+    public String getPassword(){
+        return password;
+    }
+    public String getRole(){
+        return role;
+    }
+    public int getState(){
+        return activated;
+    }
+    public float getBalance(){
+        return balance;
+    }
+    public String getUserid(){
+        return userid;
+    }
+    public LocalDateTime getDatePublished(){
+        return datepublished;
     }
 }

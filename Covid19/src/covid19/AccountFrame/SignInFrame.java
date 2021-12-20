@@ -8,16 +8,15 @@ import covid19.AccountBankFrame;
 import Account.Account;
 import Account.*;
 import covid19.MainFrame;
+import java.awt.Component;
 import java.math.*;
 import java.nio.charset.*;
 import java.security.*;
 import javax.swing.*;
 import covid19.AdminManagementPanel;
 import java.sql.*;
-import java.util.logging.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.logging.*;
 
 /**
  *
@@ -193,7 +192,7 @@ public class SignInFrame extends javax.swing.JFrame{
         Account a = new Account();
         AccountBank b = new AccountBank();
         String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
-        String sqlBank = "SELECT ID, PASSWORD, BALANCE, ROLE, DATEPUBLISHED FROM Account_Bank";
+        String sqlBank = "SELECT ID, PASSWORD, ROLE, ACTIVE, BALANCE, USERID, DATEPUBLISHED FROM Account_Bank";
         String usernameInput = tfUser.getText();
         String passwordInput = new String(tfPwd.getPassword());
         StringBuilder sb = new StringBuilder();
@@ -226,15 +225,13 @@ public class SignInFrame extends javax.swing.JFrame{
                             return;
                         }
                         case "Manager" -> {
-                            LocalDateTime now = LocalDateTime.now();
-                            new MainFrame(a,1,now).setVisible(true);
+                            new MainFrame(a,1).setVisible(true);
                             this.setVisible(false);
                             return;
                         }
                         case "User" -> {
-                            Date datepublished = rs.getDate("DATEPUBLISHED");
-                            LocalDate date = datepublished.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                            a.setAccount(username,password,role,rs.getString("USERID"),rs.getInt("ACTIVATED"),date);
+                            LocalDateTime ldt= LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
+                            a.setAccount(username,password,role,rs.getString("USERID"),rs.getInt("ACTIVATED"),ldt);
                             this.setVisible(false);
                             new MainFrame(a,2).setVisible(true);
                             return;
@@ -247,9 +244,8 @@ public class SignInFrame extends javax.swing.JFrame{
                 String password = rsBank.getString("PASSWORD");
                 if (usernameInput.equals(id) && passwordHash.equals(password)){
                     flag = 1;
-                    Date datepublished = rsBank.getDate("DATEPUBLISHED");
-                    LocalDate date = datepublished.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    b.setAccountBank(id,password,rsBank.getString("ROLE"),rsBank.getFloat("Balance"),date);
+                    LocalDateTime ldt= LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
+                    b.setAccountBank(id,password,rsBank.getString("ROLE"),rsBank.getInt("Active"),rsBank.getFloat("Balance"),rsBank.getString("UserID"),ldt);
                     this.setVisible(false);
                     new AccountBankFrame(b).setVisible(true);
                     break;
@@ -257,11 +253,15 @@ public class SignInFrame extends javax.swing.JFrame{
             }
             if (flag == 0) {
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
