@@ -22,9 +22,9 @@ public class PackageInf {
 
     public static List<Packages> getAllPackages() {
         List<Packages> list = new ArrayList<>();
-        String sql = "Select * from PACKAGE";
+        String sql = "Select * from PACKAGE ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
         try (
-                 Connection connection = SQLConnection.conn;  
+                Connection connection = SQLConnection.getConnection();  
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             ResultSet rs = pstmt.executeQuery();
@@ -46,7 +46,7 @@ public class PackageInf {
         String sql = "Insert into PACKAGE (ID, NAME, LIMITNUM, LIMITTIME, PRICE, QUANTITY)"
                 + "VALUES (?,?,?,?,?,?)";
         try (
-                 Connection connection = SQLConnection.conn;  
+                 Connection connection = SQLConnection.getConnection();    
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, pk.getpID());
@@ -69,7 +69,8 @@ public class PackageInf {
         String sql = "Delete from PACKAGE where ID=? and NAME=? and LIMITNUM=? and"
                 + " LIMITTIME = ? and PRICE =? and QUANTITY=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                 Connection connection = SQLConnection.getConnection(); 
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, pk.getpID());
             pstmt.setString(2, pk.getpName());
@@ -90,7 +91,10 @@ public class PackageInf {
     public static boolean removePackages(String id) {
         String sql = "Delete from PACKAGE where ID=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+            
+                Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
+            
             pstmt.setString(1, id);
             pstmt.executeUpdate();
             return true;
@@ -105,7 +109,7 @@ public class PackageInf {
         String sql = "Update PACKAGE set NAME=?, LIMITNUM=?, "
                 + " LIMITTIME = ?, PRICE =?, QUANTITY=? where ID=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                 Connection connection = SQLConnection.getConnection();    PreparedStatement pstmt = connection.prepareStatement(sql);) {
             pstmt.setString(1, pk.getpName());
             pstmt.setInt(2, pk.getLimitNum());
             pstmt.setDate(3, java.sql.Date.valueOf(pk.getLimitTime()));
@@ -126,9 +130,9 @@ public class PackageInf {
         List<Object> list = new ArrayList<>();
         String sql = "select p.ID,p.NAME, PRICE, PKR.REGISTER, (PRICE*PKR.REGISTER) as TOTAL from PACKAGE p "
                 + "join (select PACKAGEID, sum(QUANTITY) as REGISTER from PACKAGEREGISTER "
-                + "group by PACKAGEID)  as PKR on pkr.PACKAGEID = p.ID";
+                + "group by PACKAGEID)  as PKR on pkr.PACKAGEID = p.ID ORDER BY REPLICATE(' ',6-LEN(p.ID)) + p.ID";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                 Connection connection = SQLConnection.getConnection();    PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -147,9 +151,9 @@ public class PackageInf {
     }
 
     public static boolean searchPackage(String ID) {
-        String sql = "select * from PACKAGE where ID=?";
+        String sql = "select * from PACKAGE where ID=? ORDER BY CAST(ID AS UNSIGNED)";
         try (
-                 Connection connection = SQLConnection.conn;  
+                 Connection connection = SQLConnection.getConnection();    
                 PreparedStatement pstmt = connection.prepareStatement(sql);
             ) {
 

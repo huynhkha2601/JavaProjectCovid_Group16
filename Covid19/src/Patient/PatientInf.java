@@ -18,13 +18,13 @@ import java.util.List;
 public class PatientInf {
     static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=Covid-19;user=sa;password=sa";
-    public static List<Profile> getAllPatient() {
+    public static List<Profile> getAllPatient() {   
         List<Profile> result = new ArrayList<Profile>();
         try {
             Class.forName(PatientInf.JDBC_DRIVER);
             Connection conn = DriverManager.getConnection(PatientInf.DB_URL);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON ORDER BY REPLICATE(' ',6-LEN(id)) + id");
             while(rs.next()) {
                 Profile temp = new Profile(rs.getString("ID"), rs.getString("FULLNAME"), rs.getInt("YEAROFBIRTH"), rs.getString("ADDRESS"), rs.getString("STATUS"), rs.getString("TREATMENT"), rs.getDouble("DEBT"));
                 result.add(temp);
@@ -36,6 +36,7 @@ public class PatientInf {
         }
         return result;
     }
+    
     public static boolean addPatient(String id, String fullName, int YoB, String address, String status, String treatment) {
         try {
             Class.forName(PatientInf.JDBC_DRIVER);
@@ -57,6 +58,7 @@ public class PatientInf {
         }
         return false;
     } 
+    
     public static boolean updatePatient(String id, String fullName, int YoB, String address, String status) {
         try {
             Class.forName(PatientInf.JDBC_DRIVER);
@@ -76,6 +78,7 @@ public class PatientInf {
         }
         return false;
     } 
+    
     public static boolean deletePatient(String id) {
         try {
             Class.forName(PatientInf.JDBC_DRIVER);
@@ -91,6 +94,7 @@ public class PatientInf {
         }
         return false;
     } 
+    
     public static boolean transferPatient(String id, String to) {
         try {
             Class.forName(PatientInf.JDBC_DRIVER);
@@ -106,5 +110,6 @@ public class PatientInf {
             Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    } 
+    }
+    
 }

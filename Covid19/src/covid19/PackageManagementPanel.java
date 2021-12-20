@@ -26,7 +26,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
     public PackageManagementPanel() {
         initComponents();
         sb = new StringBuilder();
-//        displayDataTable();
+        displayDataTable();
 
     }
 
@@ -410,7 +410,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         Validator.validateEmpty(txfId);
         if (showStringBuilder()) {
-            return;
+            return; 
         }
 
         if (PackageInf.removePackages(txfId.getText())) {
@@ -419,7 +419,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
             MessageDialog.showErrorDialog(this, "Remove package Failed!", "Error!");
         }
 
-
+        btnRefreshActionPerformed(evt);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSDebtActionPerformed
@@ -454,7 +454,6 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         } else {
             MessageDialog.showErrorDialog(this, "Add package Failed!", "Error!");
         }
-        displayDataTable();
         btnRefreshActionPerformed(evt);
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -476,23 +475,26 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         } else {
             MessageDialog.showErrorDialog(this, "Edit package Failed!", "Error!");
         }
-        displayDataTable();
+        
         btnRefreshActionPerformed(evt);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tblPackageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPackageMouseClicked
+        try{
+            int row = 0;
+            row = tblPackage.getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
 
-        int row = 0;
-        row = tblPackage.getSelectedRow();
-        DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
-
-        txfId.setText((String) model.getValueAt(row, 0));
-        txfName.setText((String) model.getValueAt(row, 1));
-        txfNumber.setText(model.getValueAt(row, 2).toString());
-        txfExpiration.setText((String) model.getValueAt(row, 3));
-        txfPrice.setText((String) model.getValueAt(row, 4).toString());
-        txfQuantity.setText((String) model.getValueAt(row, 5).toString());
-
+            txfId.setText((String) model.getValueAt(row, 0));
+            txfName.setText((String) model.getValueAt(row, 1));
+            txfNumber.setText(model.getValueAt(row, 2).toString());
+            txfExpiration.setText((String) model.getValueAt(row, 3));
+            txfPrice.setText((String) model.getValueAt(row, 4).toString());
+            txfQuantity.setText((String) model.getValueAt(row, 5).toString());
+        }catch(Exception e){
+            
+        }
+        
     }//GEN-LAST:event_tblPackageMouseClicked
 
     private void txfNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNumberActionPerformed
@@ -507,6 +509,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         txfExpiration.setText("");
         txfQuantity.setText("");
         sb.setLength(0);
+        displayDataTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void displayDataTable() {
@@ -514,6 +517,8 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         List<Packages> lst = PackageInf.getAllPackages();
+        if (lst == null)
+            return;
         for (Packages packages : lst) {
             Object[] obj = {packages.getpID(), packages.getpName(), packages.getLimitNum(), DateFormatter.parse(packages.getLimitTime()),
                 packages.getPrice(), packages.getQuantity()};

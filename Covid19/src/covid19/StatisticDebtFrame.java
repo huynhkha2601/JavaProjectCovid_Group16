@@ -4,6 +4,10 @@
  */
 package covid19;
 
+import Profile.Profile;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PC
@@ -15,7 +19,8 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
      */
     public StatisticDebtFrame() {
         initComponents();
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        displayData();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
 
@@ -35,7 +40,8 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
         pnlBack = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1200, 650));
 
         tblSDebt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -47,8 +53,21 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
             new String [] {
                 "ID", "Name", "Debt"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scrollpnlSDebt.setViewportView(tblSDebt);
+        if (tblSDebt.getColumnModel().getColumnCount() > 0) {
+            tblSDebt.getColumnModel().getColumn(0).setPreferredWidth(25);
+            tblSDebt.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblSDebt.getColumnModel().getColumn(2).setPreferredWidth(25);
+        }
 
         lblSDebt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblSDebt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -61,18 +80,18 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
             pnlSDebtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSDebtLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlSDebtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(pnlSDebtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblSDebt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(scrollpnlSDebt, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlSDebtLayout.setVerticalGroup(
             pnlSDebtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSDebtLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblSDebt, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addComponent(lblSDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollpnlSDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollpnlSDebt, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -116,8 +135,8 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlSDebt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlSDebt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -126,8 +145,7 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        new MainFrame().setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**
@@ -165,7 +183,23 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private void displayData(){
+        try{
+            DefaultTableModel model = (DefaultTableModel)tblSDebt.getModel();
+            model.setRowCount(0);
+            
+            List<Profile> lst = Patient.PatientInf.getAllPatient();
+            for (Profile profile : lst) {
+                Object[] obj = {profile.getID(), profile.getFullName(), profile.getDebt()};
+                model.addRow(obj);
+            }
+            
+        }catch(Exception e){
+            
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JLabel lblSDebt;
