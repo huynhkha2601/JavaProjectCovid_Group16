@@ -721,6 +721,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         String[] temp = input.split("\\.");
                         if (temp.length == 0) input1 = toSQLDateTime(input);
                         else input1 = toSQLDateTime(temp[0]);
+                        input1 = "'" + input1 + "'";
                         String temp1 = input1.replace(' ', 'T').replace("'", "");
                         if (valid_datetime == 1) input2 = LocalDateTime.parse(temp1)
                                                             .plusHours(1).toString();
@@ -731,8 +732,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         input2 = "'" + input2 + "'";
                     }
                     else{
-                        input1 = toSQLDateTime(input1);
-                        input2 = toSQLDateTime(input2);
+                        input1 = "'" + toSQLDateTime(input1) + "'";
+                        input2 = "'" + toSQLDateTime(input2) + "'";
                     }
                     condition = (condition + attribute + ">=" + input1
                                + " and " + attribute + "<=" + input2);
@@ -853,7 +854,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             else if (attribute.equalsIgnoreCase("Date Published")){
                 attribute = "Datepublished";
                 input = input.split("\\.")[0];
-                System.out.println(input);
                 valid_datetime = checkDateTime(input);
                 if (valid_datetime == -1){
                     JOptionPane.showMessageDialog(this, "Attribute Date Published "
@@ -903,6 +903,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     if (valid_datetime > 0){
                         input1 = toSQLDateTime(input);
                         String temp1 = input1.replace(' ', 'T');
+                        input1 = "'" + input1 + "'";
                         if (valid_datetime == 1) input2 = LocalDateTime.parse(temp1)
                                                             .plusHours(1).toString();
                         else if (valid_datetime == 2) input2 = LocalDateTime.parse(temp1)
@@ -912,8 +913,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         input2 = "'" + input2 + "'";
                     }
                     else{
-                        input1 = toSQLDateTime(input1);
-                        input2 = toSQLDateTime(input2);
+                        input1 = "'" + toSQLDateTime(input1) + "'";
+                        input2 = "'" + toSQLDateTime(input2) + "'";
                     }
                     condition = (condition + attribute + ">=" + input1
                                + " and " + attribute + "<=" + input2);
