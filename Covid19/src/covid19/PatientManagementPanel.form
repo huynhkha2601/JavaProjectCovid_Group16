@@ -148,8 +148,8 @@
                               <Component id="txfFullname" alignment="1" max="32767" attributes="0"/>
                               <Component id="txfID" alignment="1" max="32767" attributes="0"/>
                               <Component id="txfAddress" alignment="1" max="32767" attributes="0"/>
-                              <Component id="txfStatus" alignment="0" max="32767" attributes="0"/>
                               <Component id="txfTreatment" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txfStatus" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -168,37 +168,25 @@
                               <Component id="txfFullname" pref="33" max="32767" attributes="0"/>
                               <Component id="lblFullname" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Group type="102" alignment="3" attributes="0">
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="lblYoB" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="3" attributes="0">
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="txfYoB" pref="33" max="32767" attributes="0"/>
-                              </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblYoB" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txfYoB" alignment="0" pref="33" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Group type="102" alignment="3" attributes="0">
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="lblAddress" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="3" attributes="0">
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="txfAddress" pref="33" max="32767" attributes="0"/>
-                              </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblAddress" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txfAddress" alignment="0" pref="33" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblStatus" max="32767" attributes="0"/>
-                              <Component id="txfTreatment" pref="33" max="32767" attributes="0"/>
+                              <Component id="txfStatus" pref="33" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblTreatment" max="32767" attributes="0"/>
-                              <Component id="txfStatus" pref="38" max="32767" attributes="0"/>
+                              <Component id="txfTreatment" pref="38" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -266,14 +254,14 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txfAddress">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txfStatus">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txfStatusActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JTextField" name="txfTreatment">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txfTreatmentActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txfStatus">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txfStatusActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txfFullname">
@@ -466,64 +454,16 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tblPatient">
                   <Properties>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="6">
-                        <Column editable="true" title="ID" type="java.lang.Object">
-                          <Data value="19127600"/>
-                          <Data value="1"/>
-                          <Data value="2"/>
-                          <Data value="3"/>
-                          <Data value="7"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="true" title="Fullname" type="java.lang.Object">
-                          <Data value="Trong Le"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="true" title="Year of birth" type="java.lang.Object">
-                          <Data value="2001"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="true" title="Address" type="java.lang.Object">
-                          <Data value="TPHCM"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="true" title="Status" type="java.lang.Object">
-                          <Data value="F5"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="true" title="Treatment" type="java.lang.Object">
-                          <Data value="BV01"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="true" title="Debt" type="java.lang.Object">
-                          <Data value="100.00"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
+                      <Table columnCount="7" rowCount="0">
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="Fullname" type="java.lang.Object"/>
+                        <Column editable="false" title="Year of birth" type="java.lang.Object"/>
+                        <Column editable="false" title="Address" type="java.lang.Object"/>
+                        <Column editable="false" title="Status" type="java.lang.Object"/>
+                        <Column editable="false" title="Treatment" type="java.lang.Object"/>
+                        <Column editable="false" title="Debt" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

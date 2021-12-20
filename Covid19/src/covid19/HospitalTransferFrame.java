@@ -4,6 +4,12 @@
  */
 package covid19;
 
+import Treatment.*;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Patient.*;
+
 /**
  *
  * @author PC
@@ -13,11 +19,20 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
     /**
      * Creates new form HospitalTransferFrame
      */
-    public HospitalTransferFrame() {
+    private String id;
+    public HospitalTransferFrame(String id, String treatment) {
         initComponents();
         this.setResizable(false);
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        this.id = id;
+        lblIDisplayID.setText(id);
+        txfFromTreatment.setText(treatment);
+        txfFromTreatment.setEditable(false);
+        DefaultTableModel model = (DefaultTableModel) tblHospitalTransferDetail.getModel();
+        List<Treatment> list = TreatmentInf.getAllPatient();
+        for (int i = 0; i < list.size(); i++) 
+            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getName(), Integer.toString(list.get(i).getCapacity()), Integer.toString(list.get(i).getQuantity())});
     }
 
     /**
@@ -37,9 +52,9 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
         pnlInfo = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
         lblToTreatment = new javax.swing.JLabel();
-        txtfToTreatment = new javax.swing.JTextField();
+        txfFromTreatment = new javax.swing.JTextField();
         lblFromTreatment1 = new javax.swing.JLabel();
-        txtfFromTreatment1 = new javax.swing.JTextField();
+        txfToTreatment1 = new javax.swing.JTextField();
         lblIDisplayID = new javax.swing.JLabel();
         pnlButton = new javax.swing.JPanel();
         btnConfirm = new javax.swing.JButton();
@@ -69,17 +84,23 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tblHospitalTransferDetail.setAutoCreateRowSorter(true);
         tblHospitalTransferDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Capacity", "Quantity"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         srlHospitalTrasnferDetail.setViewportView(tblHospitalTransferDetail);
 
         javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
@@ -105,12 +126,14 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
         lblToTreatment.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblToTreatment.setText("To Treatment:");
 
-        txtfToTreatment.setText("jTextField1");
+        txfFromTreatment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfFromTreatmentActionPerformed(evt);
+            }
+        });
 
         lblFromTreatment1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblFromTreatment1.setText("From Treatment: ");
-
-        txtfFromTreatment1.setText("jTextField1");
 
         lblIDisplayID.setText("CMND/CCCD");
 
@@ -126,8 +149,8 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
                     .addComponent(lblToTreatment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtfToTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                    .addComponent(txtfFromTreatment1)
+                    .addComponent(txfFromTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                    .addComponent(txfToTreatment1)
                     .addComponent(lblIDisplayID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -140,11 +163,11 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
                     .addComponent(lblIDisplayID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfToTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfFromTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFromTreatment1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfFromTreatment1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfToTreatment1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -222,13 +245,35 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        // TODO add your handling code here:
+        if(txfFromTreatment.getText().equals("") || txfToTreatment1.getText().equals(""))
+            JOptionPane.showMessageDialog(pnlInfo, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+        else if(txfFromTreatment.getText().equals(txfToTreatment1.getText())) {
+            JOptionPane.showMessageDialog(pnlInfo, "Choose another treatment place", "Notification", JOptionPane.ERROR_MESSAGE);
+            txfToTreatment1.setText("");
+        }
+        else {
+            int result = JOptionPane.showConfirmDialog(pnlInfo, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(result == JOptionPane.YES_OPTION){
+                if(PatientInf.transferPatient(id, txfToTreatment1.getText())) {
+                    JOptionPane.showMessageDialog(pnlInfo, "Change successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    txfFromTreatment.setText(txfToTreatment1.getText());
+                    txfToTreatment1.setText("");
+                }
+                else 
+                    JOptionPane.showMessageDialog(pnlInfo, "Change failed", "Notification", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
-        new MainFrame().setVisible(true);
-        this.setVisible(false);
+        //new MainFrame().setVisible(true);
+        //this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnGoBackActionPerformed
+
+    private void txfFromTreatmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFromTreatmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfFromTreatmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,7 +305,7 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HospitalTransferFrame().setVisible(true);
+                new HospitalTransferFrame("", "").setVisible(true);
             }
         });
     }
@@ -279,7 +324,7 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnlTitle;
     private javax.swing.JScrollPane srlHospitalTrasnferDetail;
     private javax.swing.JTable tblHospitalTransferDetail;
-    private javax.swing.JTextField txtfFromTreatment1;
-    private javax.swing.JTextField txtfToTreatment;
+    private javax.swing.JTextField txfFromTreatment;
+    private javax.swing.JTextField txfToTreatment1;
     // End of variables declaration//GEN-END:variables
 }

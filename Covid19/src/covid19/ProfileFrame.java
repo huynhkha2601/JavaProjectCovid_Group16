@@ -14,12 +14,12 @@ public class ProfileFrame extends javax.swing.JFrame {
     /**
      * Creates new form ProfileFrame
      */
-    public ProfileFrame() {
+    private String id;
+    public ProfileFrame(String id) {
         initComponents();
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        
-        String id = "1";
+        this.id = id;
         Profile result = ProfileInf.getProfile(id);
         txfCCCD.setText(result.getID());
         txfFullname.setText(result.getFullName());
@@ -228,8 +228,9 @@ public class ProfileFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txfYobActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        new ViewRelatedFrame().setVisible(true);
-        this.setVisible(false);
+        //new ViewRelatedFrame().setVisible(true);
+        //this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**
@@ -262,7 +263,7 @@ public class ProfileFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProfileFrame().setVisible(true);
+                new ProfileFrame("").setVisible(true);
             }
         });
     }

@@ -130,11 +130,12 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tblHospitalTransferDetail">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="ID" type="java.lang.Object"/>
-                    <Column editable="true" title="Name" type="java.lang.Object"/>
-                    <Column editable="true" title="Capacity" type="java.lang.Object"/>
+                  <Table columnCount="4" rowCount="0">
+                    <Column editable="false" title="ID" type="java.lang.Object"/>
+                    <Column editable="false" title="Name" type="java.lang.Object"/>
+                    <Column editable="false" title="Capacity" type="java.lang.Object"/>
                     <Column editable="true" title="Quantity" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -185,8 +186,8 @@
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtfToTreatment" pref="256" max="32767" attributes="0"/>
-                      <Component id="txtfFromTreatment1" max="32767" attributes="0"/>
+                      <Component id="txfFromTreatment" pref="256" max="32767" attributes="0"/>
+                      <Component id="txfToTreatment1" max="32767" attributes="0"/>
                       <Component id="lblIDisplayID" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -203,12 +204,12 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtfToTreatment" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="txfFromTreatment" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="lblFromTreatment1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtfFromTreatment1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="txfToTreatment1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="lblToTreatment" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -229,10 +230,10 @@
             <Property name="text" type="java.lang.String" value="To Treatment:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtfToTreatment">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txfFromTreatment">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txfFromTreatmentActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblFromTreatment1">
           <Properties>
@@ -240,10 +241,7 @@
             <Property name="text" type="java.lang.String" value="From Treatment: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtfFromTreatment1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txfToTreatment1">
         </Component>
         <Component class="javax.swing.JLabel" name="lblIDisplayID">
           <Properties>

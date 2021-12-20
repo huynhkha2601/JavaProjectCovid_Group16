@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package covid19;
+import Profile.*;
+import Patient.*;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,6 +20,11 @@ public class PatientManagementPanel extends javax.swing.JPanel {
      */
     public PatientManagementPanel() {
         initComponents();
+        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        List<Profile> list = PatientInf.getAllPatient();
+        for (int i = 0; i < list.size(); i++) 
+            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+        
     }
 
     /**
@@ -39,8 +49,8 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         txfID = new javax.swing.JTextField();
         txfYoB = new javax.swing.JTextField();
         txfAddress = new javax.swing.JTextField();
-        txfStatus = new javax.swing.JTextField();
         txfTreatment = new javax.swing.JTextField();
+        txfStatus = new javax.swing.JTextField();
         txfFullname = new javax.swing.JTextField();
         lblSubtittleRight = new javax.swing.JLabel();
         pnlInforButton = new javax.swing.JPanel();
@@ -96,15 +106,15 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        txfStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txfStatusActionPerformed(evt);
-            }
-        });
-
         txfTreatment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txfTreatmentActionPerformed(evt);
+            }
+        });
+
+        txfStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfStatusActionPerformed(evt);
             }
         });
 
@@ -133,8 +143,8 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                     .addComponent(txfFullname, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfID, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfAddress, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txfStatus)
-                    .addComponent(txfTreatment))
+                    .addComponent(txfTreatment)
+                    .addComponent(txfStatus))
                 .addContainerGap())
         );
         pnlInforInputLayout.setVerticalGroup(
@@ -148,30 +158,22 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txfFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(6, 6, 6)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addGroup(pnlInforInputLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(lblYoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlInforInputLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(txfYoB, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)))
-                .addGap(6, 6, 6)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addGroup(pnlInforInputLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlInforInputLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(txfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)))
+                .addGap(8, 8, 8)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblYoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfYoB, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addGap(5, 5, 5)
                 .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                    .addComponent(txfStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                    .addComponent(txfTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -300,19 +302,23 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        tblPatient.setAutoCreateRowSorter(true);
         tblPatient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"19127600", "Trong Le", "2001", "TPHCM", "F5", "BV01", "100.00"},
-                {"1", null, null, null, null, null, null},
-                {"2", null, null, null, null, null, null},
-                {"3", null, null, null, null, null, null},
-                {"7", null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Fullname", "Year of birth", "Address", "Status", "Treatment", "Debt"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scrollpnlPatient.setViewportView(tblPatient);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -391,36 +397,112 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txfYoBActionPerformed
 
-    private void txfStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txfStatusActionPerformed
-
     private void txfTreatmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfTreatmentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfTreatmentActionPerformed
+
+    private void txfStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfStatusActionPerformed
 
     private void txfFullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFullnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfFullnameActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfID.getText().equals("") || txfStatus.getText().equals("") || txfTreatment.getText().equals("") || txfYoB.getText().equals(""))
+            JOptionPane.showMessageDialog(pnlInformation, "Required fields cannot be blank", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        else if(PatientInf.addPatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), txfStatus.getText(), txfTreatment.getText())) {
+            JOptionPane.showMessageDialog(pnlInformation, "Add successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+            model.addRow(new Object[]{txfID.getText(), txfFullname.getText(), txfYoB.getText(), txfAddress.getText(), txfTreatment.getText(), txfStatus.getText(), "0"});
+            txfAddress.setText("");
+            txfFullname.setText("");
+            txfID.setText("");
+            txfTreatment.setText("");
+            txfStatus.setText("");
+            txfYoB.setText("");
+        }
+        else
+            JOptionPane.showMessageDialog(pnlInformation, "Add failed", "Notification", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        if(txfID.getText().equals(""))
+            JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+        else {
+            int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(result == JOptionPane.YES_OPTION){
+                if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfStatus.getText().equals("") || txfYoB.getText().equals(""))
+                    JOptionPane.showMessageDialog(pnlInformation, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                else {
+                    if(PatientInf.updatePatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), txfStatus.getText())) {
+                        JOptionPane.showMessageDialog(pnlInformation, "Update successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+                        model.setRowCount(0);
+                        List<Profile> list = PatientInf.getAllPatient();
+                        for (int i = 0; i < list.size(); i++) 
+                            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+                        txfAddress.setText("");
+                        txfFullname.setText("");
+                        txfID.setText("");
+                        txfTreatment.setText("");
+                        txfStatus.setText("");
+                        txfYoB.setText("");
+                    }
+                    else
+                        JOptionPane.showMessageDialog(pnlInformation, "Update failed", "Notification", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else {
+                txfAddress.setText("");
+                txfFullname.setText("");
+                txfID.setText("");
+                txfTreatment.setText("");
+                txfStatus.setText("");
+                txfYoB.setText("");
+            } 
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
+        try {
+            String id = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 0).toString();
+            int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(result == JOptionPane.YES_OPTION){
+                if(PatientInf.deletePatient(id)) {
+                    JOptionPane.showMessageDialog(pnlInformation, "Remove successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+                    model.setRowCount(0);
+                    List<Profile> list = PatientInf.getAllPatient();
+                    for (int i = 0; i < list.size(); i++) 
+                        model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+                }
+                else
+                    JOptionPane.showMessageDialog(pnlInformation, "Remove failed", "Notification", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(pnlInformation, "Choose a row in table to delete", "Notification", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        model.setRowCount(0);
+        List<Profile> list = PatientInf.getAllPatient();
+        for (int i = 0; i < list.size(); i++) 
+            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+        
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        // TODO add your handling code here:
+        try {
+            String id = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 0).toString();
+            ProfileFrame profile = new ProfileFrame(id);
+            profile.setVisible(true);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(pnlInformation, "Choose a row in table to delete", "Notification", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnViewRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRelatedActionPerformed
@@ -428,7 +510,14 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewRelatedActionPerformed
 
     private void btnHosptTranferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHosptTranferActionPerformed
-        new HospitalTransferFrame().setVisible(true);
+        try {
+            String id = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 0).toString();
+            String treatment = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 5).toString();
+            HospitalTransferFrame transferFrame = new HospitalTransferFrame(id, treatment);
+            transferFrame.setVisible(true);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(pnlInformation, "Choose a row in table to transfer hospital", "Notification", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnHosptTranferActionPerformed
 
 
