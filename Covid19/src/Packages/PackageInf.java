@@ -151,7 +151,7 @@ public class PackageInf {
     }
 
     public static boolean searchPackage(String ID) {
-        String sql = "select * from PACKAGE where ID=? ORDER BY CAST(ID AS UNSIGNED)";
+        String sql = "select * from PACKAGE where ID=? ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
         try (
                  Connection connection = SQLConnection.getConnection();    
                 PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -169,5 +169,5 @@ public class PackageInf {
         }
         return false;
     }
-
+    
 }

@@ -43,7 +43,7 @@ public class Admin {
             
             //Open a connection to database:
             conn = DriverManager.getConnection(
-                    DB_URL + ";username=sa;password=SV19clc7CnTt");
+                    DB_URL + ";username=sa;password=sa");
         }
         catch (ClassNotFoundException clsNF){
             System.out.println("Error: unable to load driver class.");

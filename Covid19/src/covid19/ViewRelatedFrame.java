@@ -4,20 +4,35 @@
  */
 package covid19;
 
+import Helper.DateFormatter;
+import Helper.MessageDialog;
+import Helper.Validator;
+import Related.Related;
+import Related.RelatedInf;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PC
  */
 public class ViewRelatedFrame extends javax.swing.JFrame {
 
+    private StringBuilder sb;
+
     /**
      * Creates new form ViewRelatedFrame
      */
     public ViewRelatedFrame() {
         initComponents();
+        sb = new StringBuilder();
         this.setResizable(false);
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        displayDataTable();
     }
 
     /**
@@ -32,7 +47,7 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblTable = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scr = new javax.swing.JScrollPane();
         tblRelated = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         lblForm = new javax.swing.JLabel();
@@ -41,8 +56,8 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
         lblSID = new javax.swing.JLabel();
         lblRecord = new javax.swing.JLabel();
         tfFID = new javax.swing.JTextField();
-        tfSID = new javax.swing.JTextField();
         tfRecord = new javax.swing.JTextField();
+        tfSID = new javax.swing.JTextField();
         pnlButton = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
@@ -109,7 +124,12 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblRelated);
+        tblRelated.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRelatedMouseClicked(evt);
+            }
+        });
+        scr.setViewportView(tblRelated);
 
         lblForm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -121,10 +141,10 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
         lblFID.setText("First ID:");
 
         lblSID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblSID.setText("Second ID:");
+        lblSID.setText("Datetime:");
 
         lblRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblRecord.setText("Record:");
+        lblRecord.setText("Second ID:");
 
         tfFID.setPreferredSize(new java.awt.Dimension(120, 29));
         tfFID.addActionListener(new java.awt.event.ActionListener() {
@@ -133,15 +153,15 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
             }
         });
 
-        tfSID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSIDActionPerformed(evt);
-            }
-        });
-
         tfRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfRecordActionPerformed(evt);
+            }
+        });
+
+        tfSID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSIDActionPerformed(evt);
             }
         });
 
@@ -157,8 +177,8 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
                     .addComponent(lblRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSID, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfRecord, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfSID, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfFID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -175,11 +195,11 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
                         .addComponent(lblRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addComponent(tfRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfSID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblSID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfSID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -201,6 +221,11 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/refresh.png"))); // NOI18N
         btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlButtonLayout = new javax.swing.GroupLayout(pnlButton);
         pnlButton.setLayout(pnlButtonLayout);
@@ -327,7 +352,7 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                                .addComponent(scr, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                                 .addGap(2, 2, 2))
                             .addComponent(lblTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -343,7 +368,7 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTable, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(scr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -376,64 +401,133 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfFIDActionPerformed
 
-    private void tfSIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfSIDActionPerformed
-
     private void tfRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRecordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfRecordActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void tfSIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSIDActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_tfSIDActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        ValidateAllField();
+        if (sb.length() > 0) {
+            MessageDialog.showErrorDialog(this, sb.toString(), "Error!");
+        }
+
+        Related rlt = getRelatedInfo();
+
+        if (RelatedInf.searchRelated(rlt)) {
+            MessageDialog.showErrorDialog(this, "Existing record. Cannot add new column!!", "Error!");
+            return;
+        }
+
+        if (RelatedInf.addRelated(rlt)) {
+            MessageDialog.showMessageDialog(this, "Add Related Successfully!", "Notification!");
+        } else {
+            MessageDialog.showErrorDialog(this, "Add Related Failed!", "Error!");
+            return;
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
+        ValidateAllField();
+        if (sb.length() > 0) {
+            MessageDialog.showErrorDialog(this, sb.toString(), "Error!");
+        }
+
+        Related rlt = getRelatedInfo();
+        if (RelatedInf.removeRelated(rlt)) {
+            MessageDialog.showMessageDialog(this, "Remove Related Successfully!", "Notification!");
+        } else {
+            MessageDialog.showErrorDialog(this, "Remove Related Failed!", "Error!");
+            return;
+        }
+        displayDataTable();
+
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        new MainFrame().setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        new ProfileFrame().setVisible(true);
+
+        Validator.validateEmpty(tfID, sb, "View ID can not be empty!");
+        if (sb.length() > 0) {
+            MessageDialog.showErrorDialog(this, sb.toString(), "Error!");
+            sb.setLength(0);
+            return;
+        }
+
+        new ProfileFrame(tfID.getText()).setVisible(true);
+
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        tfID.setText("");
+        tfRecord.setText("");
+        tfFID.setText("");
+        tfSID.setText("");
+        displayDataTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void tblRelatedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRelatedMouseClicked
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblRelated.getModel();
+            int rowSelected = tblRelated.getSelectedRow();
+            int columnSelected= tblRelated.getSelectedColumn();
+            tfFID.setText((String) model.getValueAt(rowSelected, 0));
+            tfSID.setText((String) model.getValueAt(rowSelected, 1));
+            tfRecord.setText((String) model.getValueAt(rowSelected, 2));
+            
+            if (columnSelected < 2)
+                tfID.setText((String) model.getValueAt(rowSelected, columnSelected));
+            else tfFID.setText("");
+            displayDataTable();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_tblRelatedMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewRelatedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewRelatedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewRelatedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewRelatedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewRelatedFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ViewRelatedFrame().setVisible(true);
         });
+    }
+
+    private void ValidateAllField() {
+        Validator.validateEmpty(tfFID, sb, "First ID can not be empty!");
+        Validator.validateEmpty(tfSID, sb, "Second ID can not be empty!");
+        Validator.validateEmpty(tfRecord, sb, "Record can not be empty!");
+    }
+
+    private Related getRelatedInfo() {
+
+        String fID = tfFID.getText();
+        String sID = tfSID.getText();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(tfRecord.getText()), formatter);
+
+        return new Related(fID, sID, record);
+    }
+
+    private void displayDataTable() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblRelated.getModel();
+            model.setRowCount(0);
+
+            List<Related> lst = RelatedInf.getAllRelatedColumn();
+            lst.forEach(related -> {
+                Object[] obj = {related.getSrcID(), related.getDesID(), DateFormatter.parse(related.getRecordDate())};
+                model.addRow(obj);
+            });
+
+        } catch (Exception e) {
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -446,7 +540,6 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFID;
     private javax.swing.JLabel lblForm;
     private javax.swing.JLabel lblID;
@@ -456,6 +549,7 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlButton;
     private javax.swing.JPanel pnlForm;
+    private javax.swing.JScrollPane scr;
     private javax.swing.JTable tblRelated;
     private javax.swing.JTextField tfFID;
     private javax.swing.JTextField tfID;

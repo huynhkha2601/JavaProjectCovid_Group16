@@ -4,6 +4,7 @@
  */
 package covid19;
 
+import Helper.MessageDialog;
 import Profile.Profile;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -39,16 +40,15 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
         lblSDebt = new javax.swing.JLabel();
         pnlBack = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
+        btnViewTotal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Statistic Debt Table");
         setMaximumSize(new java.awt.Dimension(1200, 650));
 
         tblSDebt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Debt"
@@ -103,20 +103,32 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
             }
         });
 
+        btnViewTotal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/view.png"))); // NOI18N
+        btnViewTotal.setText("View Total");
+        btnViewTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewTotalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBackLayout = new javax.swing.GroupLayout(pnlBack);
         pnlBack.setLayout(pnlBackLayout);
         pnlBackLayout.setHorizontalGroup(
             pnlBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnViewTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlBackLayout.setVerticalGroup(
             pnlBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .addComponent(btnViewTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -148,60 +160,51 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnViewTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTotalActionPerformed
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblSDebt.getModel();
+            int rows = tblSDebt.getRowCount();
+            double total = 0;
+            for (int i = 0; i < rows; i++) {
+//            total +=  Float.parseFloat((String) model.getValueAt(i, 4));
+                total += (double) model.getValueAt(i, 2);
+            }
+
+            StaticsTotal staticsTotal = new StaticsTotal(String.valueOf(total));
+        } catch (Exception e) {
+            MessageDialog.showErrorDialog(this, "Can't view total. Something was wrong!!", "Error!");
+//            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnViewTotalActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StatisticDebtFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StatisticDebtFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StatisticDebtFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StatisticDebtFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StatisticDebtFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new StatisticDebtFrame().setVisible(true);
         });
     }
-    
-    private void displayData(){
-        try{
-            DefaultTableModel model = (DefaultTableModel)tblSDebt.getModel();
+
+    private void displayData() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblSDebt.getModel();
             model.setRowCount(0);
-            
+
             List<Profile> lst = Patient.PatientInf.getAllPatient();
             for (Profile profile : lst) {
                 Object[] obj = {profile.getID(), profile.getFullName(), profile.getDebt()};
                 model.addRow(obj);
             }
-            
-        }catch(Exception e){
-            
+
+        } catch (Exception e) {
+
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnViewTotal;
     private javax.swing.JLabel lblSDebt;
     private javax.swing.JPanel pnlBack;
     private javax.swing.JPanel pnlSDebt;

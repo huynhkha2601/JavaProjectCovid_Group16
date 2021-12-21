@@ -64,7 +64,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jScrollPane2" pref="520" max="32767" attributes="0"/>
+                                  <Component id="scr" pref="520" max="32767" attributes="0"/>
                                   <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="lblTable" alignment="0" max="32767" attributes="0"/>
@@ -86,7 +86,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lblTable" min="-2" pref="66" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
+                          <Component id="scr" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jPanel2" max="32767" attributes="0"/>
                   </Group>
@@ -122,7 +122,7 @@
             <Property name="text" type="java.lang.String" value="List of related person"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+        <Container class="javax.swing.JScrollPane" name="scr">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -217,10 +217,32 @@
                     </Column>
                   </Table>
                 </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblRelatedMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -290,8 +312,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tfSID" alignment="1" max="32767" attributes="0"/>
                               <Component id="tfRecord" alignment="1" max="32767" attributes="0"/>
+                              <Component id="tfSID" alignment="1" max="32767" attributes="0"/>
                               <Component id="tfFID" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -313,13 +335,13 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                                  <Component id="tfRecord" min="-2" pref="29" max="-2" attributes="0"/>
+                                  <Component id="tfSID" min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="lblSID" alignment="0" max="32767" attributes="0"/>
-                              <Component id="tfSID" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="tfRecord" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -340,7 +362,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Second ID:"/>
+                    <Property name="text" type="java.lang.String" value="Datetime:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblRecord">
@@ -348,7 +370,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Record:"/>
+                    <Property name="text" type="java.lang.String" value="Second ID:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfFID">
@@ -361,14 +383,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfFIDActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="tfSID">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfSIDActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JTextField" name="tfRecord">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfRecordActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfSID">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfSIDActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -433,6 +455,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Refresh"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

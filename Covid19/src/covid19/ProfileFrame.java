@@ -4,6 +4,7 @@
  */
 package covid19;
 import Profile.*;
+import java.awt.HeadlessException;
 
 /**
  *
@@ -15,6 +16,12 @@ public class ProfileFrame extends javax.swing.JFrame {
      * Creates new form ProfileFrame
      */
     private String id;
+
+    public ProfileFrame() throws HeadlessException {
+        initComponents();
+    }
+    
+    
     public ProfileFrame(String id) {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

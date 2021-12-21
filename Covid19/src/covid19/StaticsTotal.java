@@ -30,8 +30,14 @@ public class StaticsTotal extends javax.swing.JFrame {
         lblTotalNum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Total");
+        setMaximumSize(null);
 
-        lblTotal.setText("Total");
+        lblTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTotal.setText("Total:");
+
+        lblTotalNum.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTotalNum.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -41,7 +47,7 @@ public class StaticsTotal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotalNum, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(lblTotalNum, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
