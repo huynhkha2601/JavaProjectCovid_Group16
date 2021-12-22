@@ -20,13 +20,32 @@ public class PatientManagementPanel extends javax.swing.JPanel {
      */
     public PatientManagementPanel() {
         initComponents();
+        refreshTable();
+        filterOption.add("ID");
+        filterOption.add("Fullname");
+        filterOption.add("YoB");
+        filterOption.add("Address");
+        filterOption.add("Status");
+        filterOption.add("Treatment");
+        
+        
+    }
+    public void clearTextField() {
+        txfAddress.setText("");
+        txfFullname.setText("");
+        txfID.setText("");
+        txfTreatment.setText("");
+        txfStatus.setText("");
+        txfYoB.setText("");
+    }
+    
+    public void refreshTable() {
         DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        model.setRowCount(0);
         List<Profile> list = PatientInf.getAllPatient();
         for (int i = 0; i < list.size(); i++) 
             model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
-        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,6 +80,8 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         btnFind = new javax.swing.JButton();
         btnViewRelated = new javax.swing.JButton();
         btnHosptTranfer = new javax.swing.JButton();
+        filterOption = new java.awt.Choice();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         scrollpnlPatient = new javax.swing.JScrollPane();
         tblPatient = new javax.swing.JTable();
@@ -248,16 +269,16 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                     .addComponent(btnHosptTranfer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlInforButtonLayout.createSequentialGroup()
                         .addGroup(pnlInforButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                            .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlInforButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                            .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlInforButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnViewRelated, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))))
+                            .addComponent(btnViewRelated, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pnlInforButtonLayout.setVerticalGroup(
@@ -278,6 +299,14 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        filterOption.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                filterOptionItemStateChanged(evt);
+            }
+        });
+
+        jLabel2.setText("Filter:");
+
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
         pnlInformationLayout.setHorizontalGroup(
@@ -285,7 +314,12 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSubtittleRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlInformationLayout.createSequentialGroup()
+                        .addComponent(lblSubtittleRight, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filterOption, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnlInforInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlInforButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -294,7 +328,11 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblSubtittleRight, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblSubtittleRight, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(filterOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlInforInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -319,6 +357,11 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblPatient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPatientMouseClicked(evt);
+            }
+        });
         scrollpnlPatient.setViewportView(tblPatient);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -332,7 +375,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollpnlPatient, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                    .addComponent(scrollpnlPatient, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -414,14 +457,10 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(pnlInformation, "Required fields cannot be blank", "Notification", JOptionPane.INFORMATION_MESSAGE);
         else if(PatientInf.addPatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), txfStatus.getText(), txfTreatment.getText())) {
             JOptionPane.showMessageDialog(pnlInformation, "Add successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
-            DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
-            model.addRow(new Object[]{txfID.getText(), txfFullname.getText(), txfYoB.getText(), txfAddress.getText(), txfTreatment.getText(), txfStatus.getText(), "0"});
-            txfAddress.setText("");
-            txfFullname.setText("");
-            txfID.setText("");
-            txfTreatment.setText("");
-            txfStatus.setText("");
-            txfYoB.setText("");
+            //DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+            //model.addRow(new Object[]{txfID.getText(), txfFullname.getText(), txfYoB.getText(), txfAddress.getText(), txfTreatment.getText(), txfStatus.getText(), "0"});
+            refreshTable();
+            clearTextField();
         }
         else
             JOptionPane.showMessageDialog(pnlInformation, "Add failed", "Notification", JOptionPane.ERROR_MESSAGE);
@@ -438,71 +477,91 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 else {
                     if(PatientInf.updatePatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), txfStatus.getText())) {
                         JOptionPane.showMessageDialog(pnlInformation, "Update successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
-                        model.setRowCount(0);
-                        List<Profile> list = PatientInf.getAllPatient();
-                        for (int i = 0; i < list.size(); i++) 
-                            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
-                        txfAddress.setText("");
-                        txfFullname.setText("");
-                        txfID.setText("");
-                        txfTreatment.setText("");
-                        txfStatus.setText("");
-                        txfYoB.setText("");
+                        refreshTable();
+                        clearTextField();
                     }
                     else
                         JOptionPane.showMessageDialog(pnlInformation, "Update failed", "Notification", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            else {
-                txfAddress.setText("");
-                txfFullname.setText("");
-                txfID.setText("");
-                txfTreatment.setText("");
-                txfStatus.setText("");
-                txfYoB.setText("");
-            } 
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        try {
-            String id = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 0).toString();
+        if(txfID.getText().equals(""))
+            JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+        else {
+            String id = txfID.getText();
             int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 if(PatientInf.deletePatient(id)) {
                     JOptionPane.showMessageDialog(pnlInformation, "Remove successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                    DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
-                    model.setRowCount(0);
-                    List<Profile> list = PatientInf.getAllPatient();
-                    for (int i = 0; i < list.size(); i++) 
-                        model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+                    refreshTable();
+                    clearTextField();
                 }
                 else
                     JOptionPane.showMessageDialog(pnlInformation, "Remove failed", "Notification", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            JOptionPane.showMessageDialog(pnlInformation, "Choose a row in table to delete", "Notification", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
-        model.setRowCount(0);
-        List<Profile> list = PatientInf.getAllPatient();
-        for (int i = 0; i < list.size(); i++) 
-            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
-        
+        refreshTable();
+        clearTextField();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        try {
-            String id = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 0).toString();
-            ProfileFrame profile = new ProfileFrame(id);
-            profile.setVisible(true);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            JOptionPane.showMessageDialog(pnlInformation, "Choose a row in table to delete", "Notification", JOptionPane.ERROR_MESSAGE);
+        List<Profile> list = null;
+        if (filterOption.getSelectedItem().equals("ID")) {
+            if (txfID.getText().equals("")) {
+                JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            list = PatientInf.getPatientByFilter(txfID.getText(), "ID");  
         }
+        else if (filterOption.getSelectedItem().equals("Fullname")) {
+            if (txfFullname.getText().equals("")) {
+                JOptionPane.showMessageDialog(pnlInformation, "Fullname field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            list = PatientInf.getPatientByFilter(txfFullname.getText(), "Fullname");
+        }
+        else if (filterOption.getSelectedItem().equals("YoB")) {
+            if (txfYoB.getText().equals("")) {
+                JOptionPane.showMessageDialog(pnlInformation, "YoB field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+           list = PatientInf.getPatientByFilter(txfYoB.getText(), "YoB");
+        }
+        else if (filterOption.getSelectedItem().equals("Address")) {
+            if (txfAddress.getText().equals("")) {
+                JOptionPane.showMessageDialog(pnlInformation, "Address field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+           list = PatientInf.getPatientByFilter(txfAddress.getText(), "Address");
+        }
+        else if (filterOption.getSelectedItem().equals("Status")) {
+            if (txfStatus.getText().equals("")) {
+                JOptionPane.showMessageDialog(pnlInformation, "Status field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+           list = PatientInf.getPatientByFilter(txfStatus.getText(), "Status"); 
+        }
+        else if (filterOption.getSelectedItem().equals("Treatment")) {
+            if (txfTreatment.getText().equals("")) {
+                JOptionPane.showMessageDialog(pnlInformation, "Treatment field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+           list = PatientInf.getPatientByFilter(txfTreatment.getText(), "Treatment");
+        }
+        if (!list.isEmpty()) {
+            DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+            model.setRowCount(0);
+            for (int i = 0; i < list.size(); i++) 
+                model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+        }
+        else
+            JOptionPane.showMessageDialog(pnlInformation, "No result found", "Notification", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnViewRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRelatedActionPerformed
@@ -510,15 +569,29 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewRelatedActionPerformed
 
     private void btnHosptTranferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHosptTranferActionPerformed
-        try {
-            String id = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 0).toString();
-            String treatment = tblPatient.getModel().getValueAt(tblPatient.getSelectedRow(), 5).toString();
-            HospitalTransferFrame transferFrame = new HospitalTransferFrame(id, treatment);
+        if(txfID.getText().equals(""))
+            JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+        else {
+            String id = txfID.getText();
+            HospitalTransferFrame transferFrame = new HospitalTransferFrame(id);
             transferFrame.setVisible(true);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            JOptionPane.showMessageDialog(pnlInformation, "Choose a row in table to transfer hospital", "Notification", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
     }//GEN-LAST:event_btnHosptTranferActionPerformed
+
+    private void tblPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPatientMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        int selectedRowIndex = tblPatient.getSelectedRow();
+        txfAddress.setText(model.getValueAt(selectedRowIndex, 3).toString());
+        txfFullname.setText(model.getValueAt(selectedRowIndex, 1).toString());
+        txfID.setText(model.getValueAt(selectedRowIndex, 0).toString());
+        txfYoB.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        txfStatus.setText(model.getValueAt(selectedRowIndex, 4).toString());
+        txfTreatment.setText(model.getValueAt(selectedRowIndex, 5).toString());
+    }//GEN-LAST:event_tblPatientMouseClicked
+
+    private void filterOptionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterOptionItemStateChanged
+        clearTextField();
+    }//GEN-LAST:event_filterOptionItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -529,7 +602,9 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnViewRelated;
+    private java.awt.Choice filterOption;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblFullname;

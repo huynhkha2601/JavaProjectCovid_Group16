@@ -20,14 +20,14 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
      * Creates new form HospitalTransferFrame
      */
     private String id;
-    public HospitalTransferFrame(String id, String treatment) {
+    public HospitalTransferFrame(String id) {
         initComponents();
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.id = id;
         lblIDisplayID.setText(id);
-        txfFromTreatment.setText(treatment);
+        txfFromTreatment.setText(PatientInf.getTreatmentPlace(id));
         txfFromTreatment.setEditable(false);
         DefaultTableModel model = (DefaultTableModel) tblHospitalTransferDetail.getModel();
         List<Treatment> list = TreatmentInf.getAllPatient();
@@ -99,6 +99,11 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblHospitalTransferDetail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHospitalTransferDetailMouseClicked(evt);
             }
         });
         srlHospitalTrasnferDetail.setViewportView(tblHospitalTransferDetail);
@@ -247,10 +252,8 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if(txfFromTreatment.getText().equals("") || txfToTreatment1.getText().equals(""))
             JOptionPane.showMessageDialog(pnlInfo, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
-        else if(txfFromTreatment.getText().equals(txfToTreatment1.getText())) {
+        else if(txfFromTreatment.getText().equals(txfToTreatment1.getText()))
             JOptionPane.showMessageDialog(pnlInfo, "Choose another treatment place", "Notification", JOptionPane.ERROR_MESSAGE);
-            txfToTreatment1.setText("");
-        }
         else {
             int result = JOptionPane.showConfirmDialog(pnlInfo, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
@@ -274,6 +277,12 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
     private void txfFromTreatmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFromTreatmentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfFromTreatmentActionPerformed
+
+    private void tblHospitalTransferDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHospitalTransferDetailMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblHospitalTransferDetail.getModel();
+        int selectedRowIndex = tblHospitalTransferDetail.getSelectedRow();
+        txfToTreatment1.setText(model.getValueAt(selectedRowIndex, 0).toString());
+    }//GEN-LAST:event_tblHospitalTransferDetailMouseClicked
 
     /**
      * @param args the command line arguments
@@ -305,7 +314,7 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HospitalTransferFrame("", "").setVisible(true);
+                new HospitalTransferFrame("").setVisible(true);
             }
         });
     }

@@ -111,5 +111,50 @@ public class PatientInf {
         }
         return false;
     }
-    
+    public static String getTreatmentPlace(String id) {
+        try {
+            Class.forName(PatientInf.JDBC_DRIVER);
+            Connection conn = DriverManager.getConnection(PatientInf.DB_URL);
+            PreparedStatement stmt = conn.prepareStatement("SELECT TREATMENT FROM MANAGEDPERSON WHERE ID = ?");
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+                return rs.getString("TREATMENT");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+     public static List<Profile> getPatientByFilter(String keyword, String filter) {   
+        List<Profile> result = new ArrayList<Profile>();
+        try {
+            Class.forName(PatientInf.JDBC_DRIVER);
+            Connection conn = DriverManager.getConnection(PatientInf.DB_URL);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = null;
+            if (filter.equals("ID")) 
+                rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON WHERE ID LIKE '%" + keyword + "%' ORDER BY REPLICATE(' ',6-LEN(id)) + id");
+            else if (filter.equals("Fullname")) 
+                rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON WHERE FULLNAME LIKE N'%" + keyword + "%' ORDER BY REPLICATE(' ',6-LEN(id)) + id");
+            else if (filter.equals("YoB")) 
+                rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON WHERE YEAROFBIRTH = " + keyword + " ORDER BY REPLICATE(' ',6-LEN(id)) + id");
+            else if (filter.equals("Address")) 
+                rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON WHERE ADDRESS LIKE N'%" + keyword + "%' ORDER BY REPLICATE(' ',6-LEN(id)) + id");
+            else if (filter.equals("Status")) 
+                rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON WHERE STATUS LIKE N'%" + keyword + "%' ORDER BY REPLICATE(' ',6-LEN(id)) + id");
+            else if (filter.equals("Treatment")) 
+                rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON WHERE TREATMENT LIKE '%" + keyword + "%' ORDER BY REPLICATE(' ',6-LEN(id)) + id");            
+            while(rs.next()) {
+                Profile temp = new Profile(rs.getString("ID"), rs.getString("FULLNAME"), rs.getInt("YEAROFBIRTH"), rs.getString("ADDRESS"), rs.getString("STATUS"), rs.getString("TREATMENT"), rs.getDouble("DEBT"));
+                result.add(temp);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 }
