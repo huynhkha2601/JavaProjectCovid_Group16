@@ -1255,13 +1255,13 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
         pnlAccountList = new javax.swing.JPanel();
-        srlpList = new javax.swing.JScrollPane();
-        tblList = new javax.swing.JTable();
         pnlAttribute = new javax.swing.JPanel();
         lblAttribute = new javax.swing.JLabel();
         txtfAttribute = new javax.swing.JTextField();
         btnFind = new javax.swing.JButton();
         cbbAttribute = new javax.swing.JComboBox<>();
+        scrlpList = new javax.swing.JScrollPane();
+        tblList = new javax.swing.JTable();
         pnlBankAccountManagement = new javax.swing.JPanel();
         pnlAccountBankInfor = new javax.swing.JPanel();
         pnlBankInfor = new javax.swing.JPanel();
@@ -1284,13 +1284,13 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnBankAdd = new javax.swing.JButton();
         btnBankRefresh = new javax.swing.JButton();
         pnlBankAccountList = new javax.swing.JPanel();
-        srlpBanklList = new javax.swing.JScrollPane();
-        tblBankList = new javax.swing.JTable();
         pnlBankAccountListAttribute = new javax.swing.JPanel();
         lblBankAttribute = new javax.swing.JLabel();
         txtfBankAttribute = new javax.swing.JTextField();
         btnBankFind = new javax.swing.JButton();
         cbbBankAttribute = new javax.swing.JComboBox<>();
+        scrlpBankList = new javax.swing.JScrollPane();
+        tblBankList = new javax.swing.JTable();
         pnlActivityandTransaction = new javax.swing.JPanel();
         pnlActivityUserDetail = new javax.swing.JPanel();
         lblActivityUsername = new javax.swing.JLabel();
@@ -1320,7 +1320,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         pnlTreatmentManagement = new javax.swing.JPanel();
         pnlTreatment = new javax.swing.JPanel();
         pnlTreamentDetail = new javax.swing.JPanel();
-        srlpTreatment = new javax.swing.JScrollPane();
+        scrlpTreatment = new javax.swing.JScrollPane();
         tblTreatment = new javax.swing.JTable();
         pnlTreatmentInput = new javax.swing.JPanel();
         lblTreatmentID = new javax.swing.JLabel();
@@ -1517,54 +1517,20 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
         pnlAccountList.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Account List", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        tblList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Username", "Password", "Role", "Active", "User ID", "Date published"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblList.setPreferredSize(new java.awt.Dimension(1019, 160));
-        srlpList.setViewportView(tblList);
-
         lblAttribute.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAttribute.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAttribute.setText("Choose attribute:");
 
+        txtfAttribute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfAttributeActionPerformed(evt);
+            }
+        });
+
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnFind.setText("Find");
 
-        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Role", "Active", "UserID", "Date Published" }));
-        cbbAttribute.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbAttributeActionPerformed(evt);
-            }
-        });
+        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Password", "Role", "Active", "UserID", "Date Published" }));
 
         javax.swing.GroupLayout pnlAttributeLayout = new javax.swing.GroupLayout(pnlAttribute);
         pnlAttribute.setLayout(pnlAttributeLayout);
@@ -1593,15 +1559,33 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tblList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Username", "Password", "Role", "UserID", "Activated", "Date Published"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrlpList.setViewportView(tblList);
+
         javax.swing.GroupLayout pnlAccountListLayout = new javax.swing.GroupLayout(pnlAccountList);
         pnlAccountList.setLayout(pnlAccountListLayout);
         pnlAccountListLayout.setHorizontalGroup(
             pnlAccountListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAccountListLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAccountListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAccountListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlAttribute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(srlpList))
+                .addGroup(pnlAccountListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrlpList)
+                    .addComponent(pnlAttribute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlAccountListLayout.setVerticalGroup(
@@ -1609,8 +1593,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAccountListLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlAttribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(srlpList, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrlpList, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1682,12 +1666,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
         lblBankBalanced.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblBankBalanced.setText("Balanced");
-
-        txtfBankBalanced.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfBankBalancedActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlBankInforLayout = new javax.swing.GroupLayout(pnlBankInfor);
         pnlBankInfor.setLayout(pnlBankInforLayout);
@@ -1827,41 +1805,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
         pnlBankAccountList.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Account List", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        tblBankList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Bank ID", "Password", "Role", "Active", "Balance", "User ID", "Date Published"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblBankList.setPreferredSize(new java.awt.Dimension(1019, 160));
-        srlpBanklList.setViewportView(tblBankList);
-
         lblBankAttribute.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblBankAttribute.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblBankAttribute.setText("Choose attribute:");
@@ -1869,7 +1812,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnBankFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnBankFind.setText("Find");
 
-        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Role", "Active", "Balance", "User ID", "Date Published" }));
+        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Password", "Role", "Active", "Balance" }));
 
         javax.swing.GroupLayout pnlBankAccountListAttributeLayout = new javax.swing.GroupLayout(pnlBankAccountListAttribute);
         pnlBankAccountListAttribute.setLayout(pnlBankAccountListAttributeLayout);
@@ -1898,6 +1841,24 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tblBankList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "BankID", "Password", "Role", "Active", "Balance", "UserID", "Date Published"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrlpBankList.setViewportView(tblBankList);
+
         javax.swing.GroupLayout pnlBankAccountListLayout = new javax.swing.GroupLayout(pnlBankAccountList);
         pnlBankAccountList.setLayout(pnlBankAccountListLayout);
         pnlBankAccountListLayout.setHorizontalGroup(
@@ -1906,7 +1867,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlBankAccountListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlBankAccountListAttribute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(srlpBanklList))
+                    .addComponent(scrlpBankList))
                 .addContainerGap())
         );
         pnlBankAccountListLayout.setVerticalGroup(
@@ -1914,8 +1875,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBankAccountListLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlBankAccountListAttribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(srlpBanklList, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrlpBankList, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2031,10 +1992,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
         tblAccountHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Username", "Login Record", "Logout Record"
@@ -2072,10 +2030,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
         tblTransactionHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Bank ID", "Money", "Content", "Date"
@@ -2204,32 +2159,36 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
         tblTreatment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Treatment Name", "Capacity", "Quantity"
+                "ID", "Name", "Capacity", "Quantity"
             }
-        ));
-        tblTreatment.setPreferredSize(new java.awt.Dimension(705, 64));
-        srlpTreatment.setViewportView(tblTreatment);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrlpTreatment.setViewportView(tblTreatment);
 
         javax.swing.GroupLayout pnlTreamentDetailLayout = new javax.swing.GroupLayout(pnlTreamentDetail);
         pnlTreamentDetail.setLayout(pnlTreamentDetailLayout);
         pnlTreamentDetailLayout.setHorizontalGroup(
             pnlTreamentDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTreamentDetailLayout.createSequentialGroup()
+            .addGroup(pnlTreamentDetailLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(srlpTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+                .addComponent(scrlpTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlTreamentDetailLayout.setVerticalGroup(
             pnlTreamentDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTreamentDetailLayout.createSequentialGroup()
+            .addGroup(pnlTreamentDetailLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(srlpTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addComponent(scrlpTreatment)
                 .addContainerGap())
         );
 
@@ -2265,23 +2224,23 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         pnlTreatmentInputLayout.setVerticalGroup(
             pnlTreatmentInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTreatmentInputLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(pnlTreatmentInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfTreatmentID)
+                    .addComponent(txtfTreatmentID, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(lblTreatmentID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(pnlTreatmentInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfTreatmentName)
+                    .addComponent(txtfTreatmentName, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(lblTreatmentName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(pnlTreatmentInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfTreatmentCapacity)
+                    .addComponent(txtfTreatmentCapacity, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(lblTreatmentCapacity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(pnlTreatmentInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfTreatmentQuantity)
+                    .addComponent(txtfTreatmentQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(lblTreatmentQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         btnTreatmentRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/refresh.png"))); // NOI18N
@@ -2675,6 +2634,10 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbAttributeActionPerformed
 
+    private void txtfAttributeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfAttributeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfAttributeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2791,11 +2754,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JPanel pnlTreatmentButton;
     private javax.swing.JPanel pnlTreatmentInput;
     private javax.swing.JPanel pnlTreatmentManagement;
+    private javax.swing.JScrollPane scrlpBankList;
+    private javax.swing.JScrollPane scrlpList;
+    private javax.swing.JScrollPane scrlpTreatment;
     private javax.swing.JScrollPane srlTransactionHistory;
     private javax.swing.JScrollPane srlpAccountHistory;
-    private javax.swing.JScrollPane srlpBanklList;
-    private javax.swing.JScrollPane srlpList;
-    private javax.swing.JScrollPane srlpTreatment;
     private javax.swing.JTabbedPane tbdpAdministratorManagement;
     private javax.swing.JTable tblAccountHistory;
     private javax.swing.JTable tblBankList;
