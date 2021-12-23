@@ -5,6 +5,7 @@
 package Packages;
 
 import DbConnection.SQLConnection;
+import Helper.DateFormatter;
 import java.util.List;
 import Packages.Packages;
 import java.sql.Connection;
@@ -12,6 +13,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -169,5 +172,136 @@ public class PackageInf {
         }
         return false;
     }
+     
+    public static List<Packages> searchPackageByName(String name){
+        List<Packages> lst = new ArrayList<>();
+        String sql = "select * from PACKAGE where NAME=? ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+   
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Packages pk = new Packages(rs.getString("ID"), rs.getString("NAME"), rs.getInt("LIMITNUM"),
+                        rs.getDate("LIMITTIME").toLocalDate(), rs.getFloat("PRICE"), rs.getInt("QUANTITY"));
+//                System.out.println(pk.toString());
+                lst.add(pk);
+            }
+            return lst;
+        } catch (SQLException e) {
+            System.out.println("Can't search package by name");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     
+    public static List<Packages> filterPackageByName(String name){
+        List<Packages> lst = new ArrayList<>();
+        String sql = "select * from PACKAGE where NAME like N'%" + name + "%' ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+    
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Packages pk = new Packages(rs.getString("ID"), rs.getString("NAME"), rs.getInt("LIMITNUM"),
+                        rs.getDate("LIMITTIME").toLocalDate(), rs.getFloat("PRICE"), rs.getInt("QUANTITY"));
+//                System.out.println(pk.toString());
+                lst.add(pk);
+            }
+            return lst;
+        } catch (SQLException e) {
+            System.out.println("Can't filter package by name");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+      public static String[] getAllIdPackages(){
+        List<String> lst = new ArrayList<>();
+        String sql = "select * from PACKAGE where LIMITTIME > GETDATE() ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+    
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String pk = rs.getString("ID") + " - "+rs.getString("NAME");
+//                System.out.println(pk.toString());
+                lst.add(pk);
+            }
+            return lst.stream().toArray(String[]::new);
+        } catch (SQLException e) {
+            System.out.println("Can't filter package by name");
+//            e.printStackTrace();
+        }
+        return null;
+    }
+      
+    public static String getQuantity(String psID,String pkID){
+        String sql = "SELECT PERSONID, PACKAGEID, SUM(QUANTITY) AS SL FROM dbo.PACKAGEREGISTER" +
+                        " WHERE PERSONID = ? AND PACKAGEID = ? GROUP BY PERSONID, PACKAGEID";
+        String sql2 = "SELECT LIMITNUM FROM PACKAGE WHERE dbo.PACKAGE.ID = ?";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+                PreparedStatement pstmt2 = connection.prepareStatement(sql2);
+            ) {
+    
+            pstmt.setString(1, psID);
+            pstmt.setString(2, pkID);
+            pstmt2.setString(1, pkID);
+            
+            ResultSet rs = pstmt2.executeQuery();
+            int limit = 0;
+            
+            if (rs.next()){
+                limit = rs.getInt("LIMITNUM");
+            }
+            
+            ResultSet rs2 = pstmt.executeQuery();
+            if (rs2.next()) {
+                //                System.out.println(pk.toString());
+                int quantity = limit - rs2.getInt("SL");
+                if (quantity <= 0) 
+                    return "0";
+                else {
+                    return Integer.toString(quantity);
+                }
+                    
+            }else{
+                return Integer.toString(limit);
+            }
+        } catch (SQLException e) {
+            System.out.println("Can't filter package by name");
+            e.printStackTrace();
+        }
+        return null;
+    }
+      
+    public static boolean buyPackage(String psID, String pkID, int quantity){
+        String sql = "INSERT INTO PACKAGEREGISTER VALUES(?,?,?,?)";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+    
+            pstmt.setString(1, psID);
+            pstmt.setString(2, pkID);
+            pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            pstmt.setInt(4, quantity);
+
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Can't add register package");
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
