@@ -577,10 +577,40 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void mitReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitReloadActionPerformed
         // TODO add your handling code here:
+        if (packageFlag == 1){
+            tpnContent.remove(pkmp);
+            packageFlag--;
+        }
+        if (aboutUsFlag == 1){
+            tpnContent.remove(abup);
+            aboutUsFlag--;
+        }
+        if (helpFlag == 1){
+            tpnContent.remove(hpn);
+            helpFlag--;
+        }
+        if (profileFlag == 1){
+            tpnContent.remove(pfp);
+            profileFlag--;
+        }
+        if (statusFlag == 1){
+            tpnContent.remove(rmp);
+            statusFlag--;
+        }
+        if (patientFlag == 1){
+            tpnContent.remove(ptmp);
+            patientFlag--;
+        }
+        if (findFlag == 1){
+            tpnContent.remove(fpn);
+            findFlag--;
+        }
     }//GEN-LAST:event_mitReloadActionPerformed
 
     private void mitFileLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitFileLogoutActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        new SignInFrame().setVisible(true);
     }//GEN-LAST:event_mitFileLogoutActionPerformed
 
     private void mitCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCopyActionPerformed
@@ -594,7 +624,21 @@ public class MainFrame extends javax.swing.JFrame {
     private void mitPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitPasteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mitPasteActionPerformed
-
+    
+    
+    private void AddActionPerformed(){
+        mitNew.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitNewActionPerformed(evt);
+            }
+        });
+    }
+    
+    private void mitNewActionPerformed(java.awt.event.ActionEvent evt){
+        //new MainFrame().setVisible(true);
+    }
+    
     /**
      * @param args the command line arguments
      */
