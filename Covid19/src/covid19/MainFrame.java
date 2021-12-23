@@ -43,9 +43,10 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
                 
         initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         new SQLConnection();
+        AddActionPerformed();
     }
 
     public MainFrame(Account a,int role) {
@@ -636,7 +637,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void mitNewActionPerformed(java.awt.event.ActionEvent evt){
-        //new MainFrame().setVisible(true);
+        MainFrame newMainFrame = new MainFrame();
+        newMainFrame.setVisible(true);
     }
     
     /**
