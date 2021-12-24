@@ -9,8 +9,13 @@ import java.awt.Component;
 import javax.swing.JFrame;
 import Account.Account;
 import DbConnection.SQLConnection;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -403,6 +408,11 @@ public class MainFrame extends javax.swing.JFrame {
         mitCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cut.png"))); // NOI18N
         mitCut.setText("Cut");
+        mitCut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitCutActionPerformed(evt);
+            }
+        });
         menuEdit.add(mitCut);
 
         mitPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -615,7 +625,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mitFileLogoutActionPerformed
 
     private void mitCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCopyActionPerformed
-        // TODO add your handling code here:
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_CONTROL);
+            r.keyPress(KeyEvent.VK_C);
+            r.keyRelease(KeyEvent.VK_C);
+            r.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_mitCopyActionPerformed
 
     private void mitRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitRedoActionPerformed
@@ -623,8 +641,28 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mitRedoActionPerformed
 
     private void mitPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitPasteActionPerformed
-        // TODO add your handling code here:
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_CONTROL);
+            r.keyPress(KeyEvent.VK_V);
+            r.keyRelease(KeyEvent.VK_V);
+            r.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_mitPasteActionPerformed
+
+    private void mitCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCutActionPerformed
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_CONTROL);
+            r.keyPress(KeyEvent.VK_X);
+            r.keyRelease(KeyEvent.VK_X);
+            r.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mitCutActionPerformed
     
     
     private void AddActionPerformed(){
