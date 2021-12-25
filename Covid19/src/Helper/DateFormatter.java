@@ -36,6 +36,9 @@ public class DateFormatter {
     public static String formatToSQLDateTime(String dateString) {
         dateString = dateString.trim().replaceAll("^\\D+|\\D+$", "");
         String[] d = dateString.split("\\D+");
+//        for (String string : d) {
+//            System.out.print(string + " ");
+//        }
         String date = d[2] + "-" + d[1] + "-" + d[0];
         String time = " 00:00:00";
 //        return date+time;
@@ -51,6 +54,7 @@ public class DateFormatter {
         }
     }
 
+      
     public static String parse(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }

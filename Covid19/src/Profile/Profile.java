@@ -51,4 +51,39 @@ public class Profile {
     public double getDebt() {
         return this.debt;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setTreatment(String treatment) {
+        this.treatment = treatment;
+    }
+
+    public void setYoB(int YoB) {
+        this.YoB = YoB;
+    }
+
+    public void setDebt(double debt) {
+        this.debt = debt;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + status;
+    }
+    
+    
 }

@@ -157,4 +157,21 @@ public class PatientInf {
         }
         return result;
     }
+     
+     public static Profile searchProfile(String ID) {   
+        Profile result = null;
+        try {
+            Class.forName(PatientInf.JDBC_DRIVER);
+            Connection conn = DriverManager.getConnection(PatientInf.DB_URL);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON where id = " +ID);
+            if(rs.next()) {
+                result = new Profile(rs.getString("ID"), rs.getString("FULLNAME"), rs.getInt("YEAROFBIRTH"), rs.getString("ADDRESS"), rs.getString("STATUS"), rs.getString("TREATMENT"), rs.getDouble("DEBT"));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+//            Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    } 
+     
 }

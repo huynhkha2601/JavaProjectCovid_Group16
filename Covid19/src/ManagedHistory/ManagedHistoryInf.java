@@ -19,12 +19,13 @@ import java.util.List;
  * @author PC
  */
 public class ManagedHistoryInf {
-
+    
     public static List<ManagedHistory> getAllManagedHistorys() {
         List<ManagedHistory> list = new ArrayList<>();
         String sql = "Select * from MANAGEHISTORY";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                 Connection connection = SQLConnection.getConnection();  
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -45,7 +46,8 @@ public class ManagedHistoryInf {
         String sql = "Insert into MANAGEHISTORY (ID, FROMSTATUS, TOSTATUS, RECORD)"
                 + "VALUES (?,?,?,?)";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, mh.getmID());
             pstmt.setString(2, mh.getFromStatus());
@@ -66,7 +68,7 @@ public class ManagedHistoryInf {
         String sql = "Delete from MANAGEHISTORY where ID=? and FROMSTATUS=? and TOSTATUS=? and"
                 + " RECORD = ?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, mh.getmID());
             pstmt.setString(2, mh.getFromStatus());
@@ -85,7 +87,7 @@ public class ManagedHistoryInf {
         public static boolean removeManagedHistory(String id) {
         String sql = "Delete from MANAGEHISTORY where ID=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, id);
 
@@ -102,7 +104,7 @@ public class ManagedHistoryInf {
     public static boolean updateManagedHistory(ManagedHistory mh) {
         String sql = "Update MANAGEHISTORY set FROMSTATUS=?, TOSTATUS=? where ID=? and RECORD=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
             pstmt.setString(1, mh.getFromStatus());
             pstmt.setString(2, mh.getToStatus());
             pstmt.setString(3, mh.getmID());
@@ -120,7 +122,7 @@ public class ManagedHistoryInf {
     public static boolean updateManagedHistory(List<ManagedHistory> lst) {
         String sql = "Update MANAGEHISTORY set FROMSTATUS=?, TOSTATUS=? where ID=? and RECORD=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
             for (ManagedHistory managedHistory : lst) {
                 pstmt.setString(1, managedHistory.getFromStatus());
                 pstmt.setString(2, managedHistory.getToStatus());
@@ -138,10 +140,10 @@ public class ManagedHistoryInf {
         return false;
     }
 
-    public static ManagedHistory searchManageHistory(ManagedHistory mh) {
+    public static List<ManagedHistory> searchManageHistory(ManagedHistory mh) {
         String sql = "select * from MANAGEHISTORY where ID=? and FROMSTATUS=? and TOSTATUS=? and RECORD=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, mh.getmID());
             pstmt.setString(2, mh.getFromStatus());
@@ -149,12 +151,14 @@ public class ManagedHistoryInf {
             pstmt.setTimestamp(4, Timestamp.valueOf(mh.getRecord()));
 
             ResultSet rs = pstmt.executeQuery();
+            List<ManagedHistory> lst = new ArrayList<>();
             if (rs.next()) {
                 ManagedHistory obj = new ManagedHistory(rs.getString("ID"), rs.getString("FROMSTATUS"), rs.getString("TOSTATUS"),
                 rs.getTimestamp("RECORD").toLocalDateTime());
 //                System.out.println(LocalDateFormatter.parseToLocalDateTime(date));
 //                System.out.println(mh.toString());
-                return obj;
+                lst.add(obj);
+                return lst;
             }
 
         } catch (SQLException e) {
@@ -164,13 +168,12 @@ public class ManagedHistoryInf {
         return null;
     }
 
-    public static List<ManagedHistory> searchManageHistory(LocalDateTime record) {
+    public static List<ManagedHistory> searchManageHistoryByDate(String record) {
         List<ManagedHistory> list = new ArrayList<>();
-        String sql = "select * from MANAGEHISTORY where RECORD=?";
+        String sql = "select * from MANAGEHISTORY where RECORD LIKE %"+record+"%" ;
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
-            pstmt.setTimestamp(1, Timestamp.valueOf(record));
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -191,7 +194,7 @@ public class ManagedHistoryInf {
         List<ManagedHistory> list = new ArrayList<>();
         String sql = "select * from MANAGEHISTORY where ID=?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, personID);
 
@@ -214,7 +217,7 @@ public class ManagedHistoryInf {
         List<ManagedHistory> list = new ArrayList<>();
         String sql = "select * from MANAGEHISTORY where RECORD between ? and ?";
         try (
-                 Connection connection = SQLConnection.conn;  PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
             
             pstmt.setTimestamp(1, Timestamp.valueOf(fromDate));
             pstmt.setTimestamp(2, Timestamp.valueOf(toDate));

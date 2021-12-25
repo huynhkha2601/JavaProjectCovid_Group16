@@ -75,7 +75,7 @@ public class RelatedInf {
         return false;
     }
    
-     public static boolean searchRelated(Related rlt){
+    public static boolean searchRelated(Related rlt){
         String sql = "select* from RELATED where PERSON_ID1=? AND PERSON_ID2=? AND RECORD=?";
         try (
                Connection connection = SQLConnection.getConnection();    
@@ -94,4 +94,25 @@ public class RelatedInf {
         return false;
     }
    
+    public static List<String> searchRelated(String ID){
+        List<String> lst = new ArrayList<>();
+        String sql = "SELECT PERSON_ID1, PERSON_ID2 FROM dbo.RELATED WHERE PERSON_ID1 = ? GROUP BY PERSON_ID1, PERSON_ID2";
+        try (
+               Connection connection = SQLConnection.getConnection();    
+               PreparedStatement pstmt = connection.prepareStatement(sql);){
+            
+            pstmt.setString(1, ID);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                lst.add(rs.getString("PERSON_ID2"));
+            }
+            
+            return lst;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+     
 }

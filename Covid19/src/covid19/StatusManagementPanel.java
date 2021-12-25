@@ -6,8 +6,19 @@ package covid19;
 
 import Helper.*;
 import ManagedHistory.*;
+import Packages.Packages;
+import Patient.PatientInf;
+import Profile.Profile;
+import Related.Related;
+import Related.RelatedInf;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,16 +26,16 @@ import java.util.Arrays;
  */
 public class StatusManagementPanel extends javax.swing.JPanel {
 
-    final String[] status;
-    private StringBuilder sb;
+    private final StringBuilder sb;
+    private final String[] statLst = new String[]{"F0", "F1", "F2", "F3", "F4", "F5", "KHỎI BỆNH"};
 
     /**
      * Creates new form StatusManagementPanel
      */
     public StatusManagementPanel() {
         initComponents();
-        this.status = new String[]{"F1", "F2", "F3", "F4", "F5", "Khỏi bệnh"};
         sb = new StringBuilder();
+        displayTable();
     }
 
     /**
@@ -49,12 +60,10 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         lblDate = new javax.swing.JLabel();
         txfDate = new javax.swing.JTextField();
         pnlButton = new javax.swing.JPanel();
-        btnFind = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        btnViewProfile = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        btnView = new javax.swing.JButton();
+        btnFind = new javax.swing.JButton();
         pnlRight = new javax.swing.JPanel();
         pnlTable = new javax.swing.JPanel();
         srpTable = new javax.swing.JScrollPane();
@@ -76,24 +85,29 @@ public class StatusManagementPanel extends javax.swing.JPanel {
 
         lblID.setText("ID:");
 
-        txfID.setText("jTextField1");
-
-        txfFromStat.setText("jTextField1");
-        txfFromStat.addActionListener(new java.awt.event.ActionListener() {
+        txfID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txfIDFocusLost(evt);
+            }
+        });
+        txfID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txfFromStatActionPerformed(evt);
+                txfIDActionPerformed(evt);
             }
         });
 
+        txfFromStat.setEditable(false);
+        txfFromStat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txfFromStat.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txfFromStat.setEnabled(false);
+
         lblFromStat.setText("From Status:");
 
-        txfToStat.setText("jTextField1");
+        txfToStat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         lblToStat.setText("To Status:");
 
-        lblDate.setText("Date:");
-
-        txfDate.setText("jTextField1");
+        lblDate.setText("Date Time:");
 
         javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
         pnlForm.setLayout(pnlFormLayout);
@@ -136,16 +150,6 @@ public class StatusManagementPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
-        btnFind.setText("Find");
-        btnFind.setMaximumSize(new java.awt.Dimension(120, 50));
-        btnFind.setPreferredSize(new java.awt.Dimension(90, 25));
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindActionPerformed(evt);
-            }
-        });
-
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/refresh.png"))); // NOI18N
         btnRefresh.setText("Refresh");
         btnRefresh.setMaximumSize(new java.awt.Dimension(120, 50));
@@ -153,16 +157,6 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
-            }
-        });
-
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
-        btnEdit.setText("Edit");
-        btnEdit.setMaximumSize(new java.awt.Dimension(120, 50));
-        btnEdit.setPreferredSize(new java.awt.Dimension(90, 25));
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
             }
         });
 
@@ -176,23 +170,23 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        btnViewProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/about.png"))); // NOI18N
-        btnViewProfile.setText("View Profile");
-        btnViewProfile.setMaximumSize(new java.awt.Dimension(120, 50));
-        btnViewProfile.setPreferredSize(new java.awt.Dimension(90, 25));
-        btnViewProfile.addActionListener(new java.awt.event.ActionListener() {
+        btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/view.png"))); // NOI18N
+        btnView.setText("View Profile");
+        btnView.setMaximumSize(new java.awt.Dimension(120, 50));
+        btnView.setPreferredSize(new java.awt.Dimension(90, 25));
+        btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewProfileActionPerformed(evt);
+                btnViewActionPerformed(evt);
             }
         });
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sub.png"))); // NOI18N
-        btnDelete.setText("Remove");
-        btnDelete.setMaximumSize(new java.awt.Dimension(120, 50));
-        btnDelete.setPreferredSize(new java.awt.Dimension(90, 25));
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
+        btnFind.setText("Find");
+        btnFind.setMaximumSize(new java.awt.Dimension(120, 50));
+        btnFind.setPreferredSize(new java.awt.Dimension(90, 25));
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                btnFindActionPerformed(evt);
             }
         });
 
@@ -203,16 +197,14 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlButtonLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(btnViewProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlButtonLayout.setVerticalGroup(
@@ -220,15 +212,16 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11)
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnViewProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(11, 11, 11))
+                    .addGroup(pnlButtonLayout.createSequentialGroup()
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                        .addGap(11, 11, 11))
+                    .addGroup(pnlButtonLayout.createSequentialGroup()
+                        .addComponent(btnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout pnlLeftLayout = new javax.swing.GroupLayout(pnlLeft);
@@ -269,6 +262,11 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             }
         ));
         tbtStat.setPreferredSize(new java.awt.Dimension(504, 382));
+        tbtStat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbtStatMouseClicked(evt);
+            }
+        });
         srpTable.setViewportView(tbtStat);
 
         javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
@@ -343,7 +341,34 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+  
+        boolean flagID = Validator.validateEmpty(txfID), flagToStat = Validator.validateEmpty(txfToStat),
+                flagDate = Validator.validateEmpty(txfDate);
+        boolean check = false;
+        if( flagDate && flagID && flagToStat){
+            sb.append("You can only search by ID or Date");
+            if (showStringBuilder()){
+                return;
+            }
+        }
+        else if (!flagID){
+            List<ManagedHistory> lst = ManagedHistoryInf.searchManageHistory(txfID.getText());
+            displayTable(lst);
+            check = true;
 
+        }else if (!flagDate){
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//            LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
+            String record = DateFormatter.formatToSQLDate(txfDate.getText());
+            List<ManagedHistory> lst = ManagedHistoryInf.searchManageHistoryByDate(record);
+            displayTable(lst);
+            check = true;
+        }   
+        
+        if (check == false){
+            MessageDialog.showErrorDialog(this, "Can't search!", "Error!");
+        }
+        
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -351,11 +376,8 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         txfFromStat.setText("");
         txfToStat.setText("");
         txfDate.setText("");
+        displayTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         validateAllField();
@@ -367,40 +389,91 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         if (showStringBuilder()) {
             return;
         }
-
         // get ToStatus to change other related to ToStatus++;
-        int idx = Arrays.asList(this.status).indexOf(mh.getToStatus());
+        int src = Arrays.asList(this.statLst).indexOf(txfFromStat.getText());
+        int idx = Arrays.asList(this.statLst).indexOf(txfToStat.getText());
+        System.out.println(idx + " " + src);
+        if (src == idx){
+            MessageDialog.showMessageDialog(this, "From and To status can not be same!" ,"Error!");
+            return;
+        }
+        
         if (idx < 6) {
             idx++;
         }
+
+        List<String> lstRelated = RelatedInf.searchRelated(txfID.getText());
         
+        for (String id : lstRelated) {
+            Profile prf = PatientInf.searchProfile(id);
+            src = Arrays.asList(this.statLst).indexOf(prf.getStatus());
+            System.out.println("id " + id + "Profile: "+ prf.toString() + "idx: "+ idx + " des: " + src);
+            if (src >= idx) {
+                PatientInf.updatePatient(prf.getID(), prf.getFullName(), prf.getYoB(), prf.getAddress(), this.statLst[idx]);
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//                String s = LocalDateTime.now().format(formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
+                ManagedHistory obj = new ManagedHistory(prf.getID(), prf.getStatus(), this.statLst[idx], record);
+                ManagedHistoryInf.addManagedHistory(obj);
+                System.out.println("Managed: " + obj);
+                updateRelated(obj);
+            }
+        }   
+
         if (ManagedHistoryInf.addManagedHistory(mh)) {
             MessageDialog.showMessageDialog(this, "Add status successfully!", "Notification!");
         } else {
             MessageDialog.showErrorDialog(this, "Add status Failed!", "Error!");
         }
-        
-        
+
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnViewProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewProfileActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnViewProfileActionPerformed
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        new ProfileFrame(txfID.getText()).setVisible(true);
+    }//GEN-LAST:event_btnViewActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    private void txfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfIDActionPerformed
+       changeFrom();
+    }//GEN-LAST:event_txfIDActionPerformed
 
-    private void txfFromStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFromStatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txfFromStatActionPerformed
+    private void txfIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfIDFocusLost
+        changeFrom();
+    }//GEN-LAST:event_txfIDFocusLost
+
+    private void changeFrom(){
+        try {
+            Profile prf = PatientInf.searchProfile(txfID.getText());
+            if (Objects.isNull(prf)) {
+                txfFromStat.setText("");
+                return;
+            }
+            txfFromStat.setText(prf.getStatus());
+        } catch (Exception e) {
+
+        }
+    }
+    
+    private void tbtStatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtStatMouseClicked
+        try {
+            DefaultTableModel model = (DefaultTableModel) tbtStat.getModel();
+            int rowSelected = tbtStat.getSelectedRow();
+            txfID.setText((String) model.getValueAt(rowSelected, 0));
+            txfToStat.setText((String) model.getValueAt(rowSelected, 2));
+            txfDate.setText((String) model.getValueAt(rowSelected, 3));
+            changeFrom();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_tbtStatMouseClicked
 
     private ManagedHistory getManagedHistoryInformation() {
 
         String id = txfID.getText();
         String fromStatus = txfFromStat.getText();
         String toStatus = txfToStat.getText();
-        LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDate(txfDate.getText()));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
 
         return new ManagedHistory(id, fromStatus, toStatus, record);
     }
@@ -413,28 +486,87 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     }
 
     private void constraintCheck(ManagedHistory mh) {
-        Validator.validate((!Arrays.asList(this.status).contains(mh.getFromStatus().toUpperCase().trim())),
+        Validator.validate((!Arrays.asList(this.statLst).contains(mh.getFromStatus().toUpperCase().trim())),
                 txfFromStat, sb, "Error in From Status input!");
-        Validator.validate((!Arrays.asList(this.status).contains(mh.getToStatus().toUpperCase().trim())),
+        Validator.validate((!Arrays.asList(this.statLst).contains(mh.getToStatus().toUpperCase().trim())),
                 txfToStat, sb, "Error in From Status input!");
     }
 
     private boolean showStringBuilder() {
         if (sb.length() > 0) {
             MessageDialog.showMessageDialog(this, sb.toString(), "Error!");
+            sb.setLength(0);
             return true;
         }
         return false;
     }
 
+    private void displayTable() {
+        DefaultTableModel model = (DefaultTableModel) tbtStat.getModel();
+        model.setRowCount(0);
+
+        List<ManagedHistory> lst = ManagedHistoryInf.getAllManagedHistorys();
+        if (lst == null) {
+            return;
+        }
+        for (ManagedHistory managedHistory : lst) {
+            Object[] obj = {managedHistory.getmID(), managedHistory.getFromStatus(), managedHistory.getToStatus(),
+                DateFormatter.parse(managedHistory.getRecord())};
+            model.addRow(obj);
+        }
+    }
+    
+    private void displayTable(List<ManagedHistory> lst) {
+        DefaultTableModel model = (DefaultTableModel) tbtStat.getModel();
+        model.setRowCount(0);
+
+        if (lst == null) {
+            return;
+        }
+        
+        for (ManagedHistory managedHistory : lst) {
+            Object[] obj = {managedHistory.getmID(), managedHistory.getFromStatus(), managedHistory.getToStatus(),
+                DateFormatter.parse(managedHistory.getRecord())};
+            model.addRow(obj);
+        }
+    }
+
+    public void updateRelated(ManagedHistory currentMH){
+        
+        int idx = Arrays.asList(this.statLst).indexOf(currentMH.getToStatus().toUpperCase().trim());
+        
+        if (idx < 6) {
+            idx++;
+        }
+
+        List<String> lstRelated = RelatedInf.searchRelated(currentMH.getmID());
+        for (String id : lstRelated) {
+            System.out.println(id);
+            Profile prf = PatientInf.searchProfile(id);
+            System.out.println("Profile: " + prf.toString());
+            int des = Arrays.asList(this.statLst).indexOf(prf.getStatus());
+            System.out.println("des:" + des);
+            if (des >= idx) {
+                PatientInf.updatePatient(prf.getID(), prf.getFullName(), prf.getYoB(), prf.getAddress(), this.statLst[idx]);
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//                String s = LocalDateTime.now().format(formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
+                ManagedHistory obj = new ManagedHistory(prf.getID(), prf.getStatus(), this.statLst[idx], record);
+                System.out.println("ManagedHistory: " + obj.toString());
+                ManagedHistoryInf.addManagedHistory(obj);
+                updateRelated(obj);
+            }
+        }   
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JButton btnViewProfile;
+    private javax.swing.JButton btnView;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblFromStat;

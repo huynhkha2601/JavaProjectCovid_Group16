@@ -246,7 +246,7 @@ public class PackageInf {
     public static String getQuantity(String psID,String pkID){
         String sql = "SELECT PERSONID, PACKAGEID, SUM(QUANTITY) AS SL FROM dbo.PACKAGEREGISTER" +
                         " WHERE PERSONID = ? AND PACKAGEID = ? GROUP BY PERSONID, PACKAGEID";
-        String sql2 = "SELECT LIMITNUM FROM PACKAGE WHERE dbo.PACKAGE.ID = ?";
+        String sql2 = "SELECT LIMITNUM,QUANTITY FROM PACKAGE WHERE dbo.PACKAGE.ID = ?";
         try (
                  Connection connection = SQLConnection.getConnection();    
                 PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -258,10 +258,11 @@ public class PackageInf {
             pstmt2.setString(1, pkID);
             
             ResultSet rs = pstmt2.executeQuery();
-            int limit = 0;
+            int limit = 0, amount = 0;
             
             if (rs.next()){
                 limit = rs.getInt("LIMITNUM");
+                amount = rs.getInt("QUANTITY");
             }
             
             ResultSet rs2 = pstmt.executeQuery();
@@ -270,18 +271,24 @@ public class PackageInf {
                 int quantity = limit - rs2.getInt("SL");
                 if (quantity <= 0) 
                     return "0";
-                else {
-                    return Integer.toString(quantity);
+                else{
+                    if (amount < quantity)
+                        return Integer.toString(amount);
+                    else 
+                        return Integer.toString(quantity);
                 }
                     
             }else{
-                return Integer.toString(limit);
+                if (amount < limit)
+                        return Integer.toString(amount);
+                else
+                    return Integer.toString(limit);
             }
         } catch (SQLException e) {
             System.out.println("Can't filter package by name");
             e.printStackTrace();
         }
-        return null;
+        return "0";
     }
       
     public static boolean buyPackage(String psID, String pkID, int quantity){

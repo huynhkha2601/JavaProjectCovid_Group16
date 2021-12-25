@@ -5,14 +5,16 @@
 package covid19;
 
 import Helper.DateFormatter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class Covid19Main {
 
     public static void main(String[] args) {
       
-        System.out.println(DateFormatter.formatToSQLDateTime("25-11-2022 15:12"));
       new MainFrame().setVisible(true);
-    
+
     }
 
 }
