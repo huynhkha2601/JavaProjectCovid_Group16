@@ -9,13 +9,8 @@ import java.awt.Component;
 import javax.swing.JFrame;
 import Account.Account;
 import DbConnection.SQLConnection;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,13 +29,13 @@ public class MainFrame extends javax.swing.JFrame {
     private int patientFlag = 0;
     private int findFlag = 0;
 
-    private PackageManagementPanel pkmp = new PackageManagementPanel();
+    private PackageManagementPanel pkmp = null;
     private AboutUsPanel abup = new AboutUsPanel();
     private HelpPanel hpn = new HelpPanel();
-    private ProfilePanel pfp = new ProfilePanel();
-    private StatusManagementPanel rmp = new StatusManagementPanel();
-    private PatientManagementPanel ptmp = new PatientManagementPanel();
-    private FindAndPurchasePanel fpn = new FindAndPurchasePanel();
+    private ProfilePanel pfp = null;
+    private StatusManagementPanel rmp = null;
+    private PatientManagementPanel ptmp = null;
+    private FindAndPurchasePanel fpn = null;
 
     /**
      * Creates new form MainFrame
@@ -408,11 +403,6 @@ public class MainFrame extends javax.swing.JFrame {
         mitCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cut.png"))); // NOI18N
         mitCut.setText("Cut");
-        mitCut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitCutActionPerformed(evt);
-            }
-        });
         menuEdit.add(mitCut);
 
         mitPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -496,6 +486,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
         if (profileFlag == 0) {
+            if (pfp == null){
+                pfp = new ProfilePanel();
+            }
             tpnContent.add("Thông tin cá nhân", pfp);
             profileFlag++;
             tpnContent.setSelectedComponent(pfp);
@@ -508,6 +501,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnManageRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRelatedActionPerformed
         if (statusFlag == 0) {
+            if (rmp == null){
+                rmp = new StatusManagementPanel();
+            }
             tpnContent.add("Quản lý người tiếp xúc", rmp);
             statusFlag++;
             tpnContent.setSelectedComponent(rmp);
@@ -519,7 +515,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManageRelatedActionPerformed
 
     private void btnManagePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePersonActionPerformed
+        
         if (patientFlag == 0) {
+            if (ptmp == null) {
+                ptmp = new PatientManagementPanel();
+            }
             tpnContent.add("Quản lý người liên quan", ptmp);
             patientFlag++;
             tpnContent.setSelectedComponent(ptmp);
@@ -533,6 +533,9 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnManagePackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePackageActionPerformed
 
         if (packageFlag == 0) {
+            if (pkmp == null){
+                pkmp = new PackageManagementPanel();
+            }
             tpnContent.add("Quản lý các gói hỗ trợ", pkmp);
             packageFlag++;
             tpnContent.setSelectedComponent(pkmp);
@@ -575,6 +578,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         if (findFlag == 0) {
+            if (fpn == null){
+                fpn = new FindAndPurchasePanel();
+            }
             tpnContent.add("Find & Purchase", fpn);
             findFlag++;
             tpnContent.setSelectedComponent(fpn);
@@ -590,6 +596,7 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (packageFlag == 1){
             tpnContent.remove(pkmp);
+            pkmp = null;
             packageFlag--;
         }
         if (aboutUsFlag == 1){
@@ -602,18 +609,22 @@ public class MainFrame extends javax.swing.JFrame {
         }
         if (profileFlag == 1){
             tpnContent.remove(pfp);
+            pfp = null;
             profileFlag--;
         }
         if (statusFlag == 1){
             tpnContent.remove(rmp);
+            rmp = null;
             statusFlag--;
         }
         if (patientFlag == 1){
             tpnContent.remove(ptmp);
+            ptmp = null;
             patientFlag--;
         }
         if (findFlag == 1){
             tpnContent.remove(fpn);
+            fpn = null;
             findFlag--;
         }
     }//GEN-LAST:event_mitReloadActionPerformed
@@ -625,15 +636,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mitFileLogoutActionPerformed
 
     private void mitCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCopyActionPerformed
-        try {
-            Robot r = new Robot();
-            r.keyPress(KeyEvent.VK_CONTROL);
-            r.keyPress(KeyEvent.VK_C);
-            r.keyRelease(KeyEvent.VK_C);
-            r.keyRelease(KeyEvent.VK_CONTROL);
-        } catch (AWTException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_mitCopyActionPerformed
 
     private void mitRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitRedoActionPerformed
@@ -641,28 +644,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mitRedoActionPerformed
 
     private void mitPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitPasteActionPerformed
-        try {
-            Robot r = new Robot();
-            r.keyPress(KeyEvent.VK_CONTROL);
-            r.keyPress(KeyEvent.VK_V);
-            r.keyRelease(KeyEvent.VK_V);
-            r.keyRelease(KeyEvent.VK_CONTROL);
-        } catch (AWTException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_mitPasteActionPerformed
-
-    private void mitCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCutActionPerformed
-        try {
-            Robot r = new Robot();
-            r.keyPress(KeyEvent.VK_CONTROL);
-            r.keyPress(KeyEvent.VK_X);
-            r.keyRelease(KeyEvent.VK_X);
-            r.keyRelease(KeyEvent.VK_CONTROL);
-        } catch (AWTException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_mitCutActionPerformed
     
     
     private void AddActionPerformed(){
