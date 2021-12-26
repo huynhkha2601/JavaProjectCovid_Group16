@@ -6,26 +6,46 @@ package covid19;
 
 import covid19.AccountFrame.ChangePasswordFrame;
 import Account.AccountBank;
+import Payment.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author PC
  */
 public class AccountBankFrame extends javax.swing.JFrame {
-    AccountBank userBank = new AccountBank();
+    private AccountBank userBank = new AccountBank();
     /**
      * Creates new form AccountBankFrame
      */
+    /*
     public AccountBankFrame() {
         initComponents();
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
-    public AccountBankFrame(AccountBank a){
-        userBank = a;
+    */
+    public AccountBankFrame(AccountBank accBank){
+        userBank = accBank;
         initComponents();
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        txfBalance.setText(Float.toString(userBank.getBalance()));
+        txfBankID.setText(userBank.getBankid());
+        txfBalance.setEditable(false);
+        txfBankID.setEditable(false);
+        refreshTable();
+    }
+    
+    public void refreshTable() {
+        DefaultTableModel model = (DefaultTableModel) tblBank.getModel();
+        model.setRowCount(0);
+        List<Transaction> list = BankInf.getTransaction(userBank.getBankid());
+        for (int i = 0; i < list.size(); i++) 
+            model.addRow(new Object[]{Float.toString(list.get(i).getMoney()), list.get(i).getContent(), list.get(i).getRecord().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))});
     }
 
     /**
@@ -43,13 +63,13 @@ public class AccountBankFrame extends javax.swing.JFrame {
         pnlAccountBankDetail = new javax.swing.JPanel();
         pnlBankDetail = new javax.swing.JPanel();
         lblBankID = new javax.swing.JLabel();
-        txtfBankID = new javax.swing.JTextField();
-        lblCCCD = new javax.swing.JLabel();
-        txtfCCCD = new javax.swing.JTextField();
-        lblDebt = new javax.swing.JLabel();
+        lblBalance = new javax.swing.JLabel();
         lblCash = new javax.swing.JLabel();
-        lblDebtAmount = new javax.swing.JLabel();
-        txtfCash = new javax.swing.JTextField();
+        txfCash = new javax.swing.JTextField();
+        txfBankID = new javax.swing.JTextField();
+        txfBalance = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txfContent = new javax.swing.JTextField();
         pnlTableBank = new javax.swing.JPanel();
         spnlBank = new javax.swing.JScrollPane();
         tblBank = new javax.swing.JTable();
@@ -65,7 +85,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bank-48.png"))); // NOI18N
-        lblTitle.setText("Account Bank:");
+        lblTitle.setText("Account Bank");
 
         javax.swing.GroupLayout pnlTitleLayout = new javax.swing.GroupLayout(pnlTitle);
         pnlTitle.setLayout(pnlTitleLayout);
@@ -86,19 +106,17 @@ public class AccountBankFrame extends javax.swing.JFrame {
 
         lblBankID.setText("Bank ID:");
 
-        txtfBankID.setText("jTextField1");
-
-        lblCCCD.setText("CCCD:");
-
-        txtfCCCD.setText("jTextField1");
-
-        lblDebt.setText("Debt:");
+        lblBalance.setText("Balance:");
 
         lblCash.setText("Cash:");
 
-        lblDebtAmount.setText("jLabel6");
+        jLabel1.setText("Content:");
 
-        txtfCash.setText("jTextField3");
+        txfContent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfContentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBankDetailLayout = new javax.swing.GroupLayout(pnlBankDetail);
         pnlBankDetail.setLayout(pnlBankDetailLayout);
@@ -110,52 +128,47 @@ public class AccountBankFrame extends javax.swing.JFrame {
                     .addGroup(pnlBankDetailLayout.createSequentialGroup()
                         .addComponent(lblBankID, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfBankID))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBankDetailLayout.createSequentialGroup()
-                        .addComponent(lblCCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfCCCD))
+                        .addComponent(txfBankID))
                     .addGroup(pnlBankDetailLayout.createSequentialGroup()
-                        .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfCash))
-                    .addGroup(pnlBankDetailLayout.createSequentialGroup()
-                        .addComponent(lblDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDebtAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfContent)
+                            .addComponent(txfCash)
+                            .addComponent(txfBalance))))
                 .addContainerGap())
         );
         pnlBankDetailLayout.setVerticalGroup(
             pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBankDetailLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBankID, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfBankID, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfBankID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCCCD, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(txtfCCCD))
+                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblDebtAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDebt, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtfCash, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txfContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         tblBank.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Money", "Content", "Date"
             }
         ));
         spnlBank.setViewportView(tblBank);
@@ -277,7 +290,23 @@ public class AccountBankFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
-
+        if(txfCash.getText().equals("") || txfContent.getText().equals(""))
+            JOptionPane.showMessageDialog(pnlBankDetail, "Required field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+        else {
+            if (Float.parseFloat(txfCash.getText()) > 0 && Float.parseFloat(txfCash.getText()) <= userBank.getBalance()) {
+                if(BankInf.addTransaction(userBank.getBankid(), Float.parseFloat(txfCash.getText()), txfContent.getText())) {
+                    JOptionPane.showMessageDialog(pnlBankDetail, "Pay successully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    txfBalance.setText(Float.toString(Float.parseFloat(txfBalance.getText()) - Float.parseFloat(txfCash.getText())));
+                    txfCash.setText("");
+                    txfContent.setText("");
+                    refreshTable();
+                }
+                else
+                    JOptionPane.showMessageDialog(pnlBankDetail, "Pay failed", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+                JOptionPane.showMessageDialog(pnlBankDetail, "Invalid value", "Notification", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnPaymentActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
@@ -285,9 +314,14 @@ public class AccountBankFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
-        new MainFrame().setVisible(true);
-        this.setVisible(false);
+        //new MainFrame().setVisible(true);
+        //this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnGoBackActionPerformed
+
+    private void txfContentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfContentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfContentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,7 +353,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AccountBankFrame().setVisible(true);
+                new AccountBankFrame(null).setVisible(true);
             }
         });
     }
@@ -329,11 +363,10 @@ public class AccountBankFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnPayment;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblBalance;
     private javax.swing.JLabel lblBankID;
-    private javax.swing.JLabel lblCCCD;
     private javax.swing.JLabel lblCash;
-    private javax.swing.JLabel lblDebt;
-    private javax.swing.JLabel lblDebtAmount;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlAccountBankDetail;
     private javax.swing.JPanel pnlBankButton;
@@ -342,8 +375,9 @@ public class AccountBankFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnlTitle;
     private javax.swing.JScrollPane spnlBank;
     private javax.swing.JTable tblBank;
-    private javax.swing.JTextField txtfBankID;
-    private javax.swing.JTextField txtfCCCD;
-    private javax.swing.JTextField txtfCash;
+    private javax.swing.JTextField txfBalance;
+    private javax.swing.JTextField txfBankID;
+    private javax.swing.JTextField txfCash;
+    private javax.swing.JTextField txfContent;
     // End of variables declaration//GEN-END:variables
 }

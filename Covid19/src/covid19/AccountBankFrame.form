@@ -84,7 +84,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/bank-48.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Account Bank:"/>
+            <Property name="text" type="java.lang.String" value="Account Bank"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -129,28 +129,26 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="lblBankID" min="-2" pref="53" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtfBankID" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="lblCCCD" min="-2" pref="53" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtfCCCD" max="32767" attributes="0"/>
+                              <Component id="txfBankID" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblCash" min="-2" pref="53" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblBalance" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="lblCash" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtfCash" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblDebt" min="-2" pref="53" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblDebtAmount" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txfContent" max="32767" attributes="0"/>
+                                  <Component id="txfCash" max="32767" attributes="0"/>
+                                  <Component id="txfBalance" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -161,26 +159,26 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblBankID" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="txtfBankID" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblBankID" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="txfBankID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblCCCD" pref="26" max="32767" attributes="0"/>
-                          <Component id="txtfCCCD" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblBalance" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="txfBalance" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblDebtAmount" max="32767" attributes="0"/>
-                          <Component id="lblDebt" pref="26" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblCash" max="32767" attributes="0"/>
-                          <Component id="txtfCash" pref="31" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblCash" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="txfCash" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfContent" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -191,24 +189,9 @@
                 <Property name="text" type="java.lang.String" value="Bank ID:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtfBankID">
+            <Component class="javax.swing.JLabel" name="lblBalance">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblCCCD">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="CCCD:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfCCCD">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDebt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Debt:"/>
+                <Property name="text" type="java.lang.String" value="Balance:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCash">
@@ -216,15 +199,21 @@
                 <Property name="text" type="java.lang.String" value="Cash:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblDebtAmount">
+            <Component class="javax.swing.JTextField" name="txfCash">
+            </Component>
+            <Component class="javax.swing.JTextField" name="txfBankID">
+            </Component>
+            <Component class="javax.swing.JTextField" name="txfBalance">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel6"/>
+                <Property name="text" type="java.lang.String" value="Content:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtfCash">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField3"/>
-              </Properties>
+            <Component class="javax.swing.JTextField" name="txfContent">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txfContentActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -261,20 +250,14 @@
                 <Component class="javax.swing.JTable" name="tblBank">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
-                        <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                      <Table columnCount="3" rowCount="0">
+                        <Column editable="true" title="Money" type="java.lang.Object"/>
+                        <Column editable="true" title="Content" type="java.lang.Object"/>
+                        <Column editable="true" title="Date" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>

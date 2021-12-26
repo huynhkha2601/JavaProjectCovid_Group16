@@ -579,14 +579,21 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHosptTranferActionPerformed
 
     private void tblPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPatientMouseClicked
+        clearTextField();
         DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
         int selectedRowIndex = tblPatient.getSelectedRow();
-        txfAddress.setText(model.getValueAt(selectedRowIndex, 3).toString());
-        txfFullname.setText(model.getValueAt(selectedRowIndex, 1).toString());
-        txfID.setText(model.getValueAt(selectedRowIndex, 0).toString());
-        txfYoB.setText(model.getValueAt(selectedRowIndex, 2).toString());
-        txfStatus.setText(model.getValueAt(selectedRowIndex, 4).toString());
-        txfTreatment.setText(model.getValueAt(selectedRowIndex, 5).toString());
+        if(model.getValueAt(selectedRowIndex, 3) != null)
+            txfAddress.setText(model.getValueAt(selectedRowIndex, 3).toString());
+        if(model.getValueAt(selectedRowIndex, 1) != null)
+            txfFullname.setText(model.getValueAt(selectedRowIndex, 1).toString());
+        if(model.getValueAt(selectedRowIndex, 0) != null)
+            txfID.setText(model.getValueAt(selectedRowIndex, 0).toString());
+        if(model.getValueAt(selectedRowIndex, 2) != null)
+            txfYoB.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        if(model.getValueAt(selectedRowIndex, 4) != null)
+            txfStatus.setText(model.getValueAt(selectedRowIndex, 4).toString());
+        if(model.getValueAt(selectedRowIndex, 5) != null)
+            txfTreatment.setText(model.getValueAt(selectedRowIndex, 5).toString());
     }//GEN-LAST:event_tblPatientMouseClicked
 
     private void filterOptionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterOptionItemStateChanged

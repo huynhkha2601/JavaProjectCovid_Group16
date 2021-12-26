@@ -8,6 +8,8 @@ import covid19.AccountFrame.ChangePasswordFrame;
 import covid19.AccountFrame.SignInFrame;
 import Profile.*;
 import javax.swing.JOptionPane;
+import Account.AccountBank;
+import Payment.*;
 
 /**
  *
@@ -18,7 +20,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     /**
      * Creates new form ProfilePanel
      */
-    String id = "1";
+    private String id = "1";
     public ProfilePanel() {
         initComponents();
         
@@ -498,9 +500,6 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txfYobActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        String tempFullName = txfFullname.getText();
-        String tempAddress = txfAddress.getText();
-        String tempYoB = txfYob.getText();
         int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.YES_OPTION){
             if(ProfileInf.updateProfile(txfCCCD.getText(), txfFullname.getText(), txfAddress.getText(), Integer.parseInt(txfYob.getText())))
@@ -521,7 +520,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnBuyPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyPackageActionPerformed
-        new SignInFrame().setVisible(true);
+        //new SignInFrame().setVisible(true);
+        AccountBank accBank = BankInf.getAccountBank(id);
+        //System.out.println(accBank.getDatePublished());
+        new AccountBankFrame(accBank).setVisible(true);
     }//GEN-LAST:event_btnBuyPackageActionPerformed
 
     private void btnChangePwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePwActionPerformed

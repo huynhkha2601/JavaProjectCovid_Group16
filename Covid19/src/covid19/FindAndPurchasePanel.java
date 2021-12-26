@@ -40,8 +40,8 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
     
     public FindAndPurchasePanel() {
         initComponents();
-        initValue();
-        displayDataTable();
+        //initValue();
+        //displayDataTable();
     }
 
     /**
