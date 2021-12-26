@@ -7,7 +7,7 @@ package covid19;
 import covid19.AccountFrame.SignInFrame;
 import Account.*;
 import Admin.Admin;
-import Helper.DateFormatter;
+import Helper.*;
 import Record.ActivityHistory;
 import Record.TransactionHistory;
 import TreatmentPlace.TreatmentPlace;
@@ -41,6 +41,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     
     /*Show data to table of GUI*/
     public void showTableAccount(){
+        listacc.sort(new AccountComparator());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "Username", "Password", "Role", "UserID", "Activated", 
@@ -57,6 +58,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableAccountBank(){
+        listaccbank.sort(new AccountBankComparator());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "BankID", "Password", "Role", "Activated", "Balance", "User ID", 
@@ -73,6 +75,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableActivityHistory(){
+        listah.sort(new ActivityHistoryComparator());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "Username", "Login record", "Logout record"
@@ -87,6 +90,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableTransactionHistory(){
+        listth.sort(new TransactionHistoryComparator());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "Bank ID", "Money", "Content", "Date"
@@ -101,6 +105,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableTreamentPlace(){
+        listTMP.sort(new TreatmentPlaceComparator());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "ID", "Name", "Capacity", "Quantity"
@@ -117,36 +122,25 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     /*Get and check if input is valid for Account*/
     public Account getInputAccountData(String activity){
         Account acc = null;
+        String error = null;
         String Username = txtfUsername.getText().trim();
         if (Username.length() == 0){
-            JOptionPane.showMessageDialog(null, 
-                                "An account need an unique username.", 
-                                "Input Error", 
-                                JOptionPane.ERROR_MESSAGE);
+            error = "An account need an unique username.";
         }
         else{
             ArrayList<Account> listtemp = Admin.getAccounts(
                                         "where Username='" + Username + "'");
             if (!activity.equalsIgnoreCase("add") && listtemp.isEmpty()){
-                JOptionPane.showMessageDialog(null, 
-                            "There is no account has username is '" + Username + "'", 
-                            "Input Error", 
-                            JOptionPane.ERROR_MESSAGE);
+                error = "There is no account has username is '" + Username + "'";
             }
             else if(activity.equalsIgnoreCase("Add") && !listtemp.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Username must be "
-                                        + "unique but username '"
-                                        + Username + "' is duplicated.", 
-                                        "SQL Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                error = "Username must be unique but username '" 
+                        + Username + "' is duplicated.";
             }
             else{
                 if (activity.equalsIgnoreCase("Remove")){
                     if (Username.equalsIgnoreCase("admin")){
-                        JOptionPane.showMessageDialog(null, 
-                                        "Cannot remove account 'admin'.", 
-                                        "Input Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                        error = "Cannot remove account 'admin'.";
                     }
                     else{
                         acc = new Account();
@@ -156,39 +150,27 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 else{
                     String Password = txtfPassword.getText();
                     if (Password.length() == 0){
-                        JOptionPane.showMessageDialog(null, 
-                                        "Password is used to keep an account private."
-                                      + "\nPlease input it.", 
-                                        "Input Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                        error = "Password is used to keep an account private.\n"
+                              + "Please input it.";
                     }
                     else{
                         String Role = cbbRole.getSelectedItem().toString();
                         if (Role.equalsIgnoreCase("Admin") 
                             && !Username.equalsIgnoreCase("admin")){
-                            JOptionPane.showMessageDialog(null, 
-                                    "Only account with username is 'admin' "
-                                  + "can have role 'Admin'", 
-                                    "Input Error", 
-                                    JOptionPane.ERROR_MESSAGE);
+                            error = "Only account with username is 'admin' "
+                                  + "can have role 'Admin'.";
                         }
                         else if (!Role.equalsIgnoreCase("Admin") 
                             && Username.equalsIgnoreCase("admin")){
-                            JOptionPane.showMessageDialog(null, 
-                                    "Account with username is 'admin' "
-                                  + "must have role 'Admin'", 
-                                    "Input Error", 
-                                    JOptionPane.ERROR_MESSAGE);
+                            error = "Account with username is 'admin' "
+                                  + "must have role 'Admin'.";
                         }
                         else{
                             String Userid = txtfUserID.getText().trim();
                             if (!Role.equalsIgnoreCase("User") 
                                 && Userid.length() > 0){
-                                JOptionPane.showMessageDialog(null, 
-                                        "Only account with 'User' role "
-                                      + "needs an user's id.", 
-                                        "Input Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                                error = "Only account with 'User' role can have"
+                                      + "an user's id.";
                             }
                             else{
                                 if (Userid.length() == 0) Userid = null;
@@ -197,10 +179,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                                 boolean isUnique = true;
                                 if (activity.equalsIgnoreCase("Add")){
                                     if (!listtemp.isEmpty()){
-                                        JOptionPane.showMessageDialog(null, 
-                                                    "UserID must be unique", 
-                                                    "Input Error", 
-                                                    JOptionPane.ERROR_MESSAGE);
+                                        error = "UserID must be unique";
                                         isUnique = false;
                                     }
                                 }
@@ -214,10 +193,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                                             }
                                         }
                                         if (isUnique == false){
-                                            JOptionPane.showMessageDialog(null, 
-                                                        "UserID must be unique", 
-                                                        "Input Error", 
-                                                        JOptionPane.ERROR_MESSAGE);
+                                            error = "UserID must be unique";
                                         }
                                     }
                                 }
@@ -232,42 +208,33 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 }
             }
         }
+        if (error != null){
+            MessageDialog.showErrorDialog(this, error, "Invalid input found");
+        }
         return acc;
     }
     
     /*Get and check if input is valid for Account Bank*/
     public AccountBank getInputAccountBankData(String activity){
         AccountBank accbnk = null;
+        String error = null;
         String ID = txtfBankID.getText().trim();
         if (ID.length() == 0){
-            JOptionPane.showMessageDialog(null, 
-                                "An account bank need an unique id.", 
-                                "Input Error", 
-                                JOptionPane.ERROR_MESSAGE);
+            error = "An account bank need an unique id.";
         }
         else{
             ArrayList<AccountBank> listtemp = Admin.getAccountsBank(
                                         "where ID='" + ID + "'");
             if (!activity.equalsIgnoreCase("add") && listtemp.isEmpty()){
-                JOptionPane.showMessageDialog(null, 
-                            "There is no account bank has ID is '" + ID + "'", 
-                            "Input Error", 
-                            JOptionPane.ERROR_MESSAGE);
+                error = "There is no account bank has ID is '" + ID + "'";
             }
             else if(activity.equalsIgnoreCase("Add") && !listtemp.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Bank ID must be "
-                                        + "unique but ID '"
-                                        + ID + "' is duplicated.", 
-                                        "SQL Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                error = "Bank ID must be unique but ID '" + ID + "' is duplicated.";
             }
             else{
                 if (activity.equalsIgnoreCase("Remove")){
                     if (ID.equalsIgnoreCase("admin")){
-                        JOptionPane.showMessageDialog(null, 
-                                        "Cannot remove account 'admin'.", 
-                                        "Input Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                        error = "Cannot remove account 'admin'.";
                     }
                     else{
                         accbnk = new AccountBank();
@@ -277,39 +244,27 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 else{
                     String Password = txtfBankPassword.getText();
                     if (Password.length() == 0){
-                        JOptionPane.showMessageDialog(null, 
-                                        "Password is used to keep an account private."
-                                      + "\nPlease input it.", 
-                                        "Input Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                        error = "Password is used to keep an account private."
+                              + "\nPlease input it.";
                     }
                     else{
                         String Role = cbbBankRole.getSelectedItem().toString();
                         if (Role.equalsIgnoreCase("Admin") 
                             && !ID.equalsIgnoreCase("admin")){
-                            JOptionPane.showMessageDialog(null, 
-                                    "Only account bank with ID is 'admin' "
-                                  + "can have role 'Admin'", 
-                                    "Input Error", 
-                                    JOptionPane.ERROR_MESSAGE);
+                            error = "Only account bank with ID is 'admin' "
+                                  + "can have role 'Admin'.";
                         }
                         else if (!Role.equalsIgnoreCase("Admin") 
                             && ID.equalsIgnoreCase("admin")){
-                            JOptionPane.showMessageDialog(null, 
-                                    "Account bank with ID is 'admin' "
-                                  + "must have role 'Admin'", 
-                                    "Input Error", 
-                                    JOptionPane.ERROR_MESSAGE);
+                            error = "Account bank with ID is 'admin' "
+                                  + "must have role 'Admin'.";
                         }
                         else{
                             String Userid = txtfBankUserID.getText().trim();
                             if (!Role.equalsIgnoreCase("User") 
                                 && Userid.length() > 0){
-                                JOptionPane.showMessageDialog(null, 
-                                        "Only account with 'User' role "
-                                      + "needs an user's id.", 
-                                        "Input Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                                error =  "Only account with 'User' role "
+                                       + "needs an user's id.";
                             }
                             else{
                                 if (Userid.length() == 0) Userid = null;
@@ -318,10 +273,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                                 boolean isUnique = true;
                                 if (activity.equalsIgnoreCase("Add")){
                                     if (!listtemp.isEmpty()){
-                                        JOptionPane.showMessageDialog(null, 
-                                                    "UserID must be unique", 
-                                                    "Input Error", 
-                                                    JOptionPane.ERROR_MESSAGE);
+                                        error =  "UserID must be unique.";
                                         isUnique = false;
                                     }
                                 }
@@ -335,10 +287,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                                             }
                                         }
                                         if (isUnique == false){
-                                            JOptionPane.showMessageDialog(null, 
-                                                        "UserID must be unique", 
-                                                        "Input Error", 
-                                                        JOptionPane.ERROR_MESSAGE);
+                                            error =  "UserID must be unique.";
                                         }
                                     }
                                 }
@@ -354,10 +303,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                                         accbnk.setAccountBank(ID, Password, Role, 
                                                     0, balance, Userid, null);
                                     } catch (NumberFormatException ex){
-                                        JOptionPane.showMessageDialog(null, 
-                                                "Balance must be a float number", 
-                                                "Input Error", 
-                                                JOptionPane.ERROR_MESSAGE);
+                                        error =  "Balance must be a float number";
                                     }
                                 }
                             }
@@ -366,35 +312,30 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 }
             }
         }
+        if (error != null){
+            MessageDialog.showErrorDialog(this, error, "Invalid input found.");
+        }
         return accbnk;
     }
     
     /*Get and check if input is valid for Treatment Place*/
     public TreatmentPlace getInputTreamentPlaceData(String activity){
         TreatmentPlace tmp = null;
+        String error = null;
         String ID = txtfTreatmentID.getText().trim();
         String mess = "";
         if (ID.length() == 0){
-            JOptionPane.showMessageDialog(null, 
-                                "A treatment place need an unique id.", 
-                                "Input Error", 
-                                JOptionPane.ERROR_MESSAGE);
+            error = "A treatment place need an unique id.";
         }
         else{
             ArrayList<TreatmentPlace> listtemp = Admin.getTreatmentPlace(
                                         "where ID='" + ID + "'");
             if (!activity.equalsIgnoreCase("add") && listtemp.isEmpty()){
-                JOptionPane.showMessageDialog(null, 
-                            "There is no treatment place has ID is '" + ID + "'", 
-                            "Input Error", 
-                            JOptionPane.ERROR_MESSAGE);
+                error = "There is no treatment place has ID is '" + ID + "'";
             }
             else if(activity.equalsIgnoreCase("Add") && !listtemp.isEmpty()){
-                JOptionPane.showMessageDialog(null, "ID of treatment place must be "
-                                        + "unique but ID '"
-                                        + ID + "' is duplicated.", 
-                                        "SQL Error", 
-                                        JOptionPane.ERROR_MESSAGE);
+                error = "ID of treatment place must be unique but ID '" 
+                        + ID + "' is duplicated.";
             }
             else{
                 boolean valid_input = true;
@@ -408,11 +349,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         try{
                             capacity = Integer.parseInt(Capacity);
                             if (capacity < 0){
-                                mess = "Capacity must be a non-negative number";
+                                error = "Capacity must be a non-negative number";
                                 valid_input = false;
                             }
                         } catch(NumberFormatException ex){
-                            mess = "Capacity must be a non-negative number";
+                            error = "Capacity must be a non-negative number";
                             valid_input = false;
                         }
                     }
@@ -421,11 +362,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                             try{
                                 quantity = Integer.parseInt(Quantity);
                                 if (quantity < 0){
-                                    mess = "Quantity must be a non-negative number";
+                                    error = "Quantity must be a non-negative number";
                                     valid_input = false;
                                 }
                             } catch(NumberFormatException ex){
-                                mess = "Quantity must be a non-negative number";
+                                error = "Quantity must be a non-negative number";
                                 valid_input = false;
                             }
                         }
@@ -435,12 +376,10 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     tmp = new TreatmentPlace();
                     tmp.setTreatmentPlace(ID, Name, capacity, quantity);
                 }
-                else{
-                    JOptionPane.showMessageDialog(null, mess, 
-                                        "SQL Error", 
-                                        JOptionPane.ERROR_MESSAGE);
-                }
             }
+        }
+        if (error != null){
+            MessageDialog.showErrorDialog(this, error, "Invalid input found");
         }
         return tmp;
     }
@@ -648,11 +587,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     
     public void btnFindActionPerformed(java.awt.event.ActionEvent evt){
         String input = txtfAttribute.getText().trim();
+        String error = null;
         if (input.length() == 0){
-            JOptionPane.showMessageDialog(this, "Please input "
-                                        + "some informations to do the search", 
-                                         "Input Error", 
-                                         JOptionPane.ERROR_MESSAGE);
+            error = "Please input some informations to do the search";
         }
         else{
             String attribute = cbbAttribute.getSelectedItem().toString().trim();
@@ -664,13 +601,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     && !input.equalsIgnoreCase("Disabled")
                     && !input.equalsIgnoreCase("1")
                     && !input.equalsIgnoreCase("0")){
-                    JOptionPane.showMessageDialog(this, "Attribute Active "
-                                        + "only accept "
-                                        + "'Active' or '1' for 'Activated' "
-                                        + "and"
-                                        + "'Disabled' or '0' for 'Disabled'", 
-                                         "Input Error", 
-                                         JOptionPane.ERROR_MESSAGE);
+                    error = "Attribute Active only accept 'Active' or '1' for 'Activated'"
+                          + " and 'Disabled' or '0' for 'Disabled'";
                     valid_input = false;
                 }
                 else{
@@ -684,12 +616,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 System.out.println(input);
                 valid_datetime = checkDateTime(input);
                 if (valid_datetime == -1){
-                    JOptionPane.showMessageDialog(this, "Attribute Date Published "
-                            + "only accept format "
-                            + "(int)dd (int)MM (int) yyy as date "
-                            + "and hh:mm:ss as time (time is optional)", 
-                              "Input Error", 
-                              JOptionPane.ERROR_MESSAGE);
+                    error = "Attribute Date Published only accept format "
+                          + "(int)dd (int)MM (int) yyy as date "
+                          + "and hh:mm:ss as time (time is optional)";
                     valid_input = false;
                 }
                 else{
@@ -740,6 +669,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 }
                 listacc = Admin.getAccounts(condition);
                 showTableAccount();
+            }
+            else{
+                MessageDialog.showErrorDialog(this, error, "Invalid input found.");
             }
         }
     }
@@ -1657,7 +1589,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             }
         });
 
-        cbbBankRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager", "User" }));
+        cbbBankRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         cbbBankRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbBankRoleActionPerformed(evt);
@@ -2785,4 +2717,61 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JTextField txtfUserID;
     private javax.swing.JTextField txtfUsername;
     // End of variables declaration//GEN-END:variables
+}
+
+class AccountComparator implements java.util.Comparator<Account>{
+    @Override
+    public int compare(Account acc1, Account acc2) {
+        int result = acc1.getRole().compareToIgnoreCase(acc2.getRole());
+        if (result == 0){
+            result = acc1.getDatePublished().compareTo(acc2.getDatePublished());
+            if (result == 0){
+                result = acc1.getUsername().compareTo(acc2.getUsername());
+            }
+        }
+        return result;
+    }
+}
+
+class AccountBankComparator implements java.util.Comparator<AccountBank>{
+    @Override
+    public int compare(AccountBank accb1, AccountBank accb2) {
+         int result = accb1.getRole().compareToIgnoreCase(accb2.getRole());
+        if (result == 0){
+            result = accb1.getDatePublished().compareTo(accb2.getDatePublished());
+            if (result == 0){
+                result = accb1.getBankid().compareTo(accb2.getBankid());
+            }
+        }
+        return result;
+    }
+}
+
+class TreatmentPlaceComparator implements java.util.Comparator<TreatmentPlace>{
+    @Override
+    public int compare(TreatmentPlace tp1, TreatmentPlace tp2) {
+        int result = tp1.getID().compareToIgnoreCase(tp2.getID());
+        if (result == 0){
+            result = tp1.getName().compareTo(tp2.getName());
+        }
+        return result;
+    }
+}
+
+class ActivityHistoryComparator implements java.util.Comparator<ActivityHistory>{
+    @Override
+    public int compare(ActivityHistory ah1, ActivityHistory ah2) {
+        int result = ah1.getLoginDT().compareTo(ah2.getLoginDT());
+        if (result == 0){
+            result = ah1.getLogoutDT().compareTo(ah2.getLogoutDT());
+        }
+        return result;
+    }
+}
+
+class TransactionHistoryComparator implements java.util.Comparator<TransactionHistory>{
+    @Override
+    public int compare(TransactionHistory th1, TransactionHistory th2) {
+        return th1.getDate().compareTo(th2.getDate());
+    }
 }
