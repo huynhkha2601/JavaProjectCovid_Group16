@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminManagementPanel extends javax.swing.JFrame {
     /*Variables for connection to database*/
+    Comparators com = new Comparators();
     private final String DB_name = "Covid-19";
     private final String DB_URL = ("jdbc:sqlserver://localhost:1433;"
                                + "databaseName="+ DB_name);
@@ -41,7 +42,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     
     /*Show data to table of GUI*/
     public void showTableAccount(){
-        listacc.sort(new AccountComparator());
+        listacc.sort(com.accCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "Username", "Password", "Role", "UserID", "Activated", 
@@ -58,7 +59,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableAccountBank(){
-        listaccbank.sort(new AccountBankComparator());
+        listaccbank.sort(com.accbCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "BankID", "Password", "Role", "Activated", "Balance", "User ID", 
@@ -75,7 +76,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableActivityHistory(){
-        listah.sort(new ActivityHistoryComparator());
+        listah.sort(com.ahCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "Username", "Login record", "Logout record"
@@ -90,7 +91,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableTransactionHistory(){
-        listth.sort(new TransactionHistoryComparator());
+        listth.sort(com.thCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "Bank ID", "Money", "Content", "Date"
@@ -105,7 +106,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void showTableTreamentPlace(){
-        listTMP.sort(new TreatmentPlaceComparator());
+        listTMP.sort(com.tpCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "ID", "Name", "Capacity", "Quantity"
@@ -622,7 +623,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     valid_input = false;
                 }
                 else{
-                    if (valid_datetime > 0 && valid_datetime < 4){
+                    if (valid_datetime > 0){
                         String[] temp = input.split(":");
                         int length = temp.length;
                         if (length == 1) input = input + ":00:00";
@@ -647,15 +648,12 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     String input1 = input + " 00:00:00";
                     String input2 = input + " 23:59:59.999";
                     if (valid_datetime > 0){
-                        String[] temp = input.split("\\.");
-                        if (temp.length == 0) input1 = toSQLDateTime(input);
-                        else input1 = toSQLDateTime(temp[0]);
-                        input1 = "'" + input1 + "'";
+                        input1 = "'" + toSQLDateTime(input) + "'";
                         String temp1 = input1.replace(' ', 'T').replace("'", "");
-                        if (valid_datetime == 1) input2 = LocalDateTime.parse(temp1)
-                                                            .plusHours(1).toString();
-                        else if (valid_datetime == 2) input2 = LocalDateTime.parse(temp1)
-                                                            .plusMinutes(1).toString();
+                        if (valid_datetime == 1)
+                            input2 = LocalDateTime.parse(temp1).plusHours(1).toString();
+                        else if (valid_datetime == 2)
+                            input2 = LocalDateTime.parse(temp1).plusMinutes(1).toString();
                         else input2 = LocalDateTime.parse(temp1).plusSeconds(1).toString();
                         input2 = input2.replace('T', ' ');
                         input2 = "'" + input2 + "'";
@@ -670,9 +668,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 listacc = Admin.getAccounts(condition);
                 showTableAccount();
             }
-            else{
-                MessageDialog.showErrorDialog(this, error, "Invalid input found.");
-            }
+        }
+        if (error != null){
+            MessageDialog.showErrorDialog(this, error, "Invalid input found.");
         }
     }
     
@@ -723,11 +721,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     public void btnBankFindActionPerformed(java.awt.event.ActionEvent evt){
         String input = txtfBankAttribute.getText().trim();
         String[] temp = null;
+        String error = null;
         if (input.length() == 0){
-            JOptionPane.showMessageDialog(this, "Please input "
-                                        + "some informations to do the search", 
-                                         "Input Error", 
-                                         JOptionPane.ERROR_MESSAGE);
+            error = "Please input some informations to do the search";
         }
         else{
             String attribute = cbbBankAttribute.getSelectedItem().toString().trim();
@@ -741,13 +737,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     && !input.equalsIgnoreCase("Disabled")
                     && !input.equalsIgnoreCase("1")
                     && !input.equalsIgnoreCase("0")){
-                    JOptionPane.showMessageDialog(this, "Attribute Active "
-                                        + "only accept "
-                                        + "'Active' or '1' for 'Activated' "
-                                        + "and"
-                                        + "'Disabled' or '0' for 'Disabled'", 
-                                         "Input Error", 
-                                         JOptionPane.ERROR_MESSAGE);
+                    error = "Attribute Active only accept "
+                          + "'Active' or '1' for 'Activated' and "
+                          + "'Disabled' or '0' for 'Disabled'";
                     valid_input = false;
                 }
                 else{
@@ -772,11 +764,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     }
                 }
                 if (valid_input == false){
-                    JOptionPane.showMessageDialog(this, "Attribute Balance "
-                        + "only accept format (float)Balance or "
-                        + "(float)Balance1~(float)Balance2", 
-                        "Input Error", 
-                        JOptionPane.ERROR_MESSAGE);
+                    error = "Attribute Balance only accept format (float)Balance or "
+                          + "(float)Balance1~(float)Balance2 (means from Balance1 to Balance2";
                     temp = null;
                 }
             }
@@ -788,12 +777,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 input = input.split("\\.")[0];
                 valid_datetime = checkDateTime(input);
                 if (valid_datetime == -1){
-                    JOptionPane.showMessageDialog(this, "Attribute Date Published "
-                            + "only accept format "
-                            + "(int)dd (int)MM (int) yyy as date "
-                            + "and hh:mm:ss as time (time is optional)", 
-                              "Input Error", 
-                              JOptionPane.ERROR_MESSAGE);
+                    error = "Attribute Date Published only accept format "
+                          + "(int)dd (int)MM (int) yyy as date "
+                          + "and hh:mm:ss as time (time is optional)";
                     valid_input = false;
                 }
                 else{
@@ -836,10 +822,10 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         input1 = toSQLDateTime(input);
                         String temp1 = input1.replace(' ', 'T');
                         input1 = "'" + input1 + "'";
-                        if (valid_datetime == 1) input2 = LocalDateTime.parse(temp1)
-                                                            .plusHours(1).toString();
-                        else if (valid_datetime == 2) input2 = LocalDateTime.parse(temp1)
-                                                            .plusMinutes(1).toString();
+                        if (valid_datetime == 1) 
+                            input2 = LocalDateTime.parse(temp1).plusHours(1).toString();
+                        else if (valid_datetime == 2) 
+                            input2 = LocalDateTime.parse(temp1).plusMinutes(1).toString();
                         else input2 = LocalDateTime.parse(temp1).plusSeconds(1).toString();
                         input2 = input2.replace('T', ' ');
                         input2 = "'" + input2 + "'";
@@ -854,6 +840,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 listaccbank = Admin.getAccountsBank(condition);
                 showTableAccountBank();
             }
+        }
+        if (error != null){
+            MessageDialog.showErrorDialog(this, error, "Invalid input found.");
         }
     }
     
@@ -884,9 +873,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 dateStart = dateStart.split("\\.")[0];
                 validDS = checkDateTime(dateStart);
                 if (validDS == -1){
-                    JOptionPane.showMessageDialog(this, "Date Start " + mess, 
-                              "Input Error", 
-                              JOptionPane.ERROR_MESSAGE);
+                    MessageDialog.showErrorDialog(this, "Date Start " + mess, "Invalid input found");
                     return;
                 }
                 else{
@@ -897,9 +884,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         else if(length == 2) dateStart = dateStart + ":00";
                     }
                     else dateStart = dateStart + " 00:00:00";
-                    System.out.println(dateStart);
                     dateStart = toSQLDateTime(dateStart).replace(' ', 'T');
-                    System.out.println(dateStart);
                     dateStart = LocalDateTime.parse(dateStart).toString().replace('T', ' ');
                     dateStart = "'" + dateStart + "'";
                 }
@@ -909,9 +894,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 dateEnd = dateEnd.split("\\.")[0];
                 validDE = checkDateTime(dateEnd);
                 if (validDE == -1){
-                    JOptionPane.showMessageDialog(this, "Date End " + mess, 
-                              "Input Error", 
-                              JOptionPane.ERROR_MESSAGE);
+                    MessageDialog.showErrorDialog(this, "Date End " + mess, "Invalid input found");
                     return;
                 }
                 else{
@@ -970,9 +953,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 dateStart = dateStart.split("\\.")[0];
                 validDS = checkDateTime(dateStart);
                 if (validDS == -1){
-                    JOptionPane.showMessageDialog(this, "Date Start " + mess, 
-                              "Input Error", 
-                              JOptionPane.ERROR_MESSAGE);
+                    MessageDialog.showErrorDialog(this, "Date Start " + mess, "Invalid input found");
                     return;
                 }
                 else{
@@ -995,9 +976,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 dateEnd = dateEnd.split("\\.")[0];
                 validDE = checkDateTime(dateEnd);
                 if (validDE == -1){
-                    JOptionPane.showMessageDialog(this, "Date End " + mess, 
-                              "Input Error", 
-                              JOptionPane.ERROR_MESSAGE);
+                    MessageDialog.showErrorDialog(this, "Date End " + mess, "Invalid input found");
                     return;
                 }
                 else{
@@ -1083,7 +1062,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             showTableTreamentPlace();
         }
         else{
-            JOptionPane.showMessageDialog(this, mess, "Input Error", JOptionPane.ERROR_MESSAGE);
+            MessageDialog.showErrorDialog(this, mess, "Invalid input found.");
         }
     }
     
