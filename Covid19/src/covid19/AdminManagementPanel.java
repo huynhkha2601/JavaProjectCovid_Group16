@@ -121,267 +121,60 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     
     
     /*Get and check if input is valid for Account*/
-    public Account getInputAccountData(String activity){
-        Account acc = null;
-        String error = null;
+    public Account getInputAccountData(){
         String Username = txtfUsername.getText().trim();
-        if (Username.length() == 0){
-            error = "An account need an unique username.";
-        }
-        else{
-            ArrayList<Account> listtemp = Admin.getAccounts(
-                                        "where Username='" + Username + "'");
-            if (!activity.equalsIgnoreCase("add") && listtemp.isEmpty()){
-                error = "There is no account has username is '" + Username + "'";
-            }
-            else if(activity.equalsIgnoreCase("Add") && !listtemp.isEmpty()){
-                error = "Username must be unique but username '" 
-                        + Username + "' is duplicated.";
-            }
-            else{
-                if (activity.equalsIgnoreCase("Remove")){
-                    if (Username.equalsIgnoreCase("admin")){
-                        error = "Cannot remove account 'admin'.";
-                    }
-                    else{
-                        acc = new Account();
-                        acc.setAccount(Username, null, null, null, 0, null);
-                    }
-                }
-                else{
-                    String Password = txtfPassword.getText();
-                    if (Password.length() == 0){
-                        error = "Password is used to keep an account private.\n"
-                              + "Please input it.";
-                    }
-                    else{
-                        String Role = cbbRole.getSelectedItem().toString();
-                        if (Role.equalsIgnoreCase("Admin") 
-                            && !Username.equalsIgnoreCase("admin")){
-                            error = "Only account with username is 'admin' "
-                                  + "can have role 'Admin'.";
-                        }
-                        else if (!Role.equalsIgnoreCase("Admin") 
-                            && Username.equalsIgnoreCase("admin")){
-                            error = "Account with username is 'admin' "
-                                  + "must have role 'Admin'.";
-                        }
-                        else{
-                            String Userid = txtfUserID.getText().trim();
-                            if (!Role.equalsIgnoreCase("User") 
-                                && Userid.length() > 0){
-                                error = "Only account with 'User' role can have"
-                                      + "an user's id.";
-                            }
-                            else{
-                                if (Userid.length() == 0) Userid = null;
-                                listtemp = Admin.getAccounts(
-                                           "where USERID='" + Userid + "'");
-                                boolean isUnique = true;
-                                if (activity.equalsIgnoreCase("Add")){
-                                    if (!listtemp.isEmpty()){
-                                        error = "UserID must be unique";
-                                        isUnique = false;
-                                    }
-                                }
-                                else{
-                                    if (!listtemp.isEmpty()){
-                                        isUnique = false;
-                                        for (Account temp : listtemp){
-                                            if (temp.getUsername().equalsIgnoreCase(Username)){
-                                                isUnique = true;
-                                                break;
-                                            }
-                                        }
-                                        if (isUnique == false){
-                                            error = "UserID must be unique";
-                                        }
-                                    }
-                                }
-                                if (isUnique == true){
-                                    acc = new Account();
-                                    acc.setAccount(Username, Password, Role, 
-                                                    Userid, 0, null);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (error != null){
-            MessageDialog.showErrorDialog(this, error, "Invalid input found");
-        }
+        String Password = txtfPassword.getText();
+        String Role = cbbRole.getSelectedItem().toString();
+        String UserID = txtfUserID.getText().trim();
+        if (UserID.length() == 0) UserID = null;
+        int Activate = 1 - cbbState.getSelectedIndex();
+        LocalDateTime DatePublished = LocalDateTime.now();
+        Account acc = new Account();
+        acc.setAccount(Username, Password, Role, UserID, Activate, DatePublished);
         return acc;
     }
     
     /*Get and check if input is valid for Account Bank*/
-    public AccountBank getInputAccountBankData(String activity){
-        AccountBank accbnk = null;
-        String error = null;
-        String ID = txtfBankID.getText().trim();
-        if (ID.length() == 0){
-            error = "An account bank need an unique id.";
+    public AccountBank getInputAccountBankData(){
+        String BankID = txtfBankID.getText().trim();
+        String Password = txtfBankPassword.getText();
+        String Role = cbbBankRole.getSelectedItem().toString();
+        String UserID = txtfBankUserID.getText().trim();
+        if (UserID.length() == 0) UserID = null;
+        int Activate = 1 - cbbBankState.getSelectedIndex();
+        float Balance = 0;
+        try{
+            Balance = Float.parseFloat(txtfBankBalanced.getText().trim());
+        } catch (NumberFormatException ex){
+            Balance = 0;
         }
-        else{
-            ArrayList<AccountBank> listtemp = Admin.getAccountsBank(
-                                        "where ID='" + ID + "'");
-            if (!activity.equalsIgnoreCase("add") && listtemp.isEmpty()){
-                error = "There is no account bank has ID is '" + ID + "'";
-            }
-            else if(activity.equalsIgnoreCase("Add") && !listtemp.isEmpty()){
-                error = "Bank ID must be unique but ID '" + ID + "' is duplicated.";
-            }
-            else{
-                if (activity.equalsIgnoreCase("Remove")){
-                    if (ID.equalsIgnoreCase("admin")){
-                        error = "Cannot remove account 'admin'.";
-                    }
-                    else{
-                        accbnk = new AccountBank();
-                        accbnk.setAccountBank(ID, null, null, 0, 0, null, null);
-                    }
-                }
-                else{
-                    String Password = txtfBankPassword.getText();
-                    if (Password.length() == 0){
-                        error = "Password is used to keep an account private."
-                              + "\nPlease input it.";
-                    }
-                    else{
-                        String Role = cbbBankRole.getSelectedItem().toString();
-                        if (Role.equalsIgnoreCase("Admin") 
-                            && !ID.equalsIgnoreCase("admin")){
-                            error = "Only account bank with ID is 'admin' "
-                                  + "can have role 'Admin'.";
-                        }
-                        else if (!Role.equalsIgnoreCase("Admin") 
-                            && ID.equalsIgnoreCase("admin")){
-                            error = "Account bank with ID is 'admin' "
-                                  + "must have role 'Admin'.";
-                        }
-                        else{
-                            String Userid = txtfBankUserID.getText().trim();
-                            if (!Role.equalsIgnoreCase("User") 
-                                && Userid.length() > 0){
-                                error =  "Only account with 'User' role "
-                                       + "needs an user's id.";
-                            }
-                            else{
-                                if (Userid.length() == 0) Userid = null;
-                                listtemp = Admin.getAccountsBank(
-                                           "where USERID='" + Userid + "'");
-                                boolean isUnique = true;
-                                if (activity.equalsIgnoreCase("Add")){
-                                    if (!listtemp.isEmpty()){
-                                        error =  "UserID must be unique.";
-                                        isUnique = false;
-                                    }
-                                }
-                                else{
-                                    if (!listtemp.isEmpty()){
-                                        isUnique = false;
-                                        for (AccountBank temp : listtemp){
-                                            if (temp.getBankid().equalsIgnoreCase(ID)){
-                                                isUnique = true;
-                                                break;
-                                            }
-                                        }
-                                        if (isUnique == false){
-                                            error =  "UserID must be unique.";
-                                        }
-                                    }
-                                }
-                                if (isUnique == true){
-                                    String Balance = txtfBankBalanced.getText();
-                                    if (Balance.length() == 0) Balance = null;
-                                    try{
-                                        float balance = 0;
-                                        if (Balance != null){
-                                            balance = Float.parseFloat(Balance);
-                                        }
-                                        accbnk = new AccountBank();
-                                        accbnk.setAccountBank(ID, Password, Role, 
-                                                    0, balance, Userid, null);
-                                    } catch (NumberFormatException ex){
-                                        error =  "Balance must be a float number";
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (error != null){
-            MessageDialog.showErrorDialog(this, error, "Invalid input found.");
-        }
+        LocalDateTime DatePublished = LocalDateTime.now();
+        AccountBank accbnk = new AccountBank();
+        accbnk.setAccountBank(BankID, Password, Role, Activate, Balance, UserID, DatePublished);
         return accbnk;
     }
     
     /*Get and check if input is valid for Treatment Place*/
-    public TreatmentPlace getInputTreamentPlaceData(String activity){
-        TreatmentPlace tmp = null;
-        String error = null;
+    public TreatmentPlace getInputTreamentPlaceData(){
         String ID = txtfTreatmentID.getText().trim();
-        String mess = "";
-        if (ID.length() == 0){
-            error = "A treatment place need an unique id.";
+        String Name = txtfTreatmentName.getText().trim();
+        if (Name.length() == 0) Name = null;
+        int Capacity;
+        try{
+            Capacity = Integer.parseInt(txtfTreatmentCapacity.getText().trim());
+            if (Capacity < 0) Capacity = 0;
+        } catch (NumberFormatException ex){
+            Capacity = 0;
         }
-        else{
-            ArrayList<TreatmentPlace> listtemp = Admin.getTreatmentPlace(
-                                        "where ID='" + ID + "'");
-            if (!activity.equalsIgnoreCase("add") && listtemp.isEmpty()){
-                error = "There is no treatment place has ID is '" + ID + "'";
-            }
-            else if(activity.equalsIgnoreCase("Add") && !listtemp.isEmpty()){
-                error = "ID of treatment place must be unique but ID '" 
-                        + ID + "' is duplicated.";
-            }
-            else{
-                boolean valid_input = true;
-                String Name = txtfTreatmentName.getText().trim();
-                if (Name.length() == 0) Name = null;
-                int capacity = 0, quantity = 0;
-                if (!activity.equalsIgnoreCase("Remove")){
-                    String Capacity = txtfTreatmentCapacity.getText().trim();
-                    String Quantity = txtfTreatmentQuantity.getText().trim();
-                    if (Capacity.length() > 0){
-                        try{
-                            capacity = Integer.parseInt(Capacity);
-                            if (capacity < 0){
-                                error = "Capacity must be a non-negative number";
-                                valid_input = false;
-                            }
-                        } catch(NumberFormatException ex){
-                            error = "Capacity must be a non-negative number";
-                            valid_input = false;
-                        }
-                    }
-                    if (valid_input == true){
-                        if (Quantity.length() > 0){
-                            try{
-                                quantity = Integer.parseInt(Quantity);
-                                if (quantity < 0){
-                                    error = "Quantity must be a non-negative number";
-                                    valid_input = false;
-                                }
-                            } catch(NumberFormatException ex){
-                                error = "Quantity must be a non-negative number";
-                                valid_input = false;
-                            }
-                        }
-                    }
-                }
-                if (valid_input == true){
-                    tmp = new TreatmentPlace();
-                    tmp.setTreatmentPlace(ID, Name, capacity, quantity);
-                }
-            }
+        int Quantity;
+        try{
+            Quantity = Integer.parseInt(txtfTreatmentQuantity.getText().trim());
+            if (Quantity < 0) Quantity = 0;
+        } catch (NumberFormatException ex){
+            Quantity = 0;
         }
-        if (error != null){
-            MessageDialog.showErrorDialog(this, error, "Invalid input found");
-        }
+        TreatmentPlace tmp = new TreatmentPlace();
+        tmp.setTreatmentPlace(ID, Name, Capacity, Quantity);
         return tmp;
     }
     
@@ -547,23 +340,24 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void btnRemoveActionPerformed(java.awt.event.ActionEvent evt){
-        tempacc = getInputAccountData("Remove");
-        if (tempacc != null){
-            boolean removers = Admin.removeAccount(tempacc.getUsername());
-            if (removers == true){
-                txtfUsername.setText("");
-                txtfPassword.setText("");
-                cbbRole.setSelectedIndex(0);
-                txtfUserID.setText("");
-                cbbState.setSelectedIndex(0);
-                for (Account acc : listacc){
-                    if (acc.getUsername().equalsIgnoreCase(tempacc.getUsername())){
-                        listacc.remove(acc);
-                        showTableAccount();
-                        break;
-                    }
+        tempacc = getInputAccountData();
+        String mess = Admin.removeAccount(tempacc);
+        if (mess == null){
+            txtfUsername.setText("");
+            txtfPassword.setText("");
+            cbbRole.setSelectedIndex(0);
+            txtfUserID.setText("");
+            cbbState.setSelectedIndex(0);
+            for (Account acc : listacc){
+                if (acc.getUsername().equalsIgnoreCase(tempacc.getUsername())){
+                    listacc.remove(acc);
+                    showTableAccount();
+                    break;
                 }
             }
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while removing account.");
         }
         tempacc = null;
     }
@@ -587,113 +381,40 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void btnFindActionPerformed(java.awt.event.ActionEvent evt){
-        String input = txtfAttribute.getText().trim();
-        String error = null;
-        if (input.length() == 0){
-            error = "Please input some informations to do the search";
+        String findwith = cbbAttribute.getSelectedItem().toString() + ":" 
+                        + txtfAttribute.getText().trim();
+        String condition = Admin.make_condition(findwith);
+        String[] temp = condition.split(":");
+        if (temp[0].equalsIgnoreCase("Error")){
+            MessageDialog.showErrorDialog(this, condition, "Invalid input found.");
         }
         else{
-            String attribute = cbbAttribute.getSelectedItem().toString().trim();
-            boolean valid_input = true;
-            int valid_datetime = 0;
-            if (attribute.equalsIgnoreCase("Active")){
-                attribute = "Activated";
-                if (!input.equalsIgnoreCase("Active") 
-                    && !input.equalsIgnoreCase("Disabled")
-                    && !input.equalsIgnoreCase("1")
-                    && !input.equalsIgnoreCase("0")){
-                    error = "Attribute Active only accept 'Active' or '1' for 'Activated'"
-                          + " and 'Disabled' or '0' for 'Disabled'";
-                    valid_input = false;
-                }
-                else{
-                    if (input.equalsIgnoreCase("Active")) input = "1";
-                    else if (input.equalsIgnoreCase("Disabled")) input = "0";
-                }
-            }
-            else if (attribute.equalsIgnoreCase("Date Published")){
-                attribute = "Datepublished";
-                input = input.split("\\.")[0];
-                System.out.println(input);
-                valid_datetime = checkDateTime(input);
-                if (valid_datetime == -1){
-                    error = "Attribute Date Published only accept format "
-                          + "(int)dd (int)MM (int) yyy as date "
-                          + "and hh:mm:ss as time (time is optional)";
-                    valid_input = false;
-                }
-                else{
-                    if (valid_datetime > 0){
-                        String[] temp = input.split(":");
-                        int length = temp.length;
-                        if (length == 1) input = input + ":00:00";
-                        else if(length == 2) input = input + ":00";
-                    }
-                }
-            }
-            if (valid_input == true){
-                String condition = "where ";
-                if (attribute.equalsIgnoreCase("username") 
-                    || attribute.equalsIgnoreCase("role")){
-                    condition = (condition + attribute 
-                                + " like '%" + input + "%'");
-                }
-                else if (attribute.equalsIgnoreCase("Activated")){
-                    condition = (condition + attribute + "=" + input);
-                }
-                else if (attribute.equalsIgnoreCase("Userid")){
-                    condition = (condition + attribute + "='" + input + "'");
-                }
-                else{
-                    String input1 = input + " 00:00:00";
-                    String input2 = input + " 23:59:59.999";
-                    if (valid_datetime > 0){
-                        input1 = "'" + toSQLDateTime(input) + "'";
-                        String temp1 = input1.replace(' ', 'T').replace("'", "");
-                        if (valid_datetime == 1)
-                            input2 = LocalDateTime.parse(temp1).plusHours(1).toString();
-                        else if (valid_datetime == 2)
-                            input2 = LocalDateTime.parse(temp1).plusMinutes(1).toString();
-                        else input2 = LocalDateTime.parse(temp1).plusSeconds(1).toString();
-                        input2 = input2.replace('T', ' ');
-                        input2 = "'" + input2 + "'";
-                    }
-                    else{
-                        input1 = "'" + toSQLDateTime(input1) + "'";
-                        input2 = "'" + toSQLDateTime(input2) + "'";
-                    }
-                    condition = (condition + attribute + ">=" + input1
-                               + " and " + attribute + "<=" + input2);
-                }
-                listacc = Admin.getAccounts(condition);
-                showTableAccount();
-            }
-        }
-        if (error != null){
-            MessageDialog.showErrorDialog(this, error, "Invalid input found.");
+            listacc = Admin.getAccounts(condition);
+            showTableAccount();
         }
     }
     
     
     public void btnBankRemoveActionPerformed(java.awt.event.ActionEvent evt){
-        tempaccbank = getInputAccountBankData("Remove");
-        if (tempaccbank != null){
-            boolean removers = Admin.removeAccountBank(tempaccbank.getBankid());
-            if (removers == true){
-                txtfBankID.setText("");
-                txtfBankPassword.setText("");
-                cbbBankRole.setSelectedIndex(0);
-                cbbBankState.setSelectedIndex(0);
-                txtfBankBalanced.setText("");
-                txtfBankUserID.setText("");
-                for (AccountBank accbank : listaccbank){
-                    if (accbank.getBankid().equalsIgnoreCase(tempaccbank.getBankid())){
-                        listaccbank.remove(accbank);
-                        showTableAccountBank();
-                        break;
-                    }
+        tempaccbank = getInputAccountBankData();
+        String mess = Admin.removeAccountBank(tempaccbank);
+        if (mess == null){
+            txtfBankID.setText("");
+            txtfBankPassword.setText("");
+            cbbBankRole.setSelectedIndex(0);
+            cbbBankState.setSelectedIndex(0);
+            txtfBankBalanced.setText("");
+            txtfBankUserID.setText("");
+            for (AccountBank accbank : listaccbank){
+                if (accbank.getBankid().equalsIgnoreCase(tempaccbank.getBankid())){
+                    listaccbank.remove(accbank);
+                    showTableAccountBank();
+                    break;
                 }
             }
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while removing account bank.");
         }
         tempaccbank = null;
     }
@@ -719,130 +440,16 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void btnBankFindActionPerformed(java.awt.event.ActionEvent evt){
-        String input = txtfBankAttribute.getText().trim();
-        String[] temp = null;
-        String error = null;
-        if (input.length() == 0){
-            error = "Please input some informations to do the search";
+        String findwith = cbbBankAttribute.getSelectedItem().toString() + ":" 
+                        + txtfBankAttribute.getText().trim();
+        String condition = Admin.make_condition(findwith);
+        String[] temp = condition.split(":");
+        if (temp[0].equalsIgnoreCase("Error")){
+            MessageDialog.showErrorDialog(this, condition, "Invalid input found.");
         }
         else{
-            String attribute = cbbBankAttribute.getSelectedItem().toString().trim();
-            boolean valid_input = true;
-            int valid_datetime = 0;
-            if (attribute.equalsIgnoreCase("Bank ID")){
-                attribute = "ID";
-            }
-            else if (attribute.equalsIgnoreCase("Active")){
-                if (!input.equalsIgnoreCase("Active") 
-                    && !input.equalsIgnoreCase("Disabled")
-                    && !input.equalsIgnoreCase("1")
-                    && !input.equalsIgnoreCase("0")){
-                    error = "Attribute Active only accept "
-                          + "'Active' or '1' for 'Activated' and "
-                          + "'Disabled' or '0' for 'Disabled'";
-                    valid_input = false;
-                }
-                else{
-                    if (input.equalsIgnoreCase("Active")) input = "1";
-                    else if (input.equalsIgnoreCase("Disabled")) input = "0";
-                }
-            }
-            else if (attribute.equalsIgnoreCase("Balance")){
-                temp = input.split("~");
-                int length = temp.length;
-                if (length < 1 || length > 2){
-                    valid_input = false;
-                }
-                else{
-                    for (int i = 0; i < length; i++){
-                        try{
-                            Float.parseFloat(temp[i]);
-                        } catch(NumberFormatException ex){
-                            valid_input = false;
-                            break;
-                        }
-                    }
-                }
-                if (valid_input == false){
-                    error = "Attribute Balance only accept format (float)Balance or "
-                          + "(float)Balance1~(float)Balance2 (means from Balance1 to Balance2";
-                    temp = null;
-                }
-            }
-            else if (attribute.equalsIgnoreCase("User ID")){
-                attribute = "UserID";
-            }
-            else if (attribute.equalsIgnoreCase("Date Published")){
-                attribute = "Datepublished";
-                input = input.split("\\.")[0];
-                valid_datetime = checkDateTime(input);
-                if (valid_datetime == -1){
-                    error = "Attribute Date Published only accept format "
-                          + "(int)dd (int)MM (int) yyy as date "
-                          + "and hh:mm:ss as time (time is optional)";
-                    valid_input = false;
-                }
-                else{
-                    if (valid_datetime > 0 && valid_datetime < 4){
-                        temp = input.split(":");
-                        int length = temp.length;
-                        if (length == 1) input = input + ":00:00";
-                        else if(length == 2) input = input + ":00";
-                    }
-                }
-            }
-            if (valid_input == true){
-                String condition = "where ";
-                if (attribute.equalsIgnoreCase("ID") 
-                    || attribute.equalsIgnoreCase("role")){
-                    condition = (condition + attribute 
-                                + " like '%" + input + "%'");
-                }
-                else if (attribute.equalsIgnoreCase("Active")){
-                    condition = (condition + attribute + "=" + input);
-                }
-                else if (attribute.equalsIgnoreCase("Balance")){
-                    if (temp != null && temp.length == 2){
-                        condition = (condition + attribute 
-                                    + ">=" + temp[0] + " and " + attribute 
-                                    + "<=" + temp[1]);
-                    }
-                    else{
-                        condition = (condition + attribute + "=" + temp[0]);
-                    }
-                }
-                else if (attribute.equalsIgnoreCase("Userid")){
-                    condition = (condition + attribute + "='" + input + "'");
-                }
-                else{
-                    String input1 = input + " 00:00:00";
-                    String input2 = input + " 23:59:59.999";
-                    System.out.println(input);
-                    if (valid_datetime > 0){
-                        input1 = toSQLDateTime(input);
-                        String temp1 = input1.replace(' ', 'T');
-                        input1 = "'" + input1 + "'";
-                        if (valid_datetime == 1) 
-                            input2 = LocalDateTime.parse(temp1).plusHours(1).toString();
-                        else if (valid_datetime == 2) 
-                            input2 = LocalDateTime.parse(temp1).plusMinutes(1).toString();
-                        else input2 = LocalDateTime.parse(temp1).plusSeconds(1).toString();
-                        input2 = input2.replace('T', ' ');
-                        input2 = "'" + input2 + "'";
-                    }
-                    else{
-                        input1 = "'" + toSQLDateTime(input1) + "'";
-                        input2 = "'" + toSQLDateTime(input2) + "'";
-                    }
-                    condition = (condition + attribute + ">=" + input1
-                               + " and " + attribute + "<=" + input2);
-                }
-                listaccbank = Admin.getAccountsBank(condition);
-                showTableAccountBank();
-            }
-        }
-        if (error != null){
-            MessageDialog.showErrorDialog(this, error, "Invalid input found.");
+            listaccbank = Admin.getAccountsBank(condition);
+            showTableAccountBank();
         }
     }
     
@@ -1082,41 +689,41 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void btnTreatmentEditActionPerformed(java.awt.event.ActionEvent evt){
-        temptmp = getInputTreamentPlaceData("Edit");
-        if (temptmp != null){
-            boolean editresult = Admin.editTreatmentPlace(temptmp);
-            if (editresult == true){
-                for (TreatmentPlace tmp : listTMP){
-                    if (tmp.getID().equalsIgnoreCase(temptmp.getID())){ 
-                        listTMP.set(listTMP.indexOf(tmp), temptmp);
-                        showTableTreamentPlace();
-                        break;
-                    }
+        temptmp = getInputTreamentPlaceData();
+        String mess = Admin.editTreatmentPlace(temptmp);
+        if (mess == null){
+            for (TreatmentPlace tmp : listTMP){
+                if (tmp.getID().equalsIgnoreCase(temptmp.getID())){ 
+                    listTMP.set(listTMP.indexOf(tmp), temptmp);
+                    showTableTreamentPlace();
+                    break;
                 }
-                listTMP.add(temptmp);
-                showTableTreamentPlace();
             }
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while editing treament place.");
         }
         temptmp = null;
     }
     
     public void btnTreatmentRemoveActionPerformed(java.awt.event.ActionEvent evt){
-        temptmp = getInputTreamentPlaceData("Remove");
-        if (temptmp != null){
-            boolean removers = Admin.removeTreatmentPlace(temptmp.getID());
-            if (removers == true){
-                txtfTreatmentID.setText("");
-                txtfTreatmentName.setText("");
-                txtfTreatmentCapacity.setText("");
-                txtfTreatmentQuantity.setText("");
-                for (TreatmentPlace tmp : listTMP){
-                    if (tmp.getID().equalsIgnoreCase(temptmp.getID())){
-                        listTMP.remove(tmp);
-                        showTableTreamentPlace();
-                        break;
-                    }
+        temptmp = getInputTreamentPlaceData();
+        String mess = Admin.removeTreatmentPlace(temptmp);
+        if (mess == null){
+            txtfTreatmentID.setText("");
+            txtfTreatmentName.setText("");
+            txtfTreatmentCapacity.setText("");
+            txtfTreatmentQuantity.setText("");
+            for (TreatmentPlace tmp : listTMP){
+                if (tmp.getID().equalsIgnoreCase(temptmp.getID())){
+                    listTMP.remove(tmp);
+                    showTableTreamentPlace();
+                    break;
                 }
             }
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while removing treatment place.");
         }
         temptmp = null;
     }
@@ -1441,7 +1048,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnFind.setText("Find");
 
-        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Password", "Role", "Active", "UserID", "Date Published" }));
+        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Role", "Active", "UserID", "Date Published" }));
 
         javax.swing.GroupLayout pnlAttributeLayout = new javax.swing.GroupLayout(pnlAttribute);
         pnlAttribute.setLayout(pnlAttributeLayout);
@@ -1723,7 +1330,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnBankFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnBankFind.setText("Find");
 
-        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Password", "Role", "Active", "Balance" }));
+        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Role", "Active", "Balance", "UserID", "Date Published" }));
 
         javax.swing.GroupLayout pnlBankAccountListAttributeLayout = new javax.swing.GroupLayout(pnlBankAccountListAttribute);
         pnlBankAccountListAttribute.setLayout(pnlBankAccountListAttributeLayout);
@@ -1757,7 +1364,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "BankID", "Password", "Role", "Active", "Balance", "UserID", "Date Published"
+                "BankID", "Password", "Role", "Activated", "Balance", "UserID", "Date Published"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -2339,57 +1946,34 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
     private void btnBankAddjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBankAddjButton3ActionPerformed
         // TODO add your handling code here:
-        tempaccbank = getInputAccountBankData("Add");
-        if (tempaccbank != null){
-            int Activate = 1 - cbbBankState.getSelectedIndex();
-            LocalDateTime DatePublished = LocalDateTime.now();
-            tempaccbank.setAccountBank(tempaccbank.getBankid(), tempaccbank.getPassword(), 
-                            tempaccbank.getRole(), Activate, tempaccbank.getBalance(), 
-                            tempaccbank.getUserid(), DatePublished);
-            boolean addresult = Admin.addAccountBank(tempaccbank);
-            if (addresult == true){
-                listaccbank.add(tempaccbank);
-                showTableAccountBank();
-            }
+        tempaccbank = getInputAccountBankData();
+        String mess = Admin.addAccountBank(tempaccbank);
+        if (mess == null){
+            listaccbank.add(tempaccbank);
+             showTableAccountBank();
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Eror while adding account bank.");
         }
         tempaccbank = null;
     }//GEN-LAST:event_btnBankAddjButton3ActionPerformed
 
     private void btnBankEditjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBankEditjButton2ActionPerformed
         // TODO add your handling code here:
-        tempaccbank = getInputAccountBankData("Edit");
-        if (tempaccbank != null){
+        tempaccbank = getInputAccountBankData();
+        String mess = Admin.editAccountBank(tempaccbank);
+        if (mess == null){
             String ID = tempaccbank.getBankid();
-            int Activate = 1 - cbbBankState.getSelectedIndex();
-            if (Activate == 0 && ID.equalsIgnoreCase("admin")){
-                JOptionPane.showMessageDialog(null, 
-                        "Account bank 'admin' must always activated", 
-                        "Input Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                ArrayList<AccountBank> listtemp = Admin.getAccountsBank("where ID='" 
-                                                                + ID + "'");
-                for (AccountBank accbank : listtemp){
-                    if (accbank.getBankid().equalsIgnoreCase(ID)){
-                        tempaccbank.setAccountBank(tempaccbank.getBankid(), 
-                                            tempaccbank.getPassword(), 
-                                            tempaccbank.getRole(), Activate, 
-                                            tempaccbank.getBalance(), tempaccbank.getUserid(), 
-                                            accbank.getDatePublished());
-                    }
+            for (AccountBank accbank : listaccbank){
+                if (accbank.getBankid().equalsIgnoreCase(ID)){ 
+                    listaccbank.set(listaccbank.indexOf(accbank), tempaccbank);
+                    showTableAccountBank();
+                    break;
                 }
-                boolean editresult = Admin.editAccountBank(tempaccbank);
-                if (editresult == true){
-                    for (AccountBank accbank : listaccbank){
-                        if (accbank.getBankid().equalsIgnoreCase(ID)){ 
-                            listaccbank.set(listaccbank.indexOf(accbank), tempaccbank);
-                            showTableAccountBank();
-                            break;
-                        }
-                    }
-                }
-                else System.out.println("1");
             }
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while editing account bank.");
         }
         tempaccbank = null;
     }//GEN-LAST:event_btnBankEditjButton2ActionPerformed
@@ -2434,55 +2018,34 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        tempacc = getInputAccountData("Add");
-        if (tempacc != null){
-            int Activate = 1 - cbbState.getSelectedIndex();
-            LocalDateTime DatePublished = LocalDateTime.now();
-            tempacc.setAccount(tempacc.getUsername(), tempacc.getPassword(), 
-                            tempacc.getRole(), tempacc.getUserid(), 
-                            Activate, DatePublished);
-            boolean addresult = Admin.addAccount(tempacc);
-            if (addresult == true){
-                listacc.add(tempacc);
-                showTableAccount();
-            }
+        tempacc = getInputAccountData();
+        String mess = Admin.addAccount(tempacc);
+        if (mess == null){
+            listacc.add(tempacc);
+            showTableAccount();
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while adding account.");
         }
         tempacc = null;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        tempacc = getInputAccountData("Edit");
-        if (tempacc != null){
+        tempacc = getInputAccountData();
+        String mess = Admin.editAccount(tempacc);
+        if (mess == null){
             String Username = tempacc.getUsername();
-            int Activate = 1 - cbbState.getSelectedIndex();
-            if (Activate == 0 && Username.equalsIgnoreCase("admin")){
-                JOptionPane.showMessageDialog(null, 
-                        "Account 'admin' must always activated", 
-                        "Input Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                ArrayList<Account> listtemp = Admin.getAccounts("where USERNAME='" 
-                                                                + Username + "'");
-                for (Account acc : listtemp){
-                    if (acc.getUsername().equalsIgnoreCase(Username)){
-                        tempacc.setAccount(tempacc.getUsername(), 
-                                            tempacc.getPassword(), 
-                                            tempacc.getRole(), tempacc.getUserid(), 
-                                            Activate, acc.getDatePublished());
-                    }
-                }
-                boolean editresult = Admin.editAccount(tempacc);
-                if (editresult == true){
-                    for (Account acc : listacc){
-                        if (acc.getUsername().equalsIgnoreCase(Username)){ 
-                            listacc.set(listacc.indexOf(acc), tempacc);
-                            showTableAccount();
-                            break;
-                        }
-                    }
+            for (Account acc : listacc){
+                if (acc.getUsername().equalsIgnoreCase(Username)){ 
+                    listacc.set(listacc.indexOf(acc), tempacc);
+                    showTableAccount();
+                    break;
                 }
             }
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while editing account.");
         }
         tempacc = null;
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -2514,13 +2077,14 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
     private void btnTreatmentAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTreatmentAddActionPerformed
         // TODO add your handling code here:
-        temptmp = getInputTreamentPlaceData("Add");
-        if (temptmp != null){
-            boolean addresult = Admin.addTreatmentPlace(temptmp);
-            if (addresult == true){
-                listTMP.add(temptmp);
-                showTableTreamentPlace();
-            }
+        temptmp = getInputTreamentPlaceData();
+        String mess = Admin.addTreatmentPlace(temptmp);
+        if (mess == null){
+            listTMP.add(temptmp);
+            showTableTreamentPlace();
+        }
+        else{
+            MessageDialog.showErrorDialog(this, mess, "Error while adding treatment place.");
         }
         temptmp = null;
     }//GEN-LAST:event_btnTreatmentAddActionPerformed
