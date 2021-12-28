@@ -178,63 +178,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         return tmp;
     }
     
-    public int checkDateTime(String datetime){
-        int valid_date = 0;
-        String[] tempdate = datetime.split(" ");
-        int length = tempdate.length;
-        if (length < 3 || length > 4){
-            valid_date = -1;
-        }
-        else{
-            for (int i = 0; i < 3; i++){
-                if ((i < 2 && tempdate[i].length() != 2)
-                    || i == 2 && tempdate[i].length() != 4){
-                    valid_date = -1;
-                }
-                else{
-                    try{
-                        Integer.parseInt(tempdate[i]);
-                    } catch (NumberFormatException ex){
-                        valid_date = -1;
-                        break;
-                    }
-                }
-                if (valid_date == -1) break;
-            }
-            if (valid_date == 0 && length == 4){
-                String[] temptime = tempdate[3].split(":");
-                int len = temptime.length;
-                if (len > 3) valid_date = -1;
-                else{
-                    valid_date = len;
-                    for (int i = 0; i < len; i++){
-                        if (temptime[i].length() != 2){
-                                valid_date = -1;
-                        }
-                        else{
-                            try{
-                                Integer.parseInt(tempdate[i]);
-                            } catch (NumberFormatException ex){
-                                valid_date = -1;
-                                break;
-                            }
-                        }
-                        if (valid_date == -1) break;
-                    }
-                }
-            }
-        }
-        return valid_date;
-    }
-    
-    public String toSQLDateTime(String datetime){
-        String[] datetimearr = datetime.split(" ");
-        String result = "";
-        int length = datetimearr.length;
-        result = result + datetimearr[2] + "-" + datetimearr[1] + "-" + datetimearr[0];
-        if (length > 3) result = result + " " + datetimearr[3];
-        return result;
-    }
     
     /*Add needed action performed for buttons*/
     void AddActionPerformed(){
@@ -478,7 +421,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             if (dateStart.length() == 0) dateStart = null;
             else{
                 dateStart = dateStart.split("\\.")[0];
-                validDS = checkDateTime(dateStart);
+                validDS = Admin.checkDateTime(dateStart);
                 if (validDS == -1){
                     MessageDialog.showErrorDialog(this, "Date Start " + mess, "Invalid input found");
                     return;
@@ -491,7 +434,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         else if(length == 2) dateStart = dateStart + ":00";
                     }
                     else dateStart = dateStart + " 00:00:00";
-                    dateStart = toSQLDateTime(dateStart).replace(' ', 'T');
+                    dateStart = Admin.toSQLDateTime(dateStart).replace(' ', 'T');
                     dateStart = LocalDateTime.parse(dateStart).toString().replace('T', ' ');
                     dateStart = "'" + dateStart + "'";
                 }
@@ -499,7 +442,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             if (dateEnd.length() == 0) dateEnd = null;
             else{
                 dateEnd = dateEnd.split("\\.")[0];
-                validDE = checkDateTime(dateEnd);
+                validDE = Admin.checkDateTime(dateEnd);
                 if (validDE == -1){
                     MessageDialog.showErrorDialog(this, "Date End " + mess, "Invalid input found");
                     return;
@@ -512,7 +455,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         else if(length == 2) dateEnd = dateEnd + ":00";
                     }
                     else dateEnd = dateEnd + " 00:00:00";
-                    dateEnd = toSQLDateTime(dateEnd).replace(' ', 'T');
+                    dateEnd = Admin.toSQLDateTime(dateEnd).replace(' ', 'T');
                     dateEnd = LocalDateTime.parse(dateEnd).plusSeconds(1).toString().replace('T', ' ');
                     dateEnd = "'" + dateEnd + "'";
                 }
@@ -558,7 +501,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             if (dateStart.length() == 0) dateStart = null;
             else{
                 dateStart = dateStart.split("\\.")[0];
-                validDS = checkDateTime(dateStart);
+                validDS = Admin.checkDateTime(dateStart);
                 if (validDS == -1){
                     MessageDialog.showErrorDialog(this, "Date Start " + mess, "Invalid input found");
                     return;
@@ -572,7 +515,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     }
                     else dateStart = dateStart + " 00:00:00";
                     System.out.println(dateStart);
-                    dateStart = toSQLDateTime(dateStart).replace(' ', 'T');
+                    dateStart = Admin.toSQLDateTime(dateStart).replace(' ', 'T');
                     System.out.println(dateStart);
                     dateStart = LocalDateTime.parse(dateStart).toString().replace('T', ' ');
                     dateStart = "'" + dateStart + "'";
@@ -581,7 +524,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             if (dateEnd.length() == 0) dateEnd = null;
             else{
                 dateEnd = dateEnd.split("\\.")[0];
-                validDE = checkDateTime(dateEnd);
+                validDE = Admin.checkDateTime(dateEnd);
                 if (validDE == -1){
                     MessageDialog.showErrorDialog(this, "Date End " + mess, "Invalid input found");
                     return;
@@ -594,7 +537,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         else if(length == 2) dateEnd = dateEnd + ":00";
                     }
                     else dateEnd = dateEnd + " 00:00:00";
-                    dateEnd = toSQLDateTime(dateEnd).replace(' ', 'T');
+                    dateEnd = Admin.toSQLDateTime(dateEnd).replace(' ', 'T');
                     dateEnd = LocalDateTime.parse(dateEnd).plusSeconds(1).toString().replace('T', ' ');
                     dateEnd = "'" + dateEnd + "'";
                 }

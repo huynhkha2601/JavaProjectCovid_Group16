@@ -658,8 +658,13 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void mitNewActionPerformed(java.awt.event.ActionEvent evt){
-        MainFrame newMainFrame = new MainFrame();
-        newMainFrame.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                MainFrame newMainFrame = new MainFrame();
+                newMainFrame.setVisible(true);
+            }
+        });
     }
     
     /**
@@ -691,6 +696,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainFrame().setVisible(true);
             }
