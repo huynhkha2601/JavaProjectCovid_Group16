@@ -9,6 +9,11 @@ import java.awt.Component;
 import javax.swing.JFrame;
 import Account.Account;
 import DbConnection.SQLConnection;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -40,10 +45,9 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
-                
+    public MainFrame() {         
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         new SQLConnection();
         AddActionPerformed();
@@ -64,7 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
             btnManageRelated.setEnabled(false);
         }
     }
-        public MainFrame(Account a,int role,LocalDateTime now) {
+    public MainFrame(Account a,int role,LocalDateTime now) {
         this.role = role;
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,7 +114,6 @@ public class MainFrame extends javax.swing.JFrame {
         mitReload = new javax.swing.JMenuItem();
         sptFile = new javax.swing.JPopupMenu.Separator();
         mitFileLogout = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         menuEdit = new javax.swing.JMenu();
         mitUndo = new javax.swing.JMenuItem();
         mitRedo = new javax.swing.JMenuItem();
@@ -137,7 +140,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlWelcome.setMinimumSize(new java.awt.Dimension(120, 30));
         pnlWelcome.setPreferredSize(new java.awt.Dimension(1217, 120));
 
-        lblAppTittle.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
+        lblAppTittle.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lblAppTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAppTittle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/virus-remove-48.png"))); // NOI18N
         lblAppTittle.setText("Ứng dụng quản lý thông tin dịch bệnh Covid-19");
@@ -334,8 +337,8 @@ public class MainFrame extends javax.swing.JFrame {
         );
         pnlContentLayout.setVerticalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tpnContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tpnContent, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+            .addComponent(pnlButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
         );
 
         menuFile.setText("File");
@@ -343,6 +346,11 @@ public class MainFrame extends javax.swing.JFrame {
         mitNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
         mitNew.setText("New Window");
+        mitNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitNewActionPerformed(evt);
+            }
+        });
         menuFile.add(mitNew);
 
         mitReload.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -365,10 +373,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         menuFile.add(mitFileLogout);
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
-        menuFile.add(jCheckBoxMenuItem1);
 
         menuBar.add(menuFile);
 
@@ -403,6 +407,11 @@ public class MainFrame extends javax.swing.JFrame {
         mitCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cut.png"))); // NOI18N
         mitCut.setText("Cut");
+        mitCut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitCutActionPerformed(evt);
+            }
+        });
         menuEdit.add(mitCut);
 
         mitPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -477,8 +486,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
         );
 
         pack();
@@ -560,8 +568,10 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFind1ActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        this.setVisible(false);
-        new SignInFrame().setVisible(true);
+        this.dispose();
+        SignInFrame signInFrame = new SignInFrame();
+        signInFrame.setTitle("Sign in");
+        signInFrame.setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void pnlFind2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnlFind2ActionPerformed
@@ -589,8 +599,43 @@ public class MainFrame extends javax.swing.JFrame {
             tpnContent.remove(fpn);
             findFlag--;
         }
-
     }//GEN-LAST:event_btnFindActionPerformed
+
+    private void mitCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCopyActionPerformed
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_CONTROL);
+            r.keyPress(KeyEvent.VK_C);
+            r.keyRelease(KeyEvent.VK_C);
+            r.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mitCopyActionPerformed
+
+    private void mitRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitRedoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mitRedoActionPerformed
+
+    private void mitPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitPasteActionPerformed
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_CONTROL);
+            r.keyPress(KeyEvent.VK_V);
+            r.keyRelease(KeyEvent.VK_V);
+            r.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mitPasteActionPerformed
+
+    private void mitFileLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitFileLogoutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        SignInFrame signInFrame = new SignInFrame();
+        signInFrame.setTitle("Sign in");
+        signInFrame.setVisible(true);
+    }//GEN-LAST:event_mitFileLogoutActionPerformed
 
     private void mitReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitReloadActionPerformed
         // TODO add your handling code here:
@@ -629,40 +674,33 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mitReloadActionPerformed
 
-    private void mitFileLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitFileLogoutActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new SignInFrame().setVisible(true);
-    }//GEN-LAST:event_mitFileLogoutActionPerformed
-
-    private void mitCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCopyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mitCopyActionPerformed
-
-    private void mitRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitRedoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mitRedoActionPerformed
-
-    private void mitPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitPasteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mitPasteActionPerformed
-    
+    private void mitNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitNewActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                MainFrame mainFrame = new MainFrame();
+                mainFrame.setTitle("Covid-19 Management");
+                mainFrame.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_mitNewActionPerformed
+    private void mitCutActionPerformed(java.awt.event.ActionEvent evt){
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_CONTROL);
+            r.keyPress(KeyEvent.VK_X);
+            r.keyRelease(KeyEvent.VK_X);
+            r.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
     
     private void AddActionPerformed(){
         mitNew.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitNewActionPerformed(evt);
-            }
-        });
-    }
-    
-    private void mitNewActionPerformed(java.awt.event.ActionEvent evt){
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                MainFrame newMainFrame = new MainFrame();
-                newMainFrame.setVisible(true);
             }
         });
     }
@@ -711,7 +749,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnManagePerson;
     private javax.swing.JButton btnManageRelated;
     private javax.swing.JButton btnProfile;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel lblAppTittle;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JMenu menuAboutUs;

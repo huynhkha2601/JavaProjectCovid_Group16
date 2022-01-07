@@ -523,11 +523,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         //new SignInFrame().setVisible(true);
         AccountBank accBank = BankInf.getAccountBank(id);
         //System.out.println(accBank.getDatePublished());
-        new AccountBankFrame(accBank).setVisible(true);
+        AccountBankFrame accountBankFrame = new AccountBankFrame(accBank);
+        accountBankFrame.setTitle("Payment system");
+        accountBankFrame.setVisible(true);
+        //this.setEnabled(false);
     }//GEN-LAST:event_btnBuyPackageActionPerformed
 
     private void btnChangePwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePwActionPerformed
-        new ChangePasswordFrame().setVisible(true);
+        ChangePasswordFrame changePasswordFrame = new ChangePasswordFrame();
+        changePasswordFrame.setTitle("Change password");
+        changePasswordFrame.setVisible(true);
     }//GEN-LAST:event_btnChangePwActionPerformed
 
     private void txfCCCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCCCDActionPerformed

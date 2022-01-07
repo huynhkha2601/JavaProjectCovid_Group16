@@ -27,8 +27,21 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         filterOption.add("Address");
         filterOption.add("Status");
         filterOption.add("Treatment");
-        
-        
+        choice1.add("TP Hồ Chí Minh");
+        choice1.add("Hà Nội");
+        choice1.add("Đà Nẵng");
+        choice1.add("Quảng Ngãi");
+        choice1.add("Quảng Nam");
+        choice2.add("Quận 1");
+        choice2.add("Quận 2");
+        choice2.add("Quận 3");
+        choice2.add("Quận 4");
+        choice2.add("Quận 5");
+        choice3.add("Bến Nghé");
+        choice3.add("Bến Thành");
+        choice3.add("Cô Giang");
+        choice3.add("Cầu Kho");
+        choice3.add("Cầu Ông Lãnh");
     }
     public void clearTextField() {
         txfAddress.setText("");
@@ -71,6 +84,12 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         txfTreatment = new javax.swing.JTextField();
         txfStatus = new javax.swing.JTextField();
         txfFullname = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        choice1 = new java.awt.Choice();
+        choice2 = new java.awt.Choice();
+        choice3 = new java.awt.Choice();
         lblSubtittleRight = new javax.swing.JLabel();
         pnlInforButton = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
@@ -145,57 +164,106 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("City/Province:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("District/Town:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Ward:");
+
+        choice1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                choice1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                choice1MousePressed(evt);
+            }
+        });
+        choice1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                choice1ItemStateChanged(evt);
+            }
+        });
+
+        choice2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                choice2ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlInforInputLayout = new javax.swing.GroupLayout(pnlInforInput);
         pnlInforInput.setLayout(pnlInforInputLayout);
         pnlInforInputLayout.setHorizontalGroup(
             pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInforInputLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblYoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
                 .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfYoB)
+                    .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblYoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addGap(4, 4, 4)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfYoB, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                     .addComponent(txfFullname, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfID, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfAddress, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfTreatment)
-                    .addComponent(txfStatus))
+                    .addComponent(txfStatus)
+                    .addComponent(choice3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(choice2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(choice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlInforInputLayout.setVerticalGroup(
             pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInforInputLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlInforInputLayout.createSequentialGroup()
+                        .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblYoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txfYoB, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
+                    .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfID, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addGap(6, 6, 6)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(8, 8, 8)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblYoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfYoB, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addGap(8, 8, 8)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addGap(5, 5, 5)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(choice2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(choice3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(txfTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         lblSubtittleRight.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -334,8 +402,8 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(filterOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlInforInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlInforInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlInforButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -427,8 +495,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblTittle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -454,34 +521,32 @@ public class PatientManagementPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfID.getText().equals("") || txfStatus.getText().equals("") || txfTreatment.getText().equals("") || txfYoB.getText().equals(""))
-            JOptionPane.showMessageDialog(pnlInformation, "Required fields cannot be blank", "Notification", JOptionPane.INFORMATION_MESSAGE);
-        else if(PatientInf.addPatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), txfStatus.getText(), txfTreatment.getText())) {
-            JOptionPane.showMessageDialog(pnlInformation, "Add successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
-            //DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
-            //model.addRow(new Object[]{txfID.getText(), txfFullname.getText(), txfYoB.getText(), txfAddress.getText(), txfTreatment.getText(), txfStatus.getText(), "0"});
+            JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        else if(PatientInf.addPatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText() + ", " + choice3.getSelectedItem() + ", " + choice2.getSelectedItem() + ", " + choice1.getSelectedItem(), txfStatus.getText(), txfTreatment.getText())) {
+            JOptionPane.showMessageDialog(this, "Add successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
             refreshTable();
             clearTextField();
         }
         else
-            JOptionPane.showMessageDialog(pnlInformation, "Add failed", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Add failed", "Notification", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         if(txfID.getText().equals(""))
-            JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
         else {
-            int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(this, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfStatus.getText().equals("") || txfYoB.getText().equals(""))
-                    JOptionPane.showMessageDialog(pnlInformation, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 else {
                     if(PatientInf.updatePatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), txfStatus.getText())) {
-                        JOptionPane.showMessageDialog(pnlInformation, "Update successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Update successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
                         refreshTable();
                         clearTextField();
                     }
                     else
-                        JOptionPane.showMessageDialog(pnlInformation, "Update failed", "Notification", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Update failed", "Notification", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -489,18 +554,18 @@ public class PatientManagementPanel extends javax.swing.JPanel {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         if(txfID.getText().equals(""))
-            JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
         else {
             String id = txfID.getText();
-            int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(this, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 if(PatientInf.deletePatient(id)) {
-                    JOptionPane.showMessageDialog(pnlInformation, "Remove successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Remove successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
                     refreshTable();
                     clearTextField();
                 }
                 else
-                    JOptionPane.showMessageDialog(pnlInformation, "Remove failed", "Notification", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Remove failed", "Notification", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
@@ -514,42 +579,42 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         List<Profile> list = null;
         if (filterOption.getSelectedItem().equals("ID")) {
             if (txfID.getText().equals("")) {
-                JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             list = PatientInf.getPatientByFilter(txfID.getText(), "ID");  
         }
         else if (filterOption.getSelectedItem().equals("Fullname")) {
             if (txfFullname.getText().equals("")) {
-                JOptionPane.showMessageDialog(pnlInformation, "Fullname field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Fullname field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             list = PatientInf.getPatientByFilter(txfFullname.getText(), "Fullname");
         }
         else if (filterOption.getSelectedItem().equals("YoB")) {
             if (txfYoB.getText().equals("")) {
-                JOptionPane.showMessageDialog(pnlInformation, "YoB field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "YoB field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 return;
             }
            list = PatientInf.getPatientByFilter(txfYoB.getText(), "YoB");
         }
         else if (filterOption.getSelectedItem().equals("Address")) {
             if (txfAddress.getText().equals("")) {
-                JOptionPane.showMessageDialog(pnlInformation, "Address field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Address field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 return;
             }
            list = PatientInf.getPatientByFilter(txfAddress.getText(), "Address");
         }
         else if (filterOption.getSelectedItem().equals("Status")) {
             if (txfStatus.getText().equals("")) {
-                JOptionPane.showMessageDialog(pnlInformation, "Status field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Status field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 return;
             }
            list = PatientInf.getPatientByFilter(txfStatus.getText(), "Status"); 
         }
         else if (filterOption.getSelectedItem().equals("Treatment")) {
             if (txfTreatment.getText().equals("")) {
-                JOptionPane.showMessageDialog(pnlInformation, "Treatment field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Treatment field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 return;
             }
            list = PatientInf.getPatientByFilter(txfTreatment.getText(), "Treatment");
@@ -561,19 +626,22 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
         }
         else
-            JOptionPane.showMessageDialog(pnlInformation, "No result found", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No result found", "Notification", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnViewRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRelatedActionPerformed
-        new ViewRelatedFrame().setVisible(true);
+        ViewRelatedFrame viewRelatedFrame = new ViewRelatedFrame();
+        viewRelatedFrame.setTitle("Related management");
+        viewRelatedFrame.setVisible(true);
     }//GEN-LAST:event_btnViewRelatedActionPerformed
 
     private void btnHosptTranferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHosptTranferActionPerformed
         if(txfID.getText().equals(""))
-            JOptionPane.showMessageDialog(pnlInformation, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ID field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
         else {
             String id = txfID.getText();
             HospitalTransferFrame transferFrame = new HospitalTransferFrame(id);
+            transferFrame.setTitle("Transfer hospital");
             transferFrame.setVisible(true);
         } 
     }//GEN-LAST:event_btnHosptTranferActionPerformed
@@ -600,6 +668,232 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         clearTextField();
     }//GEN-LAST:event_filterOptionItemStateChanged
 
+    private void choice1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choice1ItemStateChanged
+        choice2.removeAll();
+        if(choice1.getSelectedItem().equals("TP Hồ Chí Minh")) {
+            choice2.add("Quận 1");
+            choice2.add("Quận 2");
+            choice2.add("Quận 3");
+            choice2.add("Quận 4");
+            choice2.add("Quận 5");
+        }
+        else if(choice1.getSelectedItem().equals("Hà Nội")) {
+            choice2.add("Ba Đình");
+            choice2.add("Đống Đa");
+            choice2.add("Hai Bà Trưng");
+            choice2.add("Hoàn Kiếm");
+            choice2.add("Bắc Từ Liêm");
+        }
+        else if(choice1.getSelectedItem().equals("Đà Nẵng")) {
+            choice2.add("Hải Châu");
+            choice2.add("Cẩm Lệ");
+            choice2.add("Thanh Khê");
+            choice2.add("Liên Chiểu");
+            choice2.add("Ngũ Hành Sơn");
+        }
+        else if(choice1.getSelectedItem().equals("Quảng Ngãi")) {
+            choice2.add("Lý Sơn");
+            choice2.add("Bình Sơn");
+            choice2.add("Trà Bồng");
+            choice2.add("Sơn Tịnh");
+            choice2.add("Sơn Tây");
+        }
+        else if(choice1.getSelectedItem().equals("Quảng Nam")) {
+            choice2.add("TP Tam Kỳ");
+            choice2.add("TP Hội An");
+            choice2.add("Núi Thành");
+            choice2.add("Phú Ninh");
+            choice2.add("Thăng Bình");
+        }
+    }//GEN-LAST:event_choice1ItemStateChanged
+
+    private void choice1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choice1MouseClicked
+        
+    }//GEN-LAST:event_choice1MouseClicked
+
+    private void choice1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choice1MousePressed
+
+    }//GEN-LAST:event_choice1MousePressed
+
+    private void choice2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choice2ItemStateChanged
+        choice3.removeAll();
+        if(choice2.getSelectedItem().equals("Quận 1")) {
+            choice3.add("Bến Nghé");
+            choice3.add("Bến Thành");
+            choice3.add("Cô Giang");
+            choice3.add("Cầu Kho");
+            choice3.add("Cầu Ông Lãnh");
+        }
+        else if(choice2.getSelectedItem().equals("Quận 2")) {
+            choice3.add("An Khánh");
+            choice3.add("An Lợi Đông");
+            choice3.add("An Phú");
+            choice3.add("Bình An");
+            choice3.add("Thảo Điền");
+        }
+        else if(choice2.getSelectedItem().equals("Quận 3")) {
+            choice3.add("Phường 1");
+            choice3.add("Phường 2");
+            choice3.add("Phường 3");
+            choice3.add("Phường 4");
+            choice3.add("Phường 5");
+        }
+        else if(choice2.getSelectedItem().equals("Quận 4")) {
+            choice3.add("Phường 1");
+            choice3.add("Phường 2");
+            choice3.add("Phường 3");
+            choice3.add("Phường 9");
+            choice3.add("Phường 12");
+        }
+        else if(choice2.getSelectedItem().equals("Quận 5")) {
+            choice3.add("Phường 1");
+            choice3.add("Phường 2");
+            choice3.add("Phường 3");
+            choice3.add("Phường 6");
+            choice3.add("Phường 7");
+        }
+        else if(choice2.getSelectedItem().equals("Ba Đình")) {
+            choice3.add("Cống Vị");
+            choice3.add("Điện Biên");
+            choice3.add("Đội Cấn");
+            choice3.add("Giảng Võ");
+            choice3.add("Kim Mã");
+        }
+        else if(choice2.getSelectedItem().equals("Đống Đa")) {
+            choice3.add("Cát Linh");
+            choice3.add("Hàng Bột");
+            choice3.add("Khâm Thiên");
+            choice3.add("Khương Thượng");
+            choice3.add("Kim Liên");
+        }
+        else if(choice2.getSelectedItem().equals("Hoàn Kiếm")) {
+            choice3.add("Chương Dương");
+            choice3.add("Cửa Đông");
+            choice3.add("Cửa Nam");
+            choice3.add("Đồng Xuân");
+            choice3.add("Hàng Bạc");
+        }
+        else if(choice2.getSelectedItem().equals("Hai Bà Trưng")) {
+            choice3.add("Nguyễn Du");
+            choice3.add("Lê Đại Hành");
+            choice3.add("Bùi Thị Xuân");
+            choice3.add("Phố Huế");
+            choice3.add("Phạm Đình Hổ");
+        }
+        else if(choice2.getSelectedItem().equals("Bắc Từ Liêm")) {
+            choice3.add("Cổ Nhuế 1");
+            choice3.add("Cổ Nhuế 2");
+            choice3.add("Đức Thắng");
+            choice3.add("Đông Ngạc");
+            choice3.add("Thụy Phương");
+        }
+        else if(choice2.getSelectedItem().equals("Hải Châu")) {
+            choice3.add("Hải Châu 1");
+            choice3.add("Hải Châu 2");
+            choice3.add("Thạch Thang");
+            choice3.add("Thanh Bình");
+            choice3.add("Thuận Phước");
+        }
+        else if(choice2.getSelectedItem().equals("Cẩm Lệ")) {
+            choice3.add("Khuê Trung");
+            choice3.add("Hòa Thọ Đông");
+            choice3.add("Hòa Thọ Tây");
+            choice3.add("Hòa An");
+            choice3.add("Hòa Phát");
+        }
+        else if(choice2.getSelectedItem().equals("Thanh Khê")) {
+            choice3.add("Vĩnh Trung");
+            choice3.add("Tân Chính");
+            choice3.add("Thạc Gián");
+            choice3.add("Chính Gián");
+            choice3.add("Tam Thuận");
+        }
+        else if(choice2.getSelectedItem().equals("Liên Chiểu")) {
+            choice3.add("Hòa Minh");
+            choice3.add("Hòa Khánh Nam");
+            choice3.add("Hòa Khánh Bắc");
+            choice3.add("Hòa Hiệp Nam");
+            choice3.add("Hòa Hiệp Bắc");
+        }
+        else if(choice2.getSelectedItem().equals("Ngũ Hành Sơn")) {
+            choice3.add("Mỹ An");
+            choice3.add("Khuê Mỹ");
+            choice3.add("Hòa Hải");
+            choice3.add("Hòa Quý");
+            choice3.add("Khuê Mỹ");
+        }
+        else if(choice2.getSelectedItem().equals("Lý Sơn")) {
+            choice3.add("An Bình");
+            choice3.add("An Vĩnh");
+            choice3.add("An Hải");
+            choice3.add("An Vĩnh");
+            choice3.add("An Bình");
+        }
+        else if(choice2.getSelectedItem().equals("Bình Sơn")) {
+            choice3.add("Bình An");
+            choice3.add("Bình Chánh");
+            choice3.add("Bình Chương");
+            choice3.add("Bình Đông");
+            choice3.add("Bình Hiệp");
+        }
+        else if(choice2.getSelectedItem().equals("Trà Bồng")) {
+            choice3.add("Hương Trà");
+            choice3.add("Sơn Trà");
+            choice3.add("Trà Bình");
+            choice3.add("Trà Bùi");
+            choice3.add("Trà Giang");
+        }
+        else if(choice2.getSelectedItem().equals("Sơn Tịnh")) {
+            choice3.add("Tịnh Minh");
+            choice3.add("Tịnh Thọ");
+            choice3.add("Tịnh Hạ");
+            choice3.add("Tịnh Trà");
+            choice3.add("Tịnh Hiệp");
+        }
+        else if(choice2.getSelectedItem().equals("Sơn Tây")) {
+            choice3.add("Lê Lợi");
+            choice3.add("Phú Thịnh");
+            choice3.add("Quang Trung");
+            choice3.add("Sơn Lộc");
+            choice3.add("Trung Hưng");
+        }
+        else if(choice2.getSelectedItem().equals("TP Tam Kỳ")) {
+            choice3.add("Tân Thạnh");
+            choice3.add("Hòa Thuận");
+            choice3.add("An Mỹ");
+            choice3.add("An Sơn");
+            choice3.add("An Xuân");
+        }
+        else if(choice2.getSelectedItem().equals("TP Hội An")) {
+            choice3.add("Minh An");
+            choice3.add("Sơn Phong");
+            choice3.add("Cẩm Phô");
+            choice3.add("Thanh Hà");
+            choice3.add("Tân An");
+        }
+        else if(choice2.getSelectedItem().equals("Núi Thành")) {
+            choice3.add("Tam Xuân");
+            choice3.add("Tam Tiến");
+            choice3.add("Tam Trà");
+            choice3.add("Tam Sơn");
+            choice3.add("Tam Anh");
+        }
+        else if(choice2.getSelectedItem().equals("Phú Ninh")) {
+            choice3.add("Tam An");
+            choice3.add("Tam Đại");
+            choice3.add("Tam Dân");
+            choice3.add("Tam Đàn");
+            choice3.add("Tam Lãnh");
+        }
+        else if(choice2.getSelectedItem().equals("Thăng Bình")) {
+            choice3.add("Bình An");
+            choice3.add("Bình Đào");
+            choice3.add("Bình Hải");
+            choice3.add("Bình Lâm");
+            choice3.add("Bình Nguyên");
+        }
+    }//GEN-LAST:event_choice2ItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -609,9 +903,15 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnViewRelated;
+    private java.awt.Choice choice1;
+    private java.awt.Choice choice2;
+    private java.awt.Choice choice3;
     private java.awt.Choice filterOption;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblFullname;

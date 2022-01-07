@@ -33,7 +33,7 @@ public class AboutUsPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Java-Project-48.png"))); // NOI18N
         lblTitle.setText("Java Project Covid-19 - Backspace");

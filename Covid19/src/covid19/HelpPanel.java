@@ -39,7 +39,7 @@ public class HelpPanel extends javax.swing.JPanel {
 
         jTextField1.setText("jTextField1");
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/help-64.png"))); // NOI18N
         lblTitle.setText("Help");

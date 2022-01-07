@@ -11,10 +11,10 @@ import java.time.format.DateTimeFormatter;
 
 public class Covid19Main {
 
-    public static void main(String[] args) {
-      
-      new MainFrame().setVisible(true);
-
+    public static void main(String[] args) { 
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setTitle("Covid-19 Management");
+        mainFrame.setVisible(true);
     }
 
 }

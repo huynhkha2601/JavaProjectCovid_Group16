@@ -16,6 +16,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     public ChangePasswordFrame() {
         initComponents();
         this.setResizable(false);
+        this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

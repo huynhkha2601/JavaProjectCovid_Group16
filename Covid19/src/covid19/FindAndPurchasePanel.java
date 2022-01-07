@@ -79,10 +79,10 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(988, 529));
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search-48.png"))); // NOI18N
-        lblTitle.setText("Tìm kiếm");
+        lblTitle.setText("Search");
         lblTitle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         pnlPackageList.setBorder(javax.swing.BorderFactory.createTitledBorder("Package List"));
@@ -116,7 +116,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         pnlPackageList.setLayout(pnlPackageListLayout);
         pnlPackageListLayout.setHorizontalGroup(
             pnlPackageListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 480, Short.MAX_VALUE)
             .addGroup(pnlPackageListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlPackageListLayout.createSequentialGroup()
                     .addContainerGap()
@@ -133,6 +133,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                     .addContainerGap()))
         );
 
+        lblPackage.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblPackage.setText("Choose Package:");
 
         cbbPackage.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +142,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
             }
         });
 
+        lblRegistered.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblRegistered.setText("Max Number:");
 
         txtRegisterd.setEditable(false);
@@ -155,9 +157,14 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
             }
         });
 
+        lblQuantity.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblQuantity.setText("Quantity Purcharsed:");
 
-        txtQuantity.setText("jTextField1");
+        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantityActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPackageLayout = new javax.swing.GroupLayout(pnlPackage);
         pnlPackage.setLayout(pnlPackageLayout);
@@ -171,30 +178,32 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                     .addComponent(lblRegistered, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbbPackage, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbbPackage, 0, 250, Short.MAX_VALUE)
                     .addComponent(txtRegisterd)
-                    .addComponent(txtQuantity))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPackageLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlPackageLayout.setVerticalGroup(
             pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPackageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbbPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegisterd, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRegisterd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQuantity)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        pnlPackageLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbPackage, lblPackage, lblQuantity, lblRegistered, txtQuantity, txtRegisterd});
+        pnlPackageLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblPackage, lblQuantity, lblRegistered});
 
         btnBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/buy.png"))); // NOI18N
         btnBuy.setText("Buy");
@@ -217,8 +226,8 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
             pnlButtonBuyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonBuyLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
@@ -250,28 +259,28 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         pnlButtonSearchLayout.setHorizontalGroup(
             pnlButtonSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonSearchLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         pnlButtonSearchLayout.setVerticalGroup(
             pnlButtonSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlButtonSearchLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlButtonSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(btnFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlButtonSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnlButtonSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        lblSearchbyName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblSearchbyName.setText("Search by Name:");
-
-        txtfSearchbyName.setText("jTextField2");
 
         javax.swing.GroupLayout pnlSearchbyNameLayout = new javax.swing.GroupLayout(pnlSearchbyName);
         pnlSearchbyName.setLayout(pnlSearchbyNameLayout);
@@ -279,18 +288,18 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
             pnlSearchbyNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSearchbyNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblSearchbyName, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtfSearchbyName)
+                .addComponent(lblSearchbyName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(txtfSearchbyName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlSearchbyNameLayout.setVerticalGroup(
             pnlSearchbyNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSearchbyNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlSearchbyNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfSearchbyName, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(lblSearchbyName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlSearchbyNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSearchbyName, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(txtfSearchbyName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -317,8 +326,8 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlButtonBuy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(pnlButtonBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout PnlSearchLayout = new javax.swing.GroupLayout(PnlSearch);
@@ -346,11 +355,11 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         pnlTitle.setLayout(pnlTitleLayout);
         pnlTitleLayout.setHorizontalGroup(
             pnlTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlTitleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlTitleLayout.setVerticalGroup(
             pnlTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,6 +458,10 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         String s = PackageInf.getQuantity(userID , i[0]);
         txtRegisterd.setText(s);
     }//GEN-LAST:event_cbbPackageActionPerformed
+
+    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantityActionPerformed
 
     private void displayDataTable() {
         DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();

@@ -19,6 +19,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="New Window"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mitNewActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitReload">
               <Properties>
@@ -49,12 +52,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mitFileLogoutActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItem1">
-              <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="jCheckBoxMenuItem1"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -268,8 +265,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="pnlWelcome" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pnlContent" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="pnlContent" pref="583" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -320,7 +316,7 @@
         <Component class="javax.swing.JLabel" name="lblAppTittle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="36" style="3"/>
+              <Font name="Times New Roman" size="36" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -395,8 +391,8 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="tpnContent" alignment="0" max="32767" attributes="0"/>
-              <Component id="pnlButton" alignment="1" max="32767" attributes="0"/>
+              <Component id="tpnContent" alignment="0" pref="583" max="32767" attributes="0"/>
+              <Component id="pnlButton" alignment="1" pref="583" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

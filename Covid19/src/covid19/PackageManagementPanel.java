@@ -181,22 +181,17 @@ public class PackageManagementPanel extends javax.swing.JPanel {
 
         lblQuantity.setText("Quantity:");
 
-        txfId.setText("jTextField1");
+        txfId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfIdActionPerformed(evt);
+            }
+        });
 
-        txfName.setText("jTextField2");
-
-        txfNumber.setText("jTextField3");
         txfNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txfNumberActionPerformed(evt);
             }
         });
-
-        txfExpiration.setText("jTextField4");
-
-        txfPrice.setText("jTextField5");
-
-        txfQuantity.setText("jTextField6");
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
@@ -511,6 +506,10 @@ public class PackageManagementPanel extends javax.swing.JPanel {
         sb.setLength(0);
         displayDataTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void txfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfIdActionPerformed
 
     private void displayDataTable() {
         DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
