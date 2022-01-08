@@ -22,7 +22,7 @@ import java.util.logging.*;
  *
  * @author Thong
  */
-public class SignInFrame extends javax.swing.JFrame{
+public class SignInFrame extends javax.swing.JFrame {
 
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
         // Static getInstance method is called with hashing SHA 
@@ -48,7 +48,7 @@ public class SignInFrame extends javax.swing.JFrame{
 
         return hexString.toString();
     }
-    
+
     Connection conn = null;
     Statement stmt = null;
     Statement stmtBank = null;
@@ -185,83 +185,54 @@ public class SignInFrame extends javax.swing.JFrame{
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         this.setVisible(false);
-        new SignUpFrame().setVisible(true);
+        new SignUpFrame(1).setVisible(true);
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         Account a = new Account();
         AccountBank b = new AccountBank();
-        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
-        String sqlBank = "SELECT ID, PASSWORD, ROLE, BALANCE,DATEPUBLISHED FROM Account_Bank";
         String usernameInput = tfUser.getText();
         String passwordInput = new String(tfPwd.getPassword());
         StringBuilder sb = new StringBuilder();
-        try {
-            if (usernameInput.equals("") || passwordInput.equals("")) {
-                sb.append("Username or password is empty");
-            }
-            if (sb.length() > 0) {
-                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+        if (usernameInput.equals("") || passwordInput.equals("")) {
+            sb.append("Username or password is empty");
+        }
+        if (sb.length() > 0) {
+            JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String Role = a.signin(usernameInput, passwordInput, b);
+        System.out.println(Role);
+        int flag = 0;
+        switch (Role) {
+            case "ADMIN" -> {
+                flag = 1;
+                new AdminManagementPanel().setVisible(true);
+                this.setVisible(false);
                 return;
             }
-            String passwordHash = toHexString(getSHA(passwordInput));
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL);
-            stmt = conn.createStatement();
-            stmtBank=conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            ResultSet rsBank = stmtBank.executeQuery(sqlBank);
-            int flag = 0;
-            while (rs.next()) {
-                String username = rs.getString("USERNAME");
-                String password = rs.getString("PASSWORD");
-                String role = rs.getString("ROLE");
-                if (usernameInput.equals(username) && passwordHash.equals(password)) {
-                    flag = 1;
-                    switch (role) {
-                        case "ADMIN" -> {
-                            new AdminManagementPanel().setVisible(true);
-                            this.setVisible(false);
-                            return;
-                        }
-                        case "Manager" -> {
-                            LocalDateTime now = LocalDateTime.now();
-                            new MainFrame(a,1,now).setVisible(true);
-                            this.setVisible(false);
-                            return;
-                        }
-                        case "User" -> {
-                            LocalDateTime ldt= LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
-                            a.setAccount(username,password,role,rs.getString("USERID"),rs.getInt("ACTIVATED"),ldt);
-                            this.setVisible(false);
-                            new MainFrame(a,2).setVisible(true);
-                            return;
-                        }
-                    }
-                }
-            }
-            while(rsBank.next()){
-                String id = rsBank.getString("ID");
-                String password = rsBank.getString("PASSWORD");
-                if (usernameInput.equals(id) && passwordHash.equals(password)){
-                    flag = 1;
-                    LocalDateTime ldt= LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
-                    b.setAccountBank(id,password,rsBank.getString("ROLE"),rsBank.getInt("Active"),rsBank.getFloat("Balance"),rsBank.getString("UserID"),ldt);
-                    this.setVisible(false);
-                    new AccountBankFrame(b).setVisible(true);
-                    break;
-                }
-            }
-            if (flag == 0) {
-                JOptionPane.showMessageDialog(this, "Invalid username or password", "Invalidation", JOptionPane.ERROR_MESSAGE);
+            case "Manager" -> {
+                flag = 1;
+                LocalDateTime now = LocalDateTime.now();
+                new MainFrame(a, 1, now).setVisible(true);
+                this.setVisible(false);
                 return;
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
+            case "User" -> {
+                flag = 1;
+                this.setVisible(false);
+                new MainFrame(a, 2).setVisible(true);
+                return;
+            }
+            case "Bank"->{
+                flag = 1;
+                this.setVisible(false);
+                new AccountBankFrame(b).setVisible(true);
+            }
+        }
+        if (flag == 0) {
+            JOptionPane.showMessageDialog(this, "Invalid username or password", "Invalidation", JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }//GEN-LAST:event_btnSignInActionPerformed
 

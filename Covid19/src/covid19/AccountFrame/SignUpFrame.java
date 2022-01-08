@@ -29,9 +29,18 @@ public class SignUpFrame extends javax.swing.JFrame {
     Statement stmt = null, stmt2 = null;
     static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
-    public SignUpFrame() {
-        initComponents();
-        this.setResizable(false);
+    public SignUpFrame(int flag) {
+        if (flag == 1) {
+            initComponents();
+            this.setResizable(false);
+        }
+        if (flag==2){
+            initComponents();
+            lblID.setVisible(false);
+            tfID.setVisible(false);
+            lblUser.setVisible(false);
+            tfUser.setVisible(false);
+        }
     }
 
     /**
@@ -253,8 +262,8 @@ public class SignUpFrame extends javax.swing.JFrame {
             java.sql.Date sqlDate = new java.sql.Date(javaTime);
             preparedStmt.setDate(6, sqlDate);
             preparedStmt.execute();
-            String success="Sign up successfully";
-            JOptionPane.showMessageDialog(this, success,"Succesful",JOptionPane.INFORMATION_MESSAGE);
+            String success = "Sign up successfully";
+            JOptionPane.showMessageDialog(this, success, "Succesful", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
