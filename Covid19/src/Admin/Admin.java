@@ -282,66 +282,59 @@ public class Admin {
                     }
                 }
                 else{
-                    String Password = acc.getPassword();
-                    if (Password.length() == 0){
-                        error = "Password is used to keep an account private.\n"
-                              + "Please input it.";
+                    String Role = acc.getRole();
+                    if (Role.equalsIgnoreCase("Admin") 
+                        && !Username.equalsIgnoreCase("admin")){
+                        error = "Only account with username is 'admin' "
+                              + "can have role 'Admin'.";
+                    }
+                    else if (!Role.equalsIgnoreCase("Admin") 
+                        && Username.equalsIgnoreCase("admin")){
+                        error = "Account with username is 'admin' "
+                              + "must have role 'Admin'.";
                     }
                     else{
-                        String Role = acc.getRole();
-                        if (Role.equalsIgnoreCase("Admin") 
-                            && !Username.equalsIgnoreCase("admin")){
-                            error = "Only account with username is 'admin' "
-                                  + "can have role 'Admin'.";
-                        }
-                        else if (!Role.equalsIgnoreCase("Admin") 
-                            && Username.equalsIgnoreCase("admin")){
-                            error = "Account with username is 'admin' "
-                                  + "must have role 'Admin'.";
+                        String Userid = acc.getUserid();
+                        if (!Role.equalsIgnoreCase("User") 
+                            && Userid != null){
+                            error = "Only account with 'User' role can have"
+                                  + "an user's id.";
                         }
                         else{
-                            String Userid = acc.getUserid();
-                            if (!Role.equalsIgnoreCase("User") 
-                                && Userid != null){
-                                error = "Only account with 'User' role can have"
-                                      + "an user's id.";
+                            listtemp = Admin.getAccounts(
+                                       "where USERID='" + Userid + "'");
+                            boolean isUnique = true;
+                            if (activity.equalsIgnoreCase("Add")){
+                                if (!listtemp.isEmpty()){
+                                    error = "UserID must be unique";
+                                    isUnique = false;
+                                }
                             }
                             else{
-                                listtemp = Admin.getAccounts(
-                                           "where USERID='" + Userid + "'");
-                                boolean isUnique = true;
-                                if (activity.equalsIgnoreCase("Add")){
-                                    if (!listtemp.isEmpty()){
+                                if (!listtemp.isEmpty()){
+                                    isUnique = false;
+                                    for (Account temp : listtemp){
+                                        if (temp.getUsername().equalsIgnoreCase(Username)){
+                                            isUnique = true;
+                                            break;
+                                        }
+                                    }
+                                    if (isUnique == false){
                                         error = "UserID must be unique";
-                                        isUnique = false;
                                     }
                                 }
-                                else{
-                                    if (!listtemp.isEmpty()){
-                                        isUnique = false;
-                                        for (Account temp : listtemp){
-                                            if (temp.getUsername().equalsIgnoreCase(Username)){
-                                                isUnique = true;
-                                                break;
-                                            }
-                                        }
-                                        if (isUnique == false){
-                                            error = "UserID must be unique";
-                                        }
+                                if (isUnique == true){
+                                    int Activated = acc.getState();
+                                    if (Username.equalsIgnoreCase("admin")
+                                        && Activated == 0){
+                                        error = "'admin' account must always be activated";
                                     }
-                                    if (isUnique == true){
-                                        int Activated = acc.getState();
-                                        if (Username.equalsIgnoreCase("admin")
-                                            && Activated == 0){
-                                            error = "'admin' account must always be activated";
-                                        }
-                                        else{
-                                            String condition = "where Username='" + acc.getUsername() + "'";
-                                            ArrayList<Account> list = new ArrayList<>(getAccounts(condition));
-                                            acc.setAccount(acc.getUsername(), acc.getPassword(), 
-                                                    acc.getRole(), acc.getUserid(), acc.getState(), 
-                                                    list.get(0).getDatePublished());
-                                        }
+                                    else{
+                                        String condition = "where Username='" + acc.getUsername() + "'";
+                                        ArrayList<Account> list = new ArrayList<>(getAccounts(condition));
+                                        acc.setAccount(acc.getUsername(), acc.getPassword(), 
+                                                acc.getRole(), acc.getUserid(), acc.getState(), 
+                                                list.get(0).getDatePublished());
                                     }
                                 }
                             }
@@ -463,16 +456,15 @@ public class Admin {
         if (mess == null){
             int result;
             try {
-                String query = "update ACCOUNT set PASSWORD=?, "
+                String query = "update ACCOUNT set "
                             + "ROLE=?, USERID=?, ACTIVATED=? "
                             + "where USERNAME=?";
                 System.out.println(query);
                 pstm = con.prepareStatement(query);
-                pstm.setString(1, acc.getPassword());
-                pstm.setString(2, acc.getRole());
-                pstm.setString(3, acc.getUserid());
-                pstm.setInt(4, acc.getState());
-                pstm.setString(5, acc.getUsername());
+                pstm.setString(1, acc.getRole());
+                pstm.setString(2, acc.getUserid());
+                pstm.setInt(3, acc.getState());
+                pstm.setString(4, acc.getUsername());
                 result = pstm.executeUpdate();
                 if (result < 0){
                     mess = "Failed to update data";

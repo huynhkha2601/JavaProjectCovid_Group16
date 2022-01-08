@@ -30,7 +30,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private ArrayList<Account> listacc = new ArrayList<>(Admin.getAccounts(""));
     private Account tempacc = null;
     
-    private ArrayList<AccountBank> listaccbank = new ArrayList<>(Admin.getAccountsBank(""));
+    private ArrayList<AccountBank> listaccbank = null;//new ArrayList<>(Admin.getAccountsBank(""));
     private AccountBank tempaccbank = null;
     
     private ArrayList<ActivityHistory> listah = new ArrayList<>(Admin.getActivityHistory(""));
@@ -45,12 +45,12 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         listacc.sort(com.accCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
-            "Username", "Password", "Role", "UserID", "Activated", 
+            "Username", "Role", "UserID", "Activated", 
             "Date Pulished"
         });
         for (Account acc : listacc){
             model.addRow(new Object[]{
-                acc.getUsername(), acc.getPassword(), acc.getRole(), 
+                acc.getUsername(), acc.getRole(), 
                 acc.getUserid(), acc.getState(), 
                 DateFormatter.parse(acc.getDatePublished())
             });
@@ -123,14 +123,13 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     /*Get and check if input is valid for Account*/
     public Account getInputAccountData(){
         String Username = txtfUsername.getText().trim();
-        String Password = new String(txtfPassword.getPassword());
         String Role = cbbRole.getSelectedItem().toString();
         String UserID = txtfUserID.getText().trim();
         if (UserID.length() == 0) UserID = null;
         int Activate = 1 - cbbState.getSelectedIndex();
         LocalDateTime DatePublished = LocalDateTime.now();
         Account acc = new Account();
-        acc.setAccount(Username, Password, Role, UserID, Activate, DatePublished);
+        acc.setAccount(Username, null, Role, UserID, Activate, DatePublished);
         return acc;
     }
     
@@ -176,44 +175,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         tmp.setTreatmentPlace(ID, Name, Capacity, Quantity);
         return tmp;
     }
-    
-    /*Check password before encrypt*/
-    boolean CheckPass(String pass){
-        boolean validPass = true;
-        if (pass.length() < 6){
-            validPass = false;
-        }
-        else{
-            int Upper = 0; int Lower = 0; int Digit = 0;
-            int length = pass.length();
-            for (int i = 0; i < length; i ++){
-                if (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z'){
-                    Upper += 1;
-                }
-                else if (pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z'){
-                    Lower += 1;
-                }
-                else if (pass.charAt(i) >= '0' && pass.charAt(i) <= '9'){
-                    Digit += 1;
-                }
-            }
-            if (Upper == 0 || Lower == 0 || Digit == 0){
-                    validPass = false;
-            }
-        }
-        return validPass;
-    }
-    
+
     
     /*Add needed action performed for buttons*/
     void AddActionPerformed(){
         /*For account tab*/
-        txtfPassword.addActionListener(new java.awt.event.ActionListener(){
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfPasswordActionPerformed(evt);
-            }
-        });
         btnFind.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,12 +200,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         });
         
         /*For account bank tab*/
-        txtfBankPassword.addActionListener(new java.awt.event.ActionListener(){
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfBankPasswordActionPerformed(evt);
-            }
-        });
         btnBankFind.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -319,34 +279,13 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    public void txtfPasswordActionPerformed(java.awt.event.ActionEvent evt){
-        String text = new String(txtfPassword.getPassword());
-        if (text.length() > 0){
-            boolean validPass = CheckPass(text);
-            if (validPass == true){
-                try {
-                    txtfPassword.setText(SignInFrame.toHexString
-                                      (SignInFrame.getSHA(text)));
-                } catch (NoSuchAlgorithmException ex) {
-                    System.out.println("Error: " + ex);
-                }
-            }
-            else{
-                MessageDialog.showErrorDialog(this, "Password must have at least 6 characters\n"
-                                            + "and must have at least 1 uppercase, 1 lowercase and 1 digit", 
-                                            "Invalid password.");
-            }
-        }
-    }
+
     
     public void btnRemoveActionPerformed(java.awt.event.ActionEvent evt){
         tempacc = getInputAccountData();
         String mess = Admin.removeAccount(tempacc);
         if (mess == null){
             txtfUsername.setText("");
-            txtfPassword.setText("");
             cbbRole.setSelectedIndex(0);
             txtfUserID.setText("");
             cbbState.setSelectedIndex(0);
@@ -368,18 +307,16 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         int row = tblList.getSelectedRow();
         String Username = tblList.getValueAt(row, 0).toString();
         txtfUsername.setText(Username);
-        String Password = tblList.getValueAt(row, 1).toString();
-        txtfPassword.setText(Password);
-        String Role = tblList.getValueAt(row, 2).toString();
+        String Role = tblList.getValueAt(row, 1).toString();
         if (Role.equalsIgnoreCase("ADMIN")) Role = "Admin";
         cbbRole.setSelectedItem(Role);
         String Userid = null;
-        if (tblList.getValueAt(row, 3) != null){
-            Userid = tblList.getValueAt(row, 3).toString();
+        if (tblList.getValueAt(row, 2) != null){
+            Userid = tblList.getValueAt(row, 2).toString();
         }
         txtfUserID.setText(Userid);
         cbbState.setSelectedIndex(
-                1 - Integer.parseInt(tblList.getValueAt(row, 4).toString()));
+                1 - Integer.parseInt(tblList.getValueAt(row, 3).toString()));
     }
     
     public void btnFindActionPerformed(java.awt.event.ActionEvent evt){
@@ -396,26 +333,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         }
     }
     
-    
-    public void txtfBankPasswordActionPerformed(java.awt.event.ActionEvent evt){
-        String text = new String(txtfBankPassword.getPassword());
-        if (text.length() > 0){
-            boolean validPass = CheckPass(text);
-            if (validPass == true){
-                try {
-                    txtfPassword.setText(SignInFrame.toHexString
-                                      (SignInFrame.getSHA(text)));
-                } catch (NoSuchAlgorithmException ex) {
-                    System.out.println("Error: " + ex);
-                }
-            }
-            else{
-                MessageDialog.showErrorDialog(this, "Password must have at least 6 characters\n"
-                                            + "and must have at least 1 uppercase, 1 lowercase and 1 digit", 
-                                            "Invalid password.");
-            }
-        }
-    }
     
     public void btnBankRemoveActionPerformed(java.awt.event.ActionEvent evt){
         tempaccbank = getInputAccountBankData();
@@ -758,7 +675,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         showTableAccount();
-        showTableAccountBank();
+        //showTableAccountBank();
+        tbdpAdministratorManagement.remove(pnlBankAccountManagement);
         showTableActivityHistory();
         showTableTransactionHistory();
         showTableTreamentPlace();
@@ -781,14 +699,12 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         pnlInfor = new javax.swing.JPanel();
         lblUsername = new javax.swing.JLabel();
         txtfUsername = new javax.swing.JTextField();
-        lblPassword = new javax.swing.JLabel();
         lblRole = new javax.swing.JLabel();
         lblState = new javax.swing.JLabel();
         cbbState = new javax.swing.JComboBox<>();
         lblUserID = new javax.swing.JLabel();
         txtfUserID = new javax.swing.JTextField();
         cbbRole = new javax.swing.JComboBox<>();
-        txtfPassword = new javax.swing.JPasswordField();
         pnlButtonInfor = new javax.swing.JPanel();
         btnRemove = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -899,9 +815,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             }
         });
 
-        lblPassword.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblPassword.setText("Password:");
-
         lblRole.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblRole.setText("Role:");
 
@@ -932,19 +845,19 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInforLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                    .addComponent(lblUserID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfUserID, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(txtfUsername, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtfPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlInforLayout.createSequentialGroup()
+                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblState, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInforLayout.createSequentialGroup()
+                        .addComponent(lblUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtfUserID, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cbbState, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -963,18 +876,14 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtfUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
         );
 
-        pnlInforLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbRole, cbbState, lblPassword, lblRole, lblState, lblUserID, txtfUsername});
+        pnlInforLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbRole, cbbState, lblRole, lblState, lblUserID, txtfUsername});
 
         btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sub.png"))); // NOI18N
         btnRemove.setText("Remove");
@@ -1025,7 +934,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addGroup(pnlButtonInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(pnlButtonInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1058,7 +967,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnFind.setText("Find");
 
-        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Password", "Role", "Active", "UserID", "Date Published" }));
+        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Role", "Active", "UserID", "Date Published" }));
 
         javax.swing.GroupLayout pnlAttributeLayout = new javax.swing.GroupLayout(pnlAttribute);
         pnlAttribute.setLayout(pnlAttributeLayout);
@@ -1092,11 +1001,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Username", "Password", "Role", "User ID", "Activated", "Date Published"
+                "Username", "Role", "User ID", "Activated", "Date Published"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1333,7 +1242,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnBankFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnBankFind.setText("Find");
 
-        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Password", "Role", "Active", "Balance" }));
+        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Role", "Active", "Balance" }));
 
         javax.swing.GroupLayout pnlBankAccountListAttributeLayout = new javax.swing.GroupLayout(pnlBankAccountListAttribute);
         pnlBankAccountListAttribute.setLayout(pnlBankAccountListAttributeLayout);
@@ -1977,7 +1886,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
         txtfUsername.setText("");
-        txtfPassword.setText("");
         cbbRole.setSelectedIndex(0);
         txtfUserID.setText("");
         cbbState.setSelectedIndex(0);
@@ -2154,7 +2062,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JLabel lblBankRole;
     private javax.swing.JLabel lblBankState;
     private javax.swing.JLabel lblBankUserID;
-    private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblState;
     private javax.swing.JLabel lblTitle;
@@ -2210,7 +2117,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JTextField txtfBankID;
     private javax.swing.JPasswordField txtfBankPassword;
     private javax.swing.JTextField txtfBankUserID;
-    private javax.swing.JPasswordField txtfPassword;
     private javax.swing.JTextField txtfTreatmentCapacity;
     private javax.swing.JTextField txtfTreatmentID;
     private javax.swing.JTextField txtfTreatmentName;
