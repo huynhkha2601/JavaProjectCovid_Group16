@@ -7,10 +7,21 @@ package covid19;
 import covid19.AccountFrame.ChangePasswordFrame;
 import Account.AccountBank;
 import Payment.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Helper.AES;
 
 /**
  *
@@ -33,7 +44,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        txfBalance.setText(Float.toString(userBank.getBalance()));
+        txfBalance.setText(String.format("%.1f", userBank.getBalance()));
         txfBankID.setText(userBank.getBankid());
         txfBalance.setEditable(false);
         txfBankID.setEditable(false);
@@ -45,7 +56,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
         model.setRowCount(0);
         List<Transaction> list = BankInf.getTransaction(userBank.getBankid());
         for (int i = 0; i < list.size(); i++) 
-            model.addRow(new Object[]{Float.toString(list.get(i).getMoney()), list.get(i).getContent(), list.get(i).getRecord().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))});
+            model.addRow(new Object[]{(list.get(i).getMoney()), list.get(i).getContent(), list.get(i).getRecord().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))});
     }
 
     /**
@@ -163,6 +174,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tblBank.setAutoCreateRowSorter(true);
         tblBank.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -170,7 +182,15 @@ public class AccountBankFrame extends javax.swing.JFrame {
             new String [] {
                 "Money", "Content", "Date"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         spnlBank.setViewportView(tblBank);
 
         javax.swing.GroupLayout pnlTableBankLayout = new javax.swing.GroupLayout(pnlTableBank);
@@ -291,21 +311,62 @@ public class AccountBankFrame extends javax.swing.JFrame {
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
         if(txfCash.getText().equals("") || txfContent.getText().equals(""))
-            JOptionPane.showMessageDialog(pnlBankDetail, "Required field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Required field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
         else {
-            if (Float.parseFloat(txfCash.getText()) > 0 && Float.parseFloat(txfCash.getText()) <= userBank.getBalance()) {
-                if(BankInf.addTransaction(userBank.getBankid(), Float.parseFloat(txfCash.getText()), txfContent.getText())) {
+            String check = "error";
+            if (Float.parseFloat(txfCash.getText()) > 0 && Float.parseFloat(txfCash.getText()) <= Float.parseFloat(txfBalance.getText())) {
+                InputStream clientIn = null;
+                OutputStream clientOut = null;
+                Socket client = null;
+                try {
+                    client = new Socket(InetAddress.getLocalHost(), 3000);
+                    clientIn = client.getInputStream();
+                    clientOut = client.getOutputStream();
+                    PrintWriter pw = new PrintWriter(clientOut, true);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(clientIn));
+                    String secretKey = "backspace";
+                    String content = userBank.getBankid() + "/" + txfCash.getText() + "/" + txfContent.getText();
+                    String encryptedContent = AES.encrypt(content, secretKey);
+                    pw.println(encryptedContent);
+                    check = br.readLine();
+                    //check = Boolean.parseBoolean(temp);
+                    //System.out.println(check);
+                    /*
+                    if(BankInf.addTransaction(userBank.getBankid(), Float.parseFloat(txfCash.getText()), txfContent.getText())) {
                     JOptionPane.showMessageDialog(pnlBankDetail, "Pay successully", "Notification", JOptionPane.INFORMATION_MESSAGE);
                     txfBalance.setText(Float.toString(Float.parseFloat(txfBalance.getText()) - Float.parseFloat(txfCash.getText())));
                     txfCash.setText("");
                     txfContent.setText("");
                     refreshTable();
-                }
-                else
+                    }
+                    else
                     JOptionPane.showMessageDialog(pnlBankDetail, "Pay failed", "Error", JOptionPane.ERROR_MESSAGE);
+                    */
+                } catch (IOException ex) {
+                    Logger.getLogger(AccountBankFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    try {
+                        if (client != null) client.close();
+                        if (clientIn != null) clientIn.close();
+                        if (clientOut != null) clientOut.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(AccountBankFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (check.equals("true")) {
+                    JOptionPane.showMessageDialog(this, "Pay successully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    txfBalance.setText(String.format("%.1f", Float.parseFloat(txfBalance.getText()) - Float.parseFloat(txfCash.getText())));
+                    txfCash.setText("");
+                    txfContent.setText("");
+                    refreshTable();
+                }
+                else if (check.equals("failed"))
+                    JOptionPane.showMessageDialog(this, "Pay failed", "Error", JOptionPane.ERROR_MESSAGE);
+                else 
+                    JOptionPane.showMessageDialog(this, "Payment system error", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else
-                JOptionPane.showMessageDialog(pnlBankDetail, "Invalid value", "Notification", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid value", "Notification", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnPaymentActionPerformed
 

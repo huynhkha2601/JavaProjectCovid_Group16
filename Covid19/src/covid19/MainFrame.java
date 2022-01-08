@@ -53,7 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
         AddActionPerformed();
     }
 
-    public MainFrame(Account a,int role) {
+    public MainFrame(Account a, int role) {
         this.role = role;
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
             btnManageRelated.setEnabled(false);
         }
     }
-    public MainFrame(Account a,int role,LocalDateTime now) {
+    public MainFrame(Account a, int role, LocalDateTime now) {
         this.role = role;
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

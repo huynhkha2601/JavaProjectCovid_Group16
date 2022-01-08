@@ -86,38 +86,14 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
         tblRelated.setAutoCreateRowSorter(true);
         tblRelated.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"19127600", "19127001", "2021-12-05"},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID01", "ID02", "Record"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -285,8 +261,6 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
         });
 
         lblID.setText("View ID:");
-
-        tfID.setText("jTextField1");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);

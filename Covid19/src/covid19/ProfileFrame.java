@@ -82,16 +82,18 @@ public class ProfileFrame extends javax.swing.JFrame {
 
         lblYob.setText("Year of birth:");
 
-        txfCCCD.setText("jTextField1");
+        txfCCCD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfCCCDActionPerformed(evt);
+            }
+        });
 
-        txfFullname.setText("jTextField1");
         txfFullname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txfFullnameActionPerformed(evt);
             }
         });
 
-        txfYob.setText("jTextField1");
         txfYob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txfYobActionPerformed(evt);
@@ -100,15 +102,9 @@ public class ProfileFrame extends javax.swing.JFrame {
 
         lblAddress.setText("Address:");
 
-        txfAddress.setText("jTextField1");
-
-        txfStatus.setText("jTextField1");
-
         lblStatus.setText("Status:");
 
         lblTreatment.setText("TreatMent:");
-
-        txfTreatment.setText("jTextField1");
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
@@ -239,6 +235,10 @@ public class ProfileFrame extends javax.swing.JFrame {
         //this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txfCCCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCCCDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfCCCDActionPerformed
 
     /**
      * @param args the command line arguments

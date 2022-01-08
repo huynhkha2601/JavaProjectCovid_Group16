@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
  * @author Ashbell
  */
 public class Transaction {
+    private String id;
     private float money;
     private String content;
     private LocalDateTime record;
@@ -18,8 +19,10 @@ public class Transaction {
         money = 0;
         content = "";
         record = null;
+        id = null;
     }
-    public Transaction(float money, String content, LocalDateTime record) {
+    public Transaction(String id, float money, String content, LocalDateTime record) {
+        this.id = id;
         this.money = money;
         this.content = content;
         this.record = record;
@@ -32,5 +35,8 @@ public class Transaction {
     }
     public LocalDateTime getRecord() {
         return record;
+    }
+    public String getID() {
+        return id;
     }
 }

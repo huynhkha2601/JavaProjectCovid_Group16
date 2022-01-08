@@ -154,38 +154,39 @@
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="tblPackage">
                       <Properties>
+                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="5" rowCount="4">
                             <Column editable="false" title="ID" type="java.lang.Object"/>
                             <Column editable="false" title="Name" type="java.lang.Object"/>
-                            <Column editable="false" title="Limit Number" type="java.lang.Object"/>
+                            <Column editable="false" title="Limit Number" type="java.lang.Integer"/>
                             <Column editable="false" title="Expiration" type="java.lang.Object"/>
-                            <Column editable="false" title="Quantity" type="java.lang.Object"/>
+                            <Column editable="false" title="Quantity" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="true">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -266,17 +267,20 @@
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblPackage" linkSize="1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                                  <Component id="cbbPackage" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="cbbPackage" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="13" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblRegistered" linkSize="1" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                                  <Component id="txtRegisterd" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblRegistered" linkSize="1" min="-2" pref="46" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtRegisterd" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblQuantity" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtQuantity" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="txtQuantity" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -471,7 +475,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblSearchbyName" alignment="3" pref="42" max="32767" attributes="0"/>
-                                  <Component id="txtfSearchbyName" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="txtfSearchbyName" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>

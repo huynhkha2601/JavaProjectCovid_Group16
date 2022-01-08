@@ -57,7 +57,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         List<Profile> list = PatientInf.getAllPatient();
         for (int i = 0; i < list.size(); i++) 
-            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+            model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), (list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), (list.get(i).getDebt())});
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -417,9 +417,16 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 "ID", "Fullname", "Year of birth", "Address", "Status", "Treatment", "Debt"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -431,6 +438,15 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             }
         });
         scrollpnlPatient.setViewportView(tblPatient);
+        if (tblPatient.getColumnModel().getColumnCount() > 0) {
+            tblPatient.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblPatient.getColumnModel().getColumn(1).setPreferredWidth(70);
+            tblPatient.getColumnModel().getColumn(2).setPreferredWidth(55);
+            tblPatient.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblPatient.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tblPatient.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tblPatient.getColumnModel().getColumn(6).setPreferredWidth(50);
+        }
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

@@ -135,8 +135,8 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Object"/>
                     <Column editable="false" title="Name" type="java.lang.Object"/>
-                    <Column editable="false" title="Capacity" type="java.lang.Object"/>
-                    <Column editable="true" title="Quantity" type="java.lang.Object"/>
+                    <Column editable="false" title="Capacity" type="java.lang.Integer"/>
+                    <Column editable="true" title="Quantity" type="java.lang.Integer"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -207,13 +207,13 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txfFromTreatment" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="lblFromTreatment1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="txfFromTreatment" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txfToTreatment1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="lblToTreatment" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="txfToTreatment1" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>

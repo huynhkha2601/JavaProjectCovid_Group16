@@ -87,6 +87,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
 
         pnlPackageList.setBorder(javax.swing.BorderFactory.createTitledBorder("Package List"));
 
+        tblPackage.setAutoCreateRowSorter(true);
         tblPackage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -98,9 +99,16 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                 "ID", "Name", "Limit Number", "Expiration", "Quantity"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -108,8 +116,10 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         });
         srlpPackageList.setViewportView(tblPackage);
         if (tblPackage.getColumnModel().getColumnCount() > 0) {
-            tblPackage.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tblPackage.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblPackage.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblPackage.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblPackage.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tblPackage.getColumnModel().getColumn(4).setPreferredWidth(50);
         }
 
         javax.swing.GroupLayout pnlPackageListLayout = new javax.swing.GroupLayout(pnlPackageList);
@@ -191,15 +201,17 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegisterd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlPackageLayout.createSequentialGroup()
+                        .addComponent(txtRegisterd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQuantity)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -299,7 +311,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlSearchbyNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSearchbyName, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(txtfSearchbyName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtfSearchbyName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 

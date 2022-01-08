@@ -36,15 +36,35 @@ public class BankInf {
         }
         return resultAccount;
     }
+    public static AccountBank getAdminAccountBank() {
+        AccountBank resultAccount = new AccountBank();
+        try {
+            Class.forName(BankInf.JDBC_DRIVER);
+            Connection conn = DriverManager.getConnection(BankInf.DB_URL); 
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Account_Bank aB WHERE ab.Role = 'Admin'");
+            while(rs.next())
+                resultAccount.setAccountBank(rs.getString("ID"), rs.getString("Password"), rs.getString("Role"), rs.getInt("Active"), rs.getFloat("Balance"), rs.getString("UserID"), rs.getTimestamp("DATEPUBLISHED").toLocalDateTime());            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BankInf.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BankInf.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultAccount;
+    }
     public static List<Transaction> getTransaction(String id) {
         List<Transaction> result = new ArrayList<Transaction>();
         try {
             Class.forName(BankInf.JDBC_DRIVER);
             Connection conn = DriverManager.getConnection(BankInf.DB_URL);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM [Transaction] WHERE Customer_ID = '" + id + "'" );
+            ResultSet rs = null;
+            if (!id.equals("")) 
+                rs = stmt.executeQuery("SELECT * FROM [Transaction] WHERE Customer_ID = '" + id + "'" );
+            else
+                rs = stmt.executeQuery("SELECT * FROM [Transaction]");
             while(rs.next()) {
-                Transaction temp = new Transaction(rs.getFloat("money"), rs.getString("Content_"), rs.getTimestamp("Record").toLocalDateTime());
+                Transaction temp = new Transaction(rs.getString("Customer_ID"), rs.getFloat("money"), rs.getString("Content_"), rs.getTimestamp("Record").toLocalDateTime());
                 result.add(temp);
             }
         } catch (ClassNotFoundException ex) {

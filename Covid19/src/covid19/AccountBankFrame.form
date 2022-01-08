@@ -249,9 +249,10 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tblBank">
                   <Properties>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="3" rowCount="0">
-                        <Column editable="true" title="Money" type="java.lang.Object"/>
+                        <Column editable="true" title="Money" type="java.lang.Float"/>
                         <Column editable="true" title="Content" type="java.lang.Object"/>
                         <Column editable="true" title="Date" type="java.lang.Object"/>
                       </Table>

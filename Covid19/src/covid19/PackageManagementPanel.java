@@ -102,6 +102,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
 
         scrollpnlPackage.setPreferredSize(new java.awt.Dimension(592, 364));
 
+        tblPackage.setAutoCreateRowSorter(true);
         tblPackage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -110,9 +111,16 @@ public class PackageManagementPanel extends javax.swing.JPanel {
                 "ID", "Name", "Limited Number", "Expiration", "Price", "Quantity"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
