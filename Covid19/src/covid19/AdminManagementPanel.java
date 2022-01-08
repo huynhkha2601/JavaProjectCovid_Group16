@@ -46,7 +46,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
             "Username", "Password", "Role", "UserID", "Activated", 
-            "Data Pulished"
+            "Date Pulished"
         });
         for (Account acc : listacc){
             model.addRow(new Object[]{
@@ -62,13 +62,13 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         listaccbank.sort(com.accbCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
-            "BankID", "Password", "Role", "Activated", "Balance", "User ID", 
-            "Data Pulished"
+            "BankID", "Password", "Role", "Activated", "Balance", "UserID", 
+            "Date Pulished"
         });
         for (AccountBank accbnk : listaccbank){
             model.addRow(new Object[]{
                 accbnk.getBankid(), accbnk.getPassword(), accbnk.getRole(), 
-                accbnk.getState(), accbnk.getBalance(), accbnk.getUserid(), 
+                accbnk.getState(), String.format("%.3f",accbnk.getBalance()), accbnk.getUserid(), 
                 DateFormatter.parse(accbnk.getDatePublished())
             });
         }
@@ -94,7 +94,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         listth.sort(com.thCom);
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{
-            "Bank ID", "Money", "Content", "Date"
+            "BankID", "Money", "Content", "Date"
         });
         for (TransactionHistory th : listth){
             model.addRow(new Object[]{
@@ -123,7 +123,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     /*Get and check if input is valid for Account*/
     public Account getInputAccountData(){
         String Username = txtfUsername.getText().trim();
-        String Password = txtfPassword.getText();
+        String Password = new String(txtfPassword.getPassword());
         String Role = cbbRole.getSelectedItem().toString();
         String UserID = txtfUserID.getText().trim();
         if (UserID.length() == 0) UserID = null;
@@ -137,7 +137,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     /*Get and check if input is valid for Account Bank*/
     public AccountBank getInputAccountBankData(){
         String BankID = txtfBankID.getText().trim();
-        String Password = txtfBankPassword.getText();
+        String Password = new String(txtfBankPassword.getPassword());
         String Role = cbbBankRole.getSelectedItem().toString();
         String UserID = txtfBankUserID.getText().trim();
         if (UserID.length() == 0) UserID = null;
@@ -158,7 +158,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     public TreatmentPlace getInputTreamentPlaceData(){
         String ID = txtfTreatmentID.getText().trim();
         String Name = txtfTreatmentName.getText().trim();
-        if (Name.length() == 0) Name = null;
         int Capacity;
         try{
             Capacity = Integer.parseInt(txtfTreatmentCapacity.getText().trim());
@@ -178,10 +177,43 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         return tmp;
     }
     
+    /*Check password before encrypt*/
+    boolean CheckPass(String pass){
+        boolean validPass = true;
+        if (pass.length() < 6){
+            validPass = false;
+        }
+        else{
+            int Upper = 0; int Lower = 0; int Digit = 0;
+            int length = pass.length();
+            for (int i = 0; i < length; i ++){
+                if (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z'){
+                    Upper += 1;
+                }
+                else if (pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z'){
+                    Lower += 1;
+                }
+                else if (pass.charAt(i) >= '0' && pass.charAt(i) <= '9'){
+                    Digit += 1;
+                }
+            }
+            if (Upper == 0 || Lower == 0 || Digit == 0){
+                    validPass = false;
+            }
+        }
+        return validPass;
+    }
+    
     
     /*Add needed action performed for buttons*/
     void AddActionPerformed(){
         /*For account tab*/
+        txtfPassword.addActionListener(new java.awt.event.ActionListener(){
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfPasswordActionPerformed(evt);
+            }
+        });
         btnFind.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +234,12 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         });
         
         /*For account bank tab*/
+        txtfBankPassword.addActionListener(new java.awt.event.ActionListener(){
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfBankPasswordActionPerformed(evt);
+            }
+        });
         btnBankFind.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,6 +320,27 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         });
     }
     
+    
+    public void txtfPasswordActionPerformed(java.awt.event.ActionEvent evt){
+        String text = new String(txtfPassword.getPassword());
+        if (text.length() > 0){
+            boolean validPass = CheckPass(text);
+            if (validPass == true){
+                try {
+                    txtfPassword.setText(SignInFrame.toHexString
+                                      (SignInFrame.getSHA(text)));
+                } catch (NoSuchAlgorithmException ex) {
+                    System.out.println("Error: " + ex);
+                }
+            }
+            else{
+                MessageDialog.showErrorDialog(this, "Password must have at least 6 characters\n"
+                                            + "and must have at least 1 uppercase, 1 lowercase and 1 digit", 
+                                            "Invalid password.");
+            }
+        }
+    }
+    
     public void btnRemoveActionPerformed(java.awt.event.ActionEvent evt){
         tempacc = getInputAccountData();
         String mess = Admin.removeAccount(tempacc);
@@ -337,6 +396,26 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         }
     }
     
+    
+    public void txtfBankPasswordActionPerformed(java.awt.event.ActionEvent evt){
+        String text = new String(txtfBankPassword.getPassword());
+        if (text.length() > 0){
+            boolean validPass = CheckPass(text);
+            if (validPass == true){
+                try {
+                    txtfPassword.setText(SignInFrame.toHexString
+                                      (SignInFrame.getSHA(text)));
+                } catch (NoSuchAlgorithmException ex) {
+                    System.out.println("Error: " + ex);
+                }
+            }
+            else{
+                MessageDialog.showErrorDialog(this, "Password must have at least 6 characters\n"
+                                            + "and must have at least 1 uppercase, 1 lowercase and 1 digit", 
+                                            "Invalid password.");
+            }
+        }
+    }
     
     public void btnBankRemoveActionPerformed(java.awt.event.ActionEvent evt){
         tempaccbank = getInputAccountBankData();
@@ -579,7 +658,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         }
         else if (attribute.equalsIgnoreCase("Name")){
             input = txtfTreatmentName.getText().trim();
-            condition = condition + "Name like '%" + input + "%'";
+            condition = condition + "Name like N'%" + input + "%'";
         }
         else{
             if (attribute.equalsIgnoreCase("Capacity")){
@@ -705,11 +784,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         lblPassword = new javax.swing.JLabel();
         lblRole = new javax.swing.JLabel();
         lblState = new javax.swing.JLabel();
-        txtfPassword = new javax.swing.JTextField();
         cbbState = new javax.swing.JComboBox<>();
         lblUserID = new javax.swing.JLabel();
         txtfUserID = new javax.swing.JTextField();
         cbbRole = new javax.swing.JComboBox<>();
+        txtfPassword = new javax.swing.JPasswordField();
         pnlButtonInfor = new javax.swing.JPanel();
         btnRemove = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -731,7 +810,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         lblBankPassword = new javax.swing.JLabel();
         lblBankRole = new javax.swing.JLabel();
         lblBankState = new javax.swing.JLabel();
-        txtfBankPassword = new javax.swing.JTextField();
         cbbBankState = new javax.swing.JComboBox<>();
         lblBankUserID = new javax.swing.JLabel();
         txtfBankUserID = new javax.swing.JTextField();
@@ -739,6 +817,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         lblBankBalanced = new javax.swing.JLabel();
         txtfBankBalanced = new javax.swing.JTextField();
+        txtfBankPassword = new javax.swing.JPasswordField();
         pnlBankAccount = new javax.swing.JPanel();
         btnBankRemove = new javax.swing.JButton();
         btnBankEdit = new javax.swing.JButton();
@@ -764,10 +843,10 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         lblActivityDateEnd = new javax.swing.JLabel();
         txtfActivityDateEnd = new javax.swing.JTextField();
         pnlAccountHistory = new javax.swing.JPanel();
-        srlpAccountHistory = new javax.swing.JScrollPane();
+        scrlpAccountHistory = new javax.swing.JScrollPane();
         tblAccountHistory = new javax.swing.JTable();
         pnlTransactionHistory = new javax.swing.JPanel();
-        srlTransactionHistory = new javax.swing.JScrollPane();
+        scrlpTransactionHistory = new javax.swing.JScrollPane();
         tblTransactionHistory = new javax.swing.JTable();
         pnlAcitivyBankDetail = new javax.swing.JPanel();
         lblActivityBankID = new javax.swing.JLabel();
@@ -829,12 +908,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         lblState.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblState.setText("State:");
 
-        txtfPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfPasswordjTextField1ActionPerformed(evt);
-            }
-        });
-
         cbbState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Disabled" }));
 
         lblUserID.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -866,8 +939,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtfUserID, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(txtfPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtfUsername, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(txtfUsername, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtfPassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -891,9 +964,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -901,7 +974,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlInforLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbRole, cbbState, lblPassword, lblRole, lblState, lblUserID, txtfPassword, txtfUsername});
+        pnlInforLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbRole, cbbState, lblPassword, lblRole, lblState, lblUserID, txtfUsername});
 
         btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sub.png"))); // NOI18N
         btnRemove.setText("Remove");
@@ -982,16 +1055,10 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         lblAttribute.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAttribute.setText("Choose attribute:");
 
-        txtfAttribute.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfAttributeActionPerformed(evt);
-            }
-        });
-
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnFind.setText("Find");
 
-        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Role", "Active", "UserID", "Date Published" }));
+        cbbAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Username", "Password", "Role", "Active", "UserID", "Date Published" }));
 
         javax.swing.GroupLayout pnlAttributeLayout = new javax.swing.GroupLayout(pnlAttribute);
         pnlAttribute.setLayout(pnlAttributeLayout);
@@ -1025,11 +1092,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Username", "Password", "Role", "UserID", "Activated", "Date Published"
+                "Username", "Password", "Role", "User ID", "Activated", "Date Published"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1042,11 +1109,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         pnlAccountList.setLayout(pnlAccountListLayout);
         pnlAccountListLayout.setHorizontalGroup(
             pnlAccountListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAccountListLayout.createSequentialGroup()
+            .addGroup(pnlAccountListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAccountListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrlpList)
-                    .addComponent(pnlAttribute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlAccountListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlAttribute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrlpList))
                 .addContainerGap())
         );
         pnlAccountListLayout.setVerticalGroup(
@@ -1055,8 +1122,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnlAttribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrlpList, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scrlpList, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlAccountManagementLayout = new javax.swing.GroupLayout(pnlAccountManagement);
@@ -1101,12 +1167,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         lblBankState.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblBankState.setText("State:");
 
-        txtfBankPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfBankPasswordjTextField1ActionPerformed(evt);
-            }
-        });
-
         cbbBankState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Disabled" }));
 
         lblBankUserID.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1118,7 +1178,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             }
         });
 
-        cbbBankRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+        cbbBankRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager", "User" }));
         cbbBankRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbBankRoleActionPerformed(evt);
@@ -1141,8 +1201,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlBankInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtfBankUserID, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(txtfBankPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtfBankID, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(txtfBankID, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtfBankPassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlBankInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1176,8 +1236,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                         .addGroup(pnlBankInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbbBankState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblBankState)
-                            .addComponent(txtfBankPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBankPassword))
+                            .addComponent(lblBankPassword)
+                            .addComponent(txtfBankPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlBankInforLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtfBankUserID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1189,7 +1249,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pnlBankInforLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbBankRole, cbbBankState, lblBankBalanced, lblBankID, lblBankPassword, lblBankRole, lblBankState, lblBankUserID, txtfBankBalanced, txtfBankID, txtfBankPassword, txtfBankUserID});
+        pnlBankInforLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbBankRole, cbbBankState, lblBankBalanced, lblBankID, lblBankPassword, lblBankRole, lblBankState, lblBankUserID, txtfBankBalanced, txtfBankID, txtfBankUserID});
 
         btnBankRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sub.png"))); // NOI18N
         btnBankRemove.setText("Remove");
@@ -1273,7 +1333,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         btnBankFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         btnBankFind.setText("Find");
 
-        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Role", "Active", "Balance", "UserID", "Date Published" }));
+        cbbBankAttribute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank ID", "Password", "Role", "Active", "Balance" }));
 
         javax.swing.GroupLayout pnlBankAccountListAttributeLayout = new javax.swing.GroupLayout(pnlBankAccountListAttribute);
         pnlBankAccountListAttribute.setLayout(pnlBankAccountListAttributeLayout);
@@ -1309,15 +1369,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             new String [] {
                 "BankID", "Password", "Role", "Activated", "Balance", "UserID", "Date Published"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         scrlpBankList.setViewportView(tblBankList);
 
         javax.swing.GroupLayout pnlBankAccountListLayout = new javax.swing.GroupLayout(pnlBankAccountList);
@@ -1459,32 +1511,25 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 "Username", "Login Record", "Logout Record"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        srlpAccountHistory.setViewportView(tblAccountHistory);
+        scrlpAccountHistory.setViewportView(tblAccountHistory);
 
         javax.swing.GroupLayout pnlAccountHistoryLayout = new javax.swing.GroupLayout(pnlAccountHistory);
         pnlAccountHistory.setLayout(pnlAccountHistoryLayout);
         pnlAccountHistoryLayout.setHorizontalGroup(
             pnlAccountHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(srlpAccountHistory)
+            .addComponent(scrlpAccountHistory)
         );
         pnlAccountHistoryLayout.setVerticalGroup(
             pnlAccountHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(srlpAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+            .addComponent(scrlpAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
         );
 
         pnlTransactionHistory.setBorder(javax.swing.BorderFactory.createTitledBorder("TRANSACTION HISTORY"));
@@ -1494,26 +1539,28 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Bank ID", "Money", "Content", "Date"
+                "BankID", "Money", "Content", "Date"
             }
-        ));
-        srlTransactionHistory.setViewportView(tblTransactionHistory);
-        if (tblTransactionHistory.getColumnModel().getColumnCount() > 0) {
-            tblTransactionHistory.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tblTransactionHistory.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tblTransactionHistory.getColumnModel().getColumn(2).setPreferredWidth(140);
-            tblTransactionHistory.getColumnModel().getColumn(3).setPreferredWidth(80);
-        }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrlpTransactionHistory.setViewportView(tblTransactionHistory);
 
         javax.swing.GroupLayout pnlTransactionHistoryLayout = new javax.swing.GroupLayout(pnlTransactionHistory);
         pnlTransactionHistory.setLayout(pnlTransactionHistoryLayout);
         pnlTransactionHistoryLayout.setHorizontalGroup(
             pnlTransactionHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(srlTransactionHistory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addComponent(scrlpTransactionHistory)
         );
         pnlTransactionHistoryLayout.setVerticalGroup(
             pnlTransactionHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(srlTransactionHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(scrlpTransactionHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         pnlAcitivyBankDetail.setPreferredSize(new java.awt.Dimension(572, 124));
@@ -1623,11 +1670,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Capacity", "Quantity"
+                "ID", "Treatment Name", "Capacity", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1640,17 +1687,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         pnlTreamentDetail.setLayout(pnlTreamentDetailLayout);
         pnlTreamentDetailLayout.setHorizontalGroup(
             pnlTreamentDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTreamentDetailLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrlpTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(scrlpTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
         );
         pnlTreamentDetailLayout.setVerticalGroup(
             pnlTreamentDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTreamentDetailLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrlpTreatment)
-                .addContainerGap())
+            .addComponent(scrlpTreatment)
         );
 
         pnlTreatmentInput.setPreferredSize(new java.awt.Dimension(490, 120));
@@ -1929,19 +1970,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtfBankUserIDjTextField1ActionPerformed
 
-    private void txtfBankPasswordjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfBankPasswordjTextField1ActionPerformed
-        // TODO add your handling code here:
-        String text = txtfBankPassword.getText();
-        if (text.length() > 0){
-            try {
-                txtfBankPassword.setText(SignInFrame.toHexString
-                                  (SignInFrame.getSHA(text)));
-            } catch (NoSuchAlgorithmException ex) {
-                System.out.println("Error: " + ex);
-            }
-        }
-    }//GEN-LAST:event_txtfBankPasswordjTextField1ActionPerformed
-
     private void txtfBankIDjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfBankIDjTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtfBankIDjTextField1ActionPerformed
@@ -2000,19 +2028,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private void txtfUserIDjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfUserIDjTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtfUserIDjTextField1ActionPerformed
-
-    private void txtfPasswordjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfPasswordjTextField1ActionPerformed
-        // TODO add your handling code here:
-        String text = txtfPassword.getText();
-        if (text.length() > 0){
-            try {
-                txtfPassword.setText(SignInFrame.toHexString
-                                  (SignInFrame.getSHA(text)));
-            } catch (NoSuchAlgorithmException ex) {
-                System.out.println("Error: " + ex);
-            }
-        }
-    }//GEN-LAST:event_txtfPasswordjTextField1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -2172,11 +2187,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JPanel pnlTreatmentButton;
     private javax.swing.JPanel pnlTreatmentInput;
     private javax.swing.JPanel pnlTreatmentManagement;
+    private javax.swing.JScrollPane scrlpAccountHistory;
     private javax.swing.JScrollPane scrlpBankList;
     private javax.swing.JScrollPane scrlpList;
+    private javax.swing.JScrollPane scrlpTransactionHistory;
     private javax.swing.JScrollPane scrlpTreatment;
-    private javax.swing.JScrollPane srlTransactionHistory;
-    private javax.swing.JScrollPane srlpAccountHistory;
     private javax.swing.JTabbedPane tbdpAdministratorManagement;
     private javax.swing.JTable tblAccountHistory;
     private javax.swing.JTable tblBankList;
@@ -2193,9 +2208,9 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JTextField txtfBankAttribute;
     private javax.swing.JTextField txtfBankBalanced;
     private javax.swing.JTextField txtfBankID;
-    private javax.swing.JTextField txtfBankPassword;
+    private javax.swing.JPasswordField txtfBankPassword;
     private javax.swing.JTextField txtfBankUserID;
-    private javax.swing.JTextField txtfPassword;
+    private javax.swing.JPasswordField txtfPassword;
     private javax.swing.JTextField txtfTreatmentCapacity;
     private javax.swing.JTextField txtfTreatmentID;
     private javax.swing.JTextField txtfTreatmentName;
@@ -2203,61 +2218,4 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JTextField txtfUserID;
     private javax.swing.JTextField txtfUsername;
     // End of variables declaration//GEN-END:variables
-}
-
-class AccountComparator implements java.util.Comparator<Account>{
-    @Override
-    public int compare(Account acc1, Account acc2) {
-        int result = acc1.getRole().compareToIgnoreCase(acc2.getRole());
-        if (result == 0){
-            result = acc1.getDatePublished().compareTo(acc2.getDatePublished());
-            if (result == 0){
-                result = acc1.getUsername().compareTo(acc2.getUsername());
-            }
-        }
-        return result;
-    }
-}
-
-class AccountBankComparator implements java.util.Comparator<AccountBank>{
-    @Override
-    public int compare(AccountBank accb1, AccountBank accb2) {
-         int result = accb1.getRole().compareToIgnoreCase(accb2.getRole());
-        if (result == 0){
-            result = accb1.getDatePublished().compareTo(accb2.getDatePublished());
-            if (result == 0){
-                result = accb1.getBankid().compareTo(accb2.getBankid());
-            }
-        }
-        return result;
-    }
-}
-
-class TreatmentPlaceComparator implements java.util.Comparator<TreatmentPlace>{
-    @Override
-    public int compare(TreatmentPlace tp1, TreatmentPlace tp2) {
-        int result = tp1.getID().compareToIgnoreCase(tp2.getID());
-        if (result == 0){
-            result = tp1.getName().compareTo(tp2.getName());
-        }
-        return result;
-    }
-}
-
-class ActivityHistoryComparator implements java.util.Comparator<ActivityHistory>{
-    @Override
-    public int compare(ActivityHistory ah1, ActivityHistory ah2) {
-        int result = ah1.getLoginDT().compareTo(ah2.getLoginDT());
-        if (result == 0){
-            result = ah1.getLogoutDT().compareTo(ah2.getLogoutDT());
-        }
-        return result;
-    }
-}
-
-class TransactionHistoryComparator implements java.util.Comparator<TransactionHistory>{
-    @Override
-    public int compare(TransactionHistory th1, TransactionHistory th2) {
-        return th1.getDate().compareTo(th2.getDate());
-    }
 }

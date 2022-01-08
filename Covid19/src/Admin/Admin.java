@@ -260,7 +260,10 @@ public class Admin {
         String error = null;
         String Username = acc.getUsername();
         if (Username.length() == 0){
-            error = "An account need an unique username.";
+            error = "An account needs an unique username.";
+        }
+        else if (!activity.equalsIgnoreCase("Remove") && Username.length() < 5){
+            error = "Username must have at least 5 characters.";
         }
         else{
             ArrayList<Account> listtemp = Admin.getAccounts(
@@ -531,7 +534,10 @@ public class Admin {
         String error = null;
         String ID = accbnk.getBankid();
         if (ID.length() == 0){
-            error = "An account bank need an unique id.";
+            error = "An account bank needs an unique id.";
+        }
+        else if (ID.length() < 5){
+            error = "Username must have at least 5 characters.";
         }
         else{
             ArrayList<AccountBank> listtemp = Admin.getAccountsBank(
@@ -924,7 +930,7 @@ public class Admin {
         String error = null;
         String ID = tmp.getID();
         if (ID.length() == 0){
-            error = "A treatment place need an unique id.";
+            error = "A treatment place needs an unique id.";
         }
         else{
             ArrayList<TreatmentPlace> listtemp = Admin.getTreatmentPlace(
@@ -932,9 +938,14 @@ public class Admin {
             if (!activity.equalsIgnoreCase("add") && listtemp.isEmpty()){
                 error = "There is no treatment place has ID is '" + ID + "'";
             }
-            else if(activity.equalsIgnoreCase("Add") && !listtemp.isEmpty()){
-                error = "ID of treatment place must be unique but ID '" 
+            else if(activity.equalsIgnoreCase("Add")){
+                if (!listtemp.isEmpty()){
+                    error = "ID of treatment place must be unique but ID '" 
                         + ID + "' is duplicated.";
+                }
+                else if (tmp.getName().length() == 0){
+                    error = "A treatment place needs a name.";
+                }
             }
         }
         return error;
@@ -1073,16 +1084,33 @@ public class Admin {
         String mess = checkInputTreatmentPlaceData("Remove", tmp);
         if (mess == null){
             int result;
+            int numpatient = 0;
+            ResultSet rs = null;
             con = Make_connection();
             if (con != null){
                 try {
-                    String query = "delete from TREATMENTPLACE where ID=?";
-                    System.out.println(query);
+                    String id = tmp.getID();
+                    String query = "select count(ID) as Num from MANAGEDPERSON "
+                                    + "where TREATMENT=?";
                     pstm = con.prepareStatement(query);
-                    pstm.setString(1, tmp.getID());
-                    result = pstm.executeUpdate();
-                    if (result < 0){
-                        mess = "Failed to delete data.";
+                    pstm.setString(1, id);
+                    rs = pstm.executeQuery();
+                    while (rs.next()){
+                        numpatient = rs.getInt("Num");
+                    }
+                    if (numpatient > 0){
+                        mess = "Cannot remove this treatment place because some "
+                                + "patients still being treated at here.";
+                    }
+                    else{
+                        query = "delete from TREATMENTPLACE where ID=?";
+                        System.out.println(query);
+                        pstm = con.prepareStatement(query);
+                        pstm.setString(1, id);
+                        result = pstm.executeUpdate();
+                        if (result < 0){
+                            mess = "Failed to delete data.";
+                        }
                     }
                 } catch (SQLException ex) {
                     System.out.println("Error while removing data.");
