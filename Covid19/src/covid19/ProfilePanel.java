@@ -10,6 +10,16 @@ import Profile.*;
 import javax.swing.JOptionPane;
 import Account.AccountBank;
 import Payment.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -56,6 +66,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         btnBuyPackage = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnChangePw = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         pnlInformation = new javax.swing.JPanel();
         lblCccd = new javax.swing.JLabel();
         lblFullname = new javax.swing.JLabel();
@@ -128,6 +139,14 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
+        jButton1.setText("Create account");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlButtonLayout = new javax.swing.GroupLayout(pnlButton);
         pnlButton.setLayout(pnlButtonLayout);
         pnlButtonLayout.setHorizontalGroup(
@@ -140,8 +159,10 @@ public class ProfilePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnChangePw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(14, 14, 14)
-                .addComponent(btnBuyPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(btnBuyPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlButtonLayout.setVerticalGroup(
@@ -149,13 +170,15 @@ public class ProfilePanel extends javax.swing.JPanel {
             .addGroup(pnlButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnBuyPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlButtonLayout.createSequentialGroup()
-                        .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnChangePw, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuyPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnChangePw, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -170,7 +193,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblYob.setText("Year of birth:");
         lblYob.setPreferredSize(new java.awt.Dimension(100, 27));
 
-        txfCCCD.setText("jTextField1");
         txfCCCD.setPreferredSize(new java.awt.Dimension(304, 27));
         txfCCCD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +200,6 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
-        txfFullname.setText("jTextField1");
         txfFullname.setPreferredSize(new java.awt.Dimension(304, 27));
         txfFullname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +207,6 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
-        txfYob.setText("jTextField1");
         txfYob.setPreferredSize(new java.awt.Dimension(304, 27));
         txfYob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,10 +217,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblAddress.setText("Address:");
         lblAddress.setPreferredSize(new java.awt.Dimension(100, 27));
 
-        txfAddress.setText("jTextField1");
         txfAddress.setPreferredSize(new java.awt.Dimension(304, 27));
 
-        txfStatus.setText("jTextField1");
         txfStatus.setPreferredSize(new java.awt.Dimension(304, 27));
 
         lblStatus.setText("Status:");
@@ -209,13 +227,11 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblTreatment.setText("TreatMent:");
         lblTreatment.setPreferredSize(new java.awt.Dimension(100, 27));
 
-        txfTreatment.setText("jTextField1");
         txfTreatment.setPreferredSize(new java.awt.Dimension(304, 27));
 
         lblCccd1.setText("Debt:");
         lblCccd1.setPreferredSize(new java.awt.Dimension(100, 27));
 
-        txfDebt.setText("jTextField1");
         txfDebt.setPreferredSize(new java.awt.Dimension(304, 27));
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
@@ -500,12 +516,12 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txfYobActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int result = JOptionPane.showConfirmDialog(pnlInformation, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(this, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.YES_OPTION){
             if(ProfileInf.updateProfile(txfCCCD.getText(), txfFullname.getText(), txfAddress.getText(), Integer.parseInt(txfYob.getText())))
-                JOptionPane.showMessageDialog(pnlInformation, "All changes have been saved", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "All changes have been saved", "Notification", JOptionPane.INFORMATION_MESSAGE);
             else
-                JOptionPane.showMessageDialog(pnlInformation, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else {
             Profile resultProfile = ProfileInf.getProfile(id);
@@ -520,13 +536,15 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnBuyPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyPackageActionPerformed
-        //new SignInFrame().setVisible(true);
         AccountBank accBank = BankInf.getAccountBank(id);
-        //System.out.println(accBank.getDatePublished());
-        AccountBankFrame accountBankFrame = new AccountBankFrame(accBank);
-        accountBankFrame.setTitle("Payment system");
-        accountBankFrame.setVisible(true);
-        //this.setEnabled(false);
+        if (accBank.getBankid().equals("")) 
+            JOptionPane.showMessageDialog(this, "Bank account is not created. Please click above button to create account", "Error", JOptionPane.ERROR_MESSAGE);
+        else {
+            AccountBankFrame accountBankFrame = new AccountBankFrame(accBank);
+            accountBankFrame.setTitle("Payment system");
+            accountBankFrame.setVisible(true);
+            //this.setEnabled(false);
+        }
     }//GEN-LAST:event_btnBuyPackageActionPerformed
 
     private void btnChangePwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePwActionPerformed
@@ -539,12 +557,53 @@ public class ProfilePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txfCCCDActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AccountBank accBank = BankInf.getAccountBank(id);
+        if (accBank.getBankid().equals("")) {
+            String check = "error";
+            InputStream clientIn = null;
+            OutputStream clientOut = null;
+            Socket client = null;
+            try {
+                client = new Socket(InetAddress.getLocalHost(), 3000);
+                clientIn = client.getInputStream();
+                clientOut = client.getOutputStream();
+                PrintWriter pw = new PrintWriter(clientOut, true);
+                BufferedReader br = new BufferedReader(new InputStreamReader(clientIn));
+                pw.println("create");
+                pw.println(id);
+                check = br.readLine();
+                
+            } catch (IOException ex) {
+                Logger.getLogger(ProfilePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    if (client != null) client.close();
+                    if (clientIn != null) clientIn.close();
+                    if (clientOut != null) clientOut.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ProfilePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (check.equals("true")) {
+                JOptionPane.showMessageDialog(this, "Create bank account successully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else if (check.equals("false"))
+                JOptionPane.showMessageDialog(this, "Create bank account failed", "Error", JOptionPane.ERROR_MESSAGE);
+            else 
+                JOptionPane.showMessageDialog(this, "Payment system error", "Error", JOptionPane.ERROR_MESSAGE);
+        } 
+        else 
+            JOptionPane.showMessageDialog(this, "Bank account exists", "Notification", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuyPackage;
     private javax.swing.JButton btnChangePw;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblCccd;

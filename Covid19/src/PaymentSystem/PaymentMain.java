@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Helper.AES;
 import Payment.BankInf;
+import Account.*;
 
 /**
  *
@@ -27,6 +28,9 @@ public class PaymentMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        AccountBank ab = BankInf.getAdminAccountBank();
+        if (ab.getBankid().equals("")) 
+            AccountInf.addAdminBank();
         MainFrame mainFrame = new MainFrame();
         mainFrame.setTitle("Payment system");
         mainFrame.setVisible(true);
@@ -60,17 +64,29 @@ class ClientThread extends Thread {
             clientOut = client.getOutputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(clientIn));
             PrintWriter pw = new PrintWriter(clientOut, true);
-            String secretKey = "backspace";
-            String encrytedContent = br.readLine();
-            String decryptedContent = AES.decrypt(encrytedContent, secretKey);
-            //System.out.println(decryptedContent);
-            String content[] = decryptedContent.split("/");
-            boolean temp = BankInf.addTransaction(content[0], Float.parseFloat(content[1]), content[2]);
-            String check = Boolean.toString(temp);
-            pw.println(check);
-            if (check.equals("true")) {
-                mainFrame.refreshTable();
-                mainFrame.setBalance(Float.parseFloat(content[1]));
+            String command = br.readLine();
+            if (command.equals("pay")) {
+                String secretKey = "backspace";
+                String encrytedContent = br.readLine();
+                String decryptedContent = AES.decrypt(encrytedContent, secretKey);
+                //System.out.println(decryptedContent);
+                String content[] = decryptedContent.split("/");
+                boolean temp = BankInf.addTransaction(content[0], Float.parseFloat(content[1]), content[2]);
+                String check = Boolean.toString(temp);
+                pw.println(check);
+                if (check.equals("true")) {
+                    mainFrame.refreshTable();
+                    mainFrame.setBalance(Float.parseFloat(content[1]));
+                }
+            }
+            else {
+                String id = br.readLine();
+                Account account = AccountInf.getAccountBank(id);
+                boolean temp = AccountInf.addAccountBank(account);
+                String check = Boolean.toString(temp);
+                pw.println(check);
+                //System.out.print(account.getPassword());
+                //System.out.println(id);
             }
         } catch (IOException ex) {
             Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);

@@ -324,24 +324,12 @@ public class AccountBankFrame extends javax.swing.JFrame {
                     clientOut = client.getOutputStream();
                     PrintWriter pw = new PrintWriter(clientOut, true);
                     BufferedReader br = new BufferedReader(new InputStreamReader(clientIn));
+                    pw.println("pay");
                     String secretKey = "backspace";
                     String content = userBank.getBankid() + "/" + txfCash.getText() + "/" + txfContent.getText();
                     String encryptedContent = AES.encrypt(content, secretKey);
                     pw.println(encryptedContent);
                     check = br.readLine();
-                    //check = Boolean.parseBoolean(temp);
-                    //System.out.println(check);
-                    /*
-                    if(BankInf.addTransaction(userBank.getBankid(), Float.parseFloat(txfCash.getText()), txfContent.getText())) {
-                    JOptionPane.showMessageDialog(pnlBankDetail, "Pay successully", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                    txfBalance.setText(Float.toString(Float.parseFloat(txfBalance.getText()) - Float.parseFloat(txfCash.getText())));
-                    txfCash.setText("");
-                    txfContent.setText("");
-                    refreshTable();
-                    }
-                    else
-                    JOptionPane.showMessageDialog(pnlBankDetail, "Pay failed", "Error", JOptionPane.ERROR_MESSAGE);
-                    */
                 } catch (IOException ex) {
                     Logger.getLogger(AccountBankFrame.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
@@ -360,7 +348,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
                     txfContent.setText("");
                     refreshTable();
                 }
-                else if (check.equals("failed"))
+                else if (check.equals("false"))
                     JOptionPane.showMessageDialog(this, "Pay failed", "Error", JOptionPane.ERROR_MESSAGE);
                 else 
                     JOptionPane.showMessageDialog(this, "Payment system error", "Error", JOptionPane.ERROR_MESSAGE);
