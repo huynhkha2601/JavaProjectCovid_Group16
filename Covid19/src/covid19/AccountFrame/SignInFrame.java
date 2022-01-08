@@ -192,7 +192,7 @@ public class SignInFrame extends javax.swing.JFrame{
         Account a = new Account();
         AccountBank b = new AccountBank();
         String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
-        String sqlBank = "SELECT ID, PASSWORD, ROLE, ACTIVE, BALANCE, USERID, DATEPUBLISHED FROM Account_Bank";
+        String sqlBank = "SELECT ID, PASSWORD, ROLE, BALANCE,DATEPUBLISHED FROM Account_Bank";
         String usernameInput = tfUser.getText();
         String passwordInput = new String(tfPwd.getPassword());
         StringBuilder sb = new StringBuilder();
