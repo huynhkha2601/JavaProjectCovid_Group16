@@ -52,6 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         new SQLConnection();
         AddActionPerformed();
+        this.setTitle("Project App Covid19");
     }
 
     public MainFrame(Account a, int role) {
@@ -60,13 +61,19 @@ public class MainFrame extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         user = a;
+        this.setTitle("Project App Covid19");
         if (role == 1) {
             btnProfile.setEnabled(false);
             btnFind.setEnabled(false);
+            menuManagement.remove(mitMUserProfile);
+            menuManagement.remove(mitMFindAndPurchase);
         } else if (role == 2) {
             btnManagePackage.setEnabled(false);
             btnManagePerson.setEnabled(false);
             btnManageRelated.setEnabled(false);
+            menuManagement.remove(mitMPackageManagement);
+            menuManagement.remove(mitMPatientManagement);
+            menuManagement.remove(mitMStatusManagement);
         }
     }
 
@@ -79,10 +86,10 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
         pnlWelcome = new javax.swing.JPanel();
         lblAppTittle = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
-        lblWelcome = new javax.swing.JLabel();
         pnlContent = new javax.swing.JPanel();
         pnlButton = new javax.swing.JPanel();
         btnManagePerson = new javax.swing.JButton();
@@ -100,23 +107,22 @@ public class MainFrame extends javax.swing.JFrame {
         sptFile = new javax.swing.JPopupMenu.Separator();
         mitFileLogout = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
-        mitUndo = new javax.swing.JMenuItem();
-        mitRedo = new javax.swing.JMenuItem();
         sptEditTop = new javax.swing.JPopupMenu.Separator();
         mitCopy = new javax.swing.JMenuItem();
         mitCut = new javax.swing.JMenuItem();
         mitPaste = new javax.swing.JMenuItem();
         sptEditBottom = new javax.swing.JPopupMenu.Separator();
-        mitFind = new javax.swing.JMenuItem();
-        mitReplace = new javax.swing.JMenuItem();
         menuManagement = new javax.swing.JMenu();
         mitMUserProfile = new javax.swing.JMenuItem();
         mitMPatientManagement = new javax.swing.JMenuItem();
         mitMStatusManagement = new javax.swing.JMenuItem();
         mitMPackageManagement = new javax.swing.JMenuItem();
         mitMFindAndPurchase = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 740));
@@ -144,11 +150,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblWelcome.setText("Welcome,");
-        lblWelcome.setToolTipText("<br/>");
-        lblWelcome.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         javax.swing.GroupLayout pnlWelcomeLayout = new javax.swing.GroupLayout(pnlWelcome);
         pnlWelcome.setLayout(pnlWelcomeLayout);
         pnlWelcomeLayout.setHorizontalGroup(
@@ -156,10 +157,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(pnlWelcomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAppTittle, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblAppTittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlWelcomeLayout.setVerticalGroup(
@@ -167,7 +166,6 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(pnlWelcomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAppTittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -317,7 +315,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnlButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tpnContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tpnContent, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlContentLayout.setVerticalGroup(
@@ -362,26 +360,6 @@ public class MainFrame extends javax.swing.JFrame {
         menuBar.add(menuFile);
 
         menuEdit.setText("Edit");
-
-        mitUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mitUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/undo.png"))); // NOI18N
-        mitUndo.setText("Undo");
-        mitUndo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitUndoActionPerformed(evt);
-            }
-        });
-        menuEdit.add(mitUndo);
-
-        mitRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mitRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/redo.png"))); // NOI18N
-        mitRedo.setText("Redo");
-        mitRedo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitRedoActionPerformed(evt);
-            }
-        });
-        menuEdit.add(mitRedo);
         menuEdit.add(sptEditTop);
 
         mitCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -414,16 +392,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
         menuEdit.add(mitPaste);
         menuEdit.add(sptEditBottom);
-
-        mitFind.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mitFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
-        mitFind.setText("Find");
-        menuEdit.add(mitFind);
-
-        mitReplace.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mitReplace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/replace.png"))); // NOI18N
-        mitReplace.setText("Replace");
-        menuEdit.add(mitReplace);
 
         menuBar.add(menuEdit);
 
@@ -504,6 +472,10 @@ public class MainFrame extends javax.swing.JFrame {
         });
         menuManagement.add(mitMFindAndPurchase);
 
+        menuBar.add(menuManagement);
+
+        jMenu2.setText("Support");
+
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/about.png"))); // NOI18N
         jMenuItem1.setText("About Us");
@@ -520,7 +492,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jMenuItem1KeyReleased(evt);
             }
         });
-        menuManagement.add(jMenuItem1);
+        jMenu2.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/help.png"))); // NOI18N
@@ -535,9 +507,9 @@ public class MainFrame extends javax.swing.JFrame {
                 jMenuItem2KeyPressed(evt);
             }
         });
-        menuManagement.add(jMenuItem2);
+        jMenu2.add(jMenuItem2);
 
-        menuBar.add(menuManagement);
+        menuBar.add(jMenu2);
 
         setJMenuBar(menuBar);
 
@@ -610,10 +582,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mitCopyActionPerformed
 
-    private void mitRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitRedoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mitRedoActionPerformed
-
     private void mitPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitPasteActionPerformed
         try {
             Robot r = new Robot();
@@ -678,8 +646,10 @@ public class MainFrame extends javax.swing.JFrame {
             @Override
             public void run() {
                 MainFrame mainFrame = new MainFrame();
-                mainFrame.setTitle("Covid-19 Management");
+                //mainFrame.setTitle("Covid-19 Management");
                 mainFrame.setVisible(true);
+                mainFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                mainFrame.btnLogout.setEnabled(false);
             }
         });
     }//GEN-LAST:event_mitNewActionPerformed
@@ -747,16 +717,12 @@ showAboutUs();        // TODO add your handling code here:
 showHelp();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2KeyPressed
 
-    private void mitUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitUndoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mitUndoActionPerformed
-
     private void showManageStatus() {
         if (statusFlag == 0) {
             if (rmp == null) {
                 rmp = new StatusManagementPanel();
             }
-            tpnContent.add("Quản lý người tiếp xúc", rmp);
+            tpnContent.add("Related Management", rmp);
             statusFlag++;
             tpnContent.setSelectedComponent(rmp);
 
@@ -772,7 +738,7 @@ showHelp();        // TODO add your handling code here:
             if (ptmp == null) {
                 ptmp = new PatientManagementPanel();
             }
-            tpnContent.add("Quản lý người liên quan", ptmp);
+            tpnContent.add("Patient Management", ptmp);
             patientFlag++;
             tpnContent.setSelectedComponent(ptmp);
 
@@ -788,7 +754,7 @@ showHelp();        // TODO add your handling code here:
             if (pkmp == null) {
                 pkmp = new PackageManagementPanel();
             }
-            tpnContent.add("Quản lý các gói hỗ trợ", pkmp);
+            tpnContent.add("Package Management", pkmp);
             packageFlag++;
             tpnContent.setSelectedComponent(pkmp);
 
@@ -800,7 +766,7 @@ showHelp();        // TODO add your handling code here:
 
     private void showAboutUs() {
         if (aboutUsFlag == 0) {
-            tpnContent.add("Về chúng tôi", abup);
+            tpnContent.add("About us", abup);
             aboutUsFlag++;
             tpnContent.setSelectedComponent(abup);
 
@@ -812,7 +778,7 @@ showHelp();        // TODO add your handling code here:
 
     private void showHelp() {
         if (helpFlag == 0) {
-            tpnContent.add("Trợ giúp", hpn);
+            tpnContent.add("Help", hpn);
             helpFlag++;
             tpnContent.setSelectedComponent(hpn);
 
@@ -825,7 +791,7 @@ showHelp();        // TODO add your handling code here:
     private void showFind() {
         if (findFlag == 0) {
             if (fpn == null) {
-                fpn = new FindAndPurchasePanel();
+                fpn = new FindAndPurchasePanel(user.getUserid());
             }
             tpnContent.add("Find & Purchase", fpn);
             findFlag++;
@@ -842,7 +808,7 @@ showHelp();        // TODO add your handling code here:
             if (pfp == null) {
                 pfp = new ProfilePanel(user);
             }
-            tpnContent.add("Thông tin cá nhân", pfp);
+            tpnContent.add("Profile", pfp);
             profileFlag++;
             tpnContent.setSelectedComponent(pfp);
 
@@ -917,10 +883,11 @@ showHelp();        // TODO add your handling code here:
     private javax.swing.JButton btnManagePerson;
     private javax.swing.JButton btnManageRelated;
     private javax.swing.JButton btnProfile;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lblAppTittle;
-    private javax.swing.JLabel lblWelcome;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -928,7 +895,6 @@ showHelp();        // TODO add your handling code here:
     private javax.swing.JMenuItem mitCopy;
     private javax.swing.JMenuItem mitCut;
     private javax.swing.JMenuItem mitFileLogout;
-    private javax.swing.JMenuItem mitFind;
     private javax.swing.JMenuItem mitMFindAndPurchase;
     private javax.swing.JMenuItem mitMPackageManagement;
     private javax.swing.JMenuItem mitMPatientManagement;
@@ -936,10 +902,7 @@ showHelp();        // TODO add your handling code here:
     private javax.swing.JMenuItem mitMUserProfile;
     private javax.swing.JMenuItem mitNew;
     private javax.swing.JMenuItem mitPaste;
-    private javax.swing.JMenuItem mitRedo;
     private javax.swing.JMenuItem mitReload;
-    private javax.swing.JMenuItem mitReplace;
-    private javax.swing.JMenuItem mitUndo;
     private javax.swing.JPanel pnlButton;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JButton pnlFind1;

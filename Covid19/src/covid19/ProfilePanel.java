@@ -37,11 +37,12 @@ public class ProfilePanel extends javax.swing.JPanel {
     /**
      * Creates new form ProfilePanel
      */
-    private String id = "1";
+    private String id;
     public Account user = new Account();
     public ProfilePanel(Account a) {
         initComponents();
         user = a;
+        id = a.getUserid();
         Profile resultProfile = ProfileInf.getProfile(user.getUserid());
         System.out.println(resultProfile.getID());
         txfCCCD.setText(resultProfile.getID());
@@ -340,46 +341,23 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         scrollpnlMH.setPreferredSize(new java.awt.Dimension(518, 135));
 
+        tblMHistory.setAutoCreateRowSorter(true);
         tblMHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "From Status", "To Status", "Date"
             }
-        ));
-        tblMHistory.setMaximumSize(null);
-        tblMHistory.setMinimumSize(null);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblMHistory.setPreferredSize(new java.awt.Dimension(522, 135));
         scrollpnlMH.setViewportView(tblMHistory);
 
@@ -412,34 +390,36 @@ public class ProfilePanel extends javax.swing.JPanel {
         pnlMPackage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlMPackage.setPreferredSize(new java.awt.Dimension(522, 198));
 
+        tblMPackage.setAutoCreateRowSorter(true);
         tblMPackage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Package ID", "Package Name", "Date Register", "Quantity", "Price", "Total"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblMPackage.setPreferredSize(new java.awt.Dimension(518, 138));
         scrollpnlMP.setViewportView(tblMPackage);
         if (tblMPackage.getColumnModel().getColumnCount() > 0) {
-            tblMPackage.getColumnModel().getColumn(1).setPreferredWidth(140);
+            tblMPackage.getColumnModel().getColumn(1).setPreferredWidth(130);
             tblMPackage.getColumnModel().getColumn(2).setPreferredWidth(110);
-            tblMPackage.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tblMPackage.getColumnModel().getColumn(3).setPreferredWidth(55);
             tblMPackage.getColumnModel().getColumn(4).setPreferredWidth(40);
             tblMPackage.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
@@ -546,7 +526,17 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        // TODO add your handling code here:
+        Profile resultProfile = ProfileInf.getProfile(user.getUserid());
+        System.out.println(resultProfile.getID());
+        txfCCCD.setText(resultProfile.getID());
+        txfFullname.setText(resultProfile.getFullName());
+        txfAddress.setText(resultProfile.getAddress());
+        txfStatus.setText(resultProfile.getStatus());
+        txfYob.setText(Integer.toString(resultProfile.getYoB()));
+        txfTreatment.setText(resultProfile.getTreatment());
+        txfDebt.setText(Double.toString(resultProfile.getDebt()));
+        displayMTable();
+        displayPTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
@@ -554,7 +544,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         if (accBank.getBankid().equals("")) 
             JOptionPane.showMessageDialog(this, "Bank account is not created. Please click above button to create account", "Error", JOptionPane.ERROR_MESSAGE);
         else {
-            AccountBankFrame accountBankFrame = new AccountBankFrame(accBank);
+            AccountBankFrame accountBankFrame = new AccountBankFrame(accBank, Float.parseFloat(txfDebt.getText()));
             accountBankFrame.setTitle("Payment system");
             accountBankFrame.setVisible(true);
             //this.setEnabled(false);

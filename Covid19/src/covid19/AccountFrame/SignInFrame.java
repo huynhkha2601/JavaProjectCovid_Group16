@@ -79,7 +79,7 @@ public class SignInFrame extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Đăng nhập");
+        setTitle("Sign in");
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -190,7 +190,7 @@ public class SignInFrame extends javax.swing.JFrame {
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         Account a = new Account();
-        AccountBank b = new AccountBank();
+        //AccountBank b = new AccountBank();
         String usernameInput = tfUser.getText();
         String passwordInput = new String(tfPwd.getPassword());
         StringBuilder sb = new StringBuilder();
@@ -201,7 +201,7 @@ public class SignInFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String Role = a.signin(usernameInput, passwordInput, b);
+        String Role = a.signin(usernameInput, passwordInput);
         System.out.println(Role);
         int flag = 0;
         switch (Role) {
@@ -222,11 +222,6 @@ public class SignInFrame extends javax.swing.JFrame {
             case "User" -> {
                 this.setVisible(false);
                 new MainFrame(a, 2).setVisible(true);
-                return;
-            }
-            case "Bank" -> {
-                this.setVisible(false);
-                new AccountBankFrame(b).setVisible(true);
                 return;
             }
             case"CREATE"->{

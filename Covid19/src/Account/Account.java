@@ -123,20 +123,21 @@ public class Account {
         return datepublished;
     }
 
-    public String signin(String usernameInput, String passwordInput, AccountBank b) {
+    public String signin(String usernameInput, String passwordInput) {
         String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT WHERE USERNAME='" + usernameInput + "'";
-        String sqlBank = "SELECT ID,PASSWORD,ROLE,ACTIVATED,BALANCE,USERID,DATEPUBLISHED FROM Account_Bank";
+        //String sqlBank = "SELECT ID,PASSWORD,ROLE,ACTIVE,BALANCE,USERID,DATEPUBLISHED FROM Account_Bank";
         try {
             String passwordHash = toHexString(getSHA(passwordInput));
             conn = DriverManager.getConnection(DB_URL);
             stmt = conn.createStatement();
             stmtBank = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            ResultSet rsBank = stmtBank.executeQuery(sqlBank);
+            //ResultSet rsBank = stmtBank.executeQuery(sqlBank);
             if (rs.next()) {
                 String user_name = rs.getString("USERNAME");
                 String pass_word = rs.getString("PASSWORD");
                 String Role = rs.getString("ROLE");
+                //System.out.println(role);
                 if (pass_word == null) {
                     return "CREATE";
                 }
@@ -153,7 +154,7 @@ public class Account {
                         return "LOCKED";
                     } else {
                         switch (Role) {
-                            case "Admin" -> {
+                            case "ADMIN" -> {
                                 LocalDateTime ldt = LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
                                 this.setAccount(user_name, pass_word, Role, rs.getString("USERID"), rs.getInt("ACTIVATED"), ldt);
                                 return "ADMIN";
@@ -184,10 +185,10 @@ public class Account {
             conn = DriverManager.getConnection(DB_URL);
             stmt = conn.createStatement();
             stmt2 = conn.createStatement();
-            String sql3 = "INSERT INTO MANAGEDPERSON(ID,STATUS) VALUES (?,?)";
+            String sql3 = "INSERT INTO MANAGEDPERSON(ID,STATUS) VALUES (?,NULL)";
             PreparedStatement preparedStmt2 = conn.prepareStatement(sql3);
             preparedStmt2.setString(1, idInput);
-            preparedStmt2.setString(2, "F3");
+            //preparedStmt2.setString(2, "NULL");
             preparedStmt2.execute();
             String sql1 = "INSERT INTO ACCOUNT(USERNAME,PASSWORD,ROLE,USERID,ACTIVATED,DATEPUBLISHED) VALUES(?,?,?,?,?,?)";
             PreparedStatement preparedStmt = conn.prepareStatement(sql1);
@@ -242,7 +243,7 @@ public class Account {
         return true;
     }
 
-    public void createPassword(String usernameInput, String passwordInput, int roleInput) {
+    public boolean createPassword(String usernameInput, String passwordInput, int roleInput) {
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL);
@@ -252,12 +253,13 @@ public class Account {
                 preparedStmt2.setString(1, usernameInput);
                 String passwordHash = toHexString(getSHA(passwordInput));
                 preparedStmt2.setString(2, passwordHash);
-                preparedStmt2.setString(3, "Admin");
+                preparedStmt2.setString(3, "ADMIN");
                 preparedStmt2.setInt(4, 1);
                 LocalDateTime now = LocalDateTime.now();
                 ZonedDateTime zdt = now.atZone(ZoneId.of("GMT+07:00:00"));
                 preparedStmt2.setTimestamp(5, new Timestamp(zdt.toInstant().toEpochMilli()));
                 preparedStmt2.execute();
+                return true;
             } else {
                 String sql2 = "UPDATE ACCOUNT SET PASSWORD=? WHERE USERNAME=?";
                 PreparedStatement preparedStmt = conn.prepareStatement(sql2);
@@ -265,10 +267,12 @@ public class Account {
                 preparedStmt.setString(1, passwordHash);
                 preparedStmt.setString(2, usernameInput);
                 preparedStmt.executeUpdate();
+                return true;
             }
         } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     public void changePassword(String usernameInput, String passwordInput) {

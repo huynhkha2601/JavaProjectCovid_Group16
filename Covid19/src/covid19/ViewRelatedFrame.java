@@ -470,7 +470,8 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
             
             if (columnSelected < 2)
                 tfID.setText((String) model.getValueAt(rowSelected, columnSelected));
-            else tfFID.setText("");
+            else tfID.setText("");
+            
             displayDataTable();
         } catch (Exception e) {
         }

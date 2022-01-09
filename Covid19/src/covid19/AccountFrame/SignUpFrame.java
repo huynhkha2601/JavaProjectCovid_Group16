@@ -78,7 +78,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         tfID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Đăng ký");
+        setTitle("Sign up");
         setMinimumSize(null);
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -258,7 +258,7 @@ public class SignUpFrame extends javax.swing.JFrame {
                 }
             }
             if (number == 0 || upper == 0 || lower == 0) {
-                sb.append("Password must have at least 1 upper character, 1 number character, 1 ");
+                sb.append("Password must have at least 1 upper character, 1 number character, 1 lower character");
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -287,6 +287,8 @@ public class SignUpFrame extends javax.swing.JFrame {
             a.signup(idInput, usernameInput, passwordInput, confirmPasswordInput);
             String success = "Sign up successfully";
             JOptionPane.showMessageDialog(this, success, "Succesful", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            new SignInFrame().setVisible(true);
         } else if (si == 2) {
             Account a = new Account();
             String usernameInput = tfUser.getText();
@@ -328,13 +330,15 @@ public class SignUpFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            //boolean check = false;
             if (isAdmin == 1) {
                 a.createPassword(usernameInput, passwordInput, 1);
             } else {
                 a.createPassword(usernameInput, passwordInput, 0);
             }
-            String success = "Sign up successfully";
-            JOptionPane.showMessageDialog(this, success, "Succesful", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Create account successully", "Succesful", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            new SignInFrame().setVisible(true);
         }
     }//GEN-LAST:event_btnSignUpActionPerformed
 

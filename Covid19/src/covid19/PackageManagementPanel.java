@@ -564,7 +564,7 @@ public class PackageManagementPanel extends javax.swing.JPanel {
 
     private boolean showStringBuilder() {
         if (sb.length() > 0) {
-            MessageDialog.showMessageDialog(this, sb.toString(), "Error!");
+            MessageDialog.showErrorDialog(this, sb.toString(), "Error!");
             return true;
         }
         return false;

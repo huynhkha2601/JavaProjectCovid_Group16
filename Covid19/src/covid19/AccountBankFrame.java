@@ -29,6 +29,7 @@ import Helper.AES;
  */
 public class AccountBankFrame extends javax.swing.JFrame {
     private AccountBank userBank = new AccountBank();
+    private float debt;
     /**
      * Creates new form AccountBankFrame
      */
@@ -39,7 +40,8 @@ public class AccountBankFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     */
-    public AccountBankFrame(AccountBank accBank){
+    public AccountBankFrame(AccountBank accBank, float debt){
+        this.debt = debt;
         userBank = accBank;
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -85,7 +87,6 @@ public class AccountBankFrame extends javax.swing.JFrame {
         spnlBank = new javax.swing.JScrollPane();
         tblBank = new javax.swing.JTable();
         pnlBankButton = new javax.swing.JPanel();
-        btnChangePassword = new javax.swing.JButton();
         btnPayment = new javax.swing.JButton();
         btnGoBack = new javax.swing.JButton();
 
@@ -210,14 +211,6 @@ public class AccountBankFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnChangePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/changepassword.png"))); // NOI18N
-        btnChangePassword.setText("Change Password");
-        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangePasswordActionPerformed(evt);
-            }
-        });
-
         btnPayment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/payment.png"))); // NOI18N
         btnPayment.setText("Payment");
         btnPayment.addActionListener(new java.awt.event.ActionListener() {
@@ -240,24 +233,19 @@ public class AccountBankFrame extends javax.swing.JFrame {
             pnlBankButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBankButtonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlBankButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBankButtonLayout.createSequentialGroup()
-                        .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnGoBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         pnlBankButtonLayout.setVerticalGroup(
             pnlBankButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBankButtonLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addGroup(pnlBankButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(btnPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGoBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(btnGoBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPayment, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlAccountBankDetailLayout = new javax.swing.GroupLayout(pnlAccountBankDetail);
@@ -314,7 +302,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Required field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
         else {
             String check = "error";
-            if (Float.parseFloat(txfCash.getText()) > 0 && Float.parseFloat(txfCash.getText()) <= Float.parseFloat(txfBalance.getText())) {
+            if (Float.parseFloat(txfCash.getText()) > 0 && Float.parseFloat(txfCash.getText()) <= Float.parseFloat(txfBalance.getText()) && Float.parseFloat(txfCash.getText()) <= debt) {
                 InputStream clientIn = null;
                 OutputStream clientOut = null;
                 Socket client = null;
@@ -358,10 +346,6 @@ public class AccountBankFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPaymentActionPerformed
 
-    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        //new ChangePasswordFrame(userBank.).setVisible(true);
-    }//GEN-LAST:event_btnChangePasswordActionPerformed
-
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         //new MainFrame().setVisible(true);
         //this.setVisible(false);
@@ -402,13 +386,12 @@ public class AccountBankFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AccountBankFrame(null).setVisible(true);
+                new AccountBankFrame(null, 0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnPayment;
     private javax.swing.JButton jButton1;

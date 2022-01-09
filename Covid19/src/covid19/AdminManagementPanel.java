@@ -678,6 +678,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
      * Creates new form GUIAdmin
      */
     public AdminManagementPanel() {
+        //this.setTitle("Administration Management");
         initComponents();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);

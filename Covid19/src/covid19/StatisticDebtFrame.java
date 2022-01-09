@@ -193,8 +193,10 @@ public class StatisticDebtFrame extends javax.swing.JFrame {
 
             List<Profile> lst = Patient.PatientInf.getAllPatient();
             for (Profile profile : lst) {
-                Object[] obj = {profile.getID(), profile.getFullName(), profile.getDebt()};
-                model.addRow(obj);
+                if (profile.getDebt() > 0 ) {
+                    Object[] obj = {profile.getID(), profile.getFullName(), profile.getDebt()};
+                    model.addRow(obj);
+                }
             }
 
         } catch (Exception e) {

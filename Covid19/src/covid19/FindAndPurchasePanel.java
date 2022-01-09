@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FindAndPurchasePanel extends javax.swing.JPanel {
     
-    private String userID="1";
+    private String userID;
     /**
      * Creates new form FindPanel
      */
@@ -90,10 +90,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         tblPackage.setAutoCreateRowSorter(true);
         tblPackage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Limit Number", "Expiration", "Price"
@@ -408,7 +405,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         List<Packages> lst;
         lst = PackageInf.searchBuyPackageByName(txtfSearchbyName.getText());
         if (Objects.isNull(lst) || lst.isEmpty()) {
-            MessageDialog.showMessageDialog(this, "Couldn't find the package of essentials you were looking for!", "Notification!");
+            MessageDialog.showErrorDialog(this, "Couldn't find the package of essentials you were looking for!", "Notification!");
             return;
         }
         displayDataTable(lst);
@@ -424,7 +421,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         List<Packages> lst;
         lst = PackageInf.filterBuyPackageByName(txtfSearchbyName.getText());
         if (Objects.isNull(lst) || lst.isEmpty()) {
-            MessageDialog.showMessageDialog(this, "Couldn't find the package of essentials you were looking for!", "Notification!");
+            MessageDialog.showErrorDialog(this, "Couldn't find the package of essentials you were looking for!", "Notification!");
             return;
         }
         displayDataTable(lst);

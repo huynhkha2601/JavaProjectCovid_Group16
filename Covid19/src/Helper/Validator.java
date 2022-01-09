@@ -16,9 +16,9 @@ public class Validator {
     public static void validate(boolean statement, JTextField field, StringBuilder sb, String errorMessage) {
         if (statement) {
             sb.append(errorMessage).append("\n");
-            field.setBackground(Color.red);
+            //field.setBackground(Color.red);
         } else {
-            field.setBackground(Color.white);
+            //field.setBackground(Color.white);
 
         }
     }
@@ -30,10 +30,10 @@ public class Validator {
     public static void validateEmpty(JTextField field, StringBuilder sb, String errorMessage) {
         if (field.getText().equals("")) {
             sb.append(errorMessage).append("\n");
-            field.setBackground(Color.red);
+            //field.setBackground(Color.red);
             field.requestFocus();
         } else {
-            field.setBackground(Color.white);
+            //field.setBackground(Color.white);
         }
     }
 

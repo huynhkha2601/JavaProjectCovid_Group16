@@ -31,7 +31,7 @@ public class PackageRegisterInf {
             pstmt.setString(1, personID);
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
-                PackageRegister pk = new PackageRegister(rs.getString("PERSONID"),rs.getString("PACKAGEID"),rs.getString("NAME"),rs.getTimestamp("RECORD").toLocalDateTime(),rs.getInt("QUANTITY"), rs.getFloat("PRICE"), (int) rs.getFloat("TOTAL"));
+                PackageRegister pk = new PackageRegister(rs.getString("PERSONID"),rs.getString("PACKAGEID"),rs.getString("NAME"),rs.getTimestamp("RECORD").toLocalDateTime(),rs.getInt("PRICE"), rs.getFloat("TOTAL"), (int) rs.getFloat("QUANTITY"));
                 lst.add(pk);
             }
             

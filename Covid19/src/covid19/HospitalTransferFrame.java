@@ -258,19 +258,19 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if(txfFromTreatment.getText().equals("") || txfToTreatment1.getText().equals(""))
-            JOptionPane.showMessageDialog(pnlInfo, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
         else if(txfFromTreatment.getText().equals(txfToTreatment1.getText()))
-            JOptionPane.showMessageDialog(pnlInfo, "Choose another treatment place", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Choose another treatment place", "Notification", JOptionPane.ERROR_MESSAGE);
         else {
-            int result = JOptionPane.showConfirmDialog(pnlInfo, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(this, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 if(PatientInf.transferPatient(id, txfToTreatment1.getText())) {
-                    JOptionPane.showMessageDialog(pnlInfo, "Change successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Change successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
                     txfFromTreatment.setText(txfToTreatment1.getText());
                     txfToTreatment1.setText("");
                 }
                 else 
-                    JOptionPane.showMessageDialog(pnlInfo, "Change failed", "Notification", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Change failed", "Notification", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
