@@ -7,6 +7,9 @@ package Account;
 import DbConnection.SQLConnection;
 import covid19.AccountBankFrame;
 import covid19.AccountFrame.SignInFrame;
+import static covid19.AccountFrame.SignInFrame.getSHA;
+import static covid19.AccountFrame.SignInFrame.toHexString;
+import covid19.AccountFrame.SignUpFrame;
 import covid19.AdminManagementPanel;
 import covid19.MainFrame;
 import java.math.BigInteger;
@@ -15,10 +18,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,9 +61,9 @@ public class Account {
 
         return hexString.toString();
     }
-    
+
     Connection conn = null;
-    Statement stmt = null;
+    Statement stmt = null, stmt2 = null;
     Statement stmtBank = null;
     static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=Covid-19;user=sa;password=sa";
@@ -117,7 +124,7 @@ public class Account {
     }
 
     public String signin(String usernameInput, String passwordInput, AccountBank b) {
-        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
+        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT WHERE USERNAME='" + usernameInput + "'";
         String sqlBank = "SELECT ID,PASSWORD,ROLE,ACTIVATED,BALANCE,USERID,DATEPUBLISHED FROM Account_Bank";
         try {
             String passwordHash = toHexString(getSHA(passwordInput));
@@ -126,27 +133,42 @@ public class Account {
             stmtBank = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             ResultSet rsBank = stmtBank.executeQuery(sqlBank);
-            while (rs.next()) {
+            if (rs.next()) {
                 String user_name = rs.getString("USERNAME");
                 String pass_word = rs.getString("PASSWORD");
                 String Role = rs.getString("ROLE");
-                if (usernameInput.equals(user_name) && passwordHash.equals(pass_word)) {
-                    switch (Role) {
-                        case "ADMIN" -> {
-                            return "ADMIN";
-                        }
-                        case "Manager" -> {
-                            return "Manager";
-                        }
-                        case "User" -> {
-                            LocalDateTime ldt = LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
-                            this.setAccount(user_name, pass_word, Role, rs.getString("USERID"), rs.getInt("ACTIVATED"), ldt);
-                            return "User";
+                if (pass_word == null) {
+                    return "CREATE";
+                }
+                if (passwordHash.equals(pass_word)) {
+                    LocalDateTime login = LocalDateTime.now();
+                    String up = "INSERT INTO ACCOUNTHISTORY (USERNAME,RECORD_LOGIN,RECORD_LOGOUT) VALUES(?,?,?)";
+                    PreparedStatement preparedStmt = conn.prepareStatement(up);
+                    preparedStmt.setString(1, usernameInput);
+                    ZonedDateTime zdt = login.atZone(ZoneId.of("GMT+07:00:00"));
+                    preparedStmt.setTimestamp(2, new Timestamp(zdt.toInstant().toEpochMilli()));
+                    preparedStmt.setTimestamp(3, new Timestamp(zdt.toInstant().toEpochMilli()));
+                    preparedStmt.execute();
+                    if (rs.getInt("ACTIVATED") == 0) {
+                        return "LOCKED";
+                    } else {
+                        switch (Role) {
+                            case "Admin" -> {
+                                return "ADMIN";
+                            }
+                            case "Manager" -> {
+                                return "Manager";
+                            }
+                            case "User" -> {
+                                LocalDateTime ldt = LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
+                                this.setAccount(user_name, pass_word, Role, rs.getString("USERID"), rs.getInt("ACTIVATED"), ldt);
+                                return "User";
+                            }
                         }
                     }
                 }
             }
-            while (rsBank.next()) {
+            if (rsBank.next()) {
                 String id = rsBank.getString("ID");
                 String pass_word = rsBank.getString("PASSWORD");
                 if (usernameInput.equals(id) && passwordHash.equals(pass_word)) {
@@ -155,31 +177,120 @@ public class Account {
                     return "Bank";
                 }
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
-    public void signup(){
-        
+
+    public void signup(String idInput, String usernameInput, String passwordInput, String confirmpasswordInput) {
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL);
+            stmt = conn.createStatement();
+            stmt2 = conn.createStatement();
+            String sql3 = "INSERT INTO MANAGEDPERSON(ID,STATUS) VALUES (?,?)";
+            PreparedStatement preparedStmt2 = conn.prepareStatement(sql3);
+            preparedStmt2.setString(1, idInput);
+            preparedStmt2.setString(2, "F3");
+            preparedStmt2.execute();
+            String sql1 = "INSERT INTO ACCOUNT(USERNAME,PASSWORD,ROLE,USERID,ACTIVATED,DATEPUBLISHED) VALUES(?,?,?,?,?,?)";
+            PreparedStatement preparedStmt = conn.prepareStatement(sql1);
+            String passwordHash = toHexString(getSHA(passwordInput));
+            preparedStmt.setString(1, usernameInput);
+            preparedStmt.setString(2, passwordHash);
+            preparedStmt.setString(3, "User");
+            preparedStmt.setString(4, idInput);
+            preparedStmt.setInt(5, 1);
+            LocalDateTime now = LocalDateTime.now();
+            ZonedDateTime zdt = now.atZone(ZoneId.of("GMT+07:00:00"));
+            preparedStmt.setTimestamp(6, new Timestamp(zdt.toInstant().toEpochMilli()));
+            preparedStmt.execute();
+        } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    public int check(){
+
+    public boolean checkUsername(String usernameInput) {
+        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL);
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                if (usernameInput.equals(rs.getString("USERNAME"))) {
+                    return false;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
+    public boolean checkID(String IDInput) {
+        String sql2 = "SELECT USERID FROM ACCOUNT";
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL);
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql2);
+            while (rs.next()) {
+                if (IDInput.equals(rs.getString("USERID"))) {
+                    return false;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
+    public void createPassword(String usernameInput, String passwordInput, int roleInput) {
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL);
+            if (roleInput == 1) {
+                String sql = "INSERT INTO ACCOUNT(USERNAME, PASSWORD, ROLE, ACTIVATED, DATEPUBLISHED) VALUES(?,?,?,?,?)";
+                PreparedStatement preparedStmt2 = conn.prepareStatement(sql);
+                preparedStmt2.setString(1, usernameInput);
+                String passwordHash = toHexString(getSHA(passwordInput));
+                preparedStmt2.setString(2, passwordHash);
+                preparedStmt2.setString(3, "Admin");
+                preparedStmt2.setInt(4, 1);
+                LocalDateTime now = LocalDateTime.now();
+                ZonedDateTime zdt = now.atZone(ZoneId.of("GMT+07:00:00"));
+                preparedStmt2.setTimestamp(5, new Timestamp(zdt.toInstant().toEpochMilli()));
+                preparedStmt2.execute();
+            } else {
+                String sql2 = "UPDATE ACCOUNT SET PASSWORD=? WHERE USERNAME=?";
+                PreparedStatement preparedStmt = conn.prepareStatement(sql2);
+                String passwordHash = toHexString(getSHA(passwordInput));
+                preparedStmt.setString(1, passwordHash);
+                preparedStmt.setString(2, usernameInput);
+                preparedStmt.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public int check() {
         int flag = 0;
         String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
         try {
             conn = DriverManager.getConnection(DB_URL);
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            if(rs.next()){
+            if (rs.next()) {
                 flag = 1;
-            }
-            else{
+            } else {
                 flag = 2;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Account.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
     }

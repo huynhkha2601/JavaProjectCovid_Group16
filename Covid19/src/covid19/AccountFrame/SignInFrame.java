@@ -185,7 +185,7 @@ public class SignInFrame extends javax.swing.JFrame {
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         this.setVisible(false);
-        new SignUpFrame(1).setVisible(true);
+        new SignUpFrame(1,0,"").setVisible(true);
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
@@ -194,8 +194,8 @@ public class SignInFrame extends javax.swing.JFrame {
         String usernameInput = tfUser.getText();
         String passwordInput = new String(tfPwd.getPassword());
         StringBuilder sb = new StringBuilder();
-        if (usernameInput.equals("") || passwordInput.equals("")) {
-            sb.append("Username or password is empty");
+        if (usernameInput.equals("")) {
+            sb.append("Username is empty");
         }
         if (sb.length() > 0) {
             JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
@@ -205,29 +205,35 @@ public class SignInFrame extends javax.swing.JFrame {
         System.out.println(Role);
         int flag = 0;
         switch (Role) {
+            case "LOCKED" -> {
+                JOptionPane.showMessageDialog(this, "Account is disabled ", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             case "ADMIN" -> {
-                flag = 1;
                 new AdminManagementPanel().setVisible(true);
                 this.setVisible(false);
                 return;
             }
             case "Manager" -> {
-                flag = 1;
                 LocalDateTime now = LocalDateTime.now();
                 new MainFrame(a, 1, now).setVisible(true);
                 this.setVisible(false);
                 return;
             }
             case "User" -> {
-                flag = 1;
                 this.setVisible(false);
                 new MainFrame(a, 2).setVisible(true);
                 return;
             }
-            case "Bank"->{
-                flag = 1;
+            case "Bank" -> {
                 this.setVisible(false);
                 new AccountBankFrame(b).setVisible(true);
+                return;
+            }
+            case"CREATE"->{
+                this.setVisible(false);
+                new SignUpFrame(2,0,usernameInput).setVisible(true);
+                return;
             }
         }
         if (flag == 0) {

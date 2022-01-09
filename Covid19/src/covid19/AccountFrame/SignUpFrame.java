@@ -28,18 +28,31 @@ public class SignUpFrame extends javax.swing.JFrame {
     Connection conn = null;
     Statement stmt = null, stmt2 = null;
     static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    int si = 0;
+    int isAdmin = 0;
 
-    public SignUpFrame(int flag) {
+    public SignUpFrame(int flag, int flagadmin, String usernameInput) {
         if (flag == 1) {
             initComponents();
             this.setResizable(false);
+            si = 1;
         }
-        if (flag==2){
+        if (flag == 2) {
+            si = 2;
             initComponents();
             lblID.setVisible(false);
             tfID.setVisible(false);
-            lblUser.setVisible(false);
-            tfUser.setVisible(false);
+            if (flagadmin == 1) {
+                isAdmin = 1;
+                lblUser.setVisible(true);
+                lblUser.setText("Username is admin");
+                tfUser.setVisible(false);
+                tfUser.setText("admin");
+            } else {
+                lblUser.setVisible(false);
+                tfUser.setVisible(false);
+                tfUser.setText(usernameInput);
+            }
         }
     }
 
@@ -206,33 +219,53 @@ public class SignUpFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tfConfirmPwdActionPerformed
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        String idInput = tfID.getText();
-        String usernameInput = tfUser.getText();
-        String passwordInput = new String(tfPwd.getPassword());
-        String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
-        StringBuilder sb = new StringBuilder();
-        String sql = "SELECT USERNAME, PASSWORD, ROLE, USERID, ACTIVATED, DATEPUBLISHED FROM ACCOUNT";
-        String sql2 = "SELECT ID FROM MANAGEDPERSON";
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL);
-            stmt = conn.createStatement();
-            stmt2 = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            ResultSet rs2 = stmt2.executeQuery(sql2);
-            while (rs.next()) {
-                if (usernameInput.equals(rs.getString("USERNAME"))) {
-                    sb.append("Username has already existed");
-                    JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
-                    return;
+        if (si == 1) {
+            Account a = new Account();
+            String idInput = tfID.getText();
+            String usernameInput = tfUser.getText();
+            String passwordInput = new String(tfPwd.getPassword());
+            String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
+            StringBuilder sb = new StringBuilder();
+            int count = 0;
+            if (idInput.length() > 10) {
+                sb.append("ID up to 10 characters");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (usernameInput.length() < 5) {
+                sb.append("Username must have at least 5 characters");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (passwordInput.length() < 6) {
+                sb.append("Password must have at least 6 characters");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            for (int i = 0; i < passwordInput.length(); i++) {
+                char c = passwordInput.charAt(i);
+                if (c > 47 && c < 58) {
+                    count++;
+                }
+                if (c > 64 && c < 91) {
+                    count++;
                 }
             }
-            while (rs2.next()) {
-                if (idInput.equals(rs2.getString("ID"))) {
-                    sb.append("ID has already existed");
-                    JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+            System.out.println(count);
+            if (count == 0) {
+                sb.append("Password must have at least 1 upper character, 1 number character, 1 ");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!a.checkUsername(usernameInput)) {
+                sb.append("Username has already existed");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!a.checkID(idInput)) {
+                sb.append("ID has already existed");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             if (idInput.equals("") || usernameInput.equals("") || passwordInput.equals("") || confirmPasswordInput.equals("")) {
                 sb.append("Please enter all information");
@@ -244,34 +277,53 @@ public class SignUpFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            String sql3 = "INSERT INTO MANAGEDPERSON(ID,STATUS) VALUES (?,?)";
-            PreparedStatement preparedStmt2 = conn.prepareStatement(sql3);
-            preparedStmt2.setString(1, idInput);
-            preparedStmt2.setString(2, "F3");
-            preparedStmt2.execute();
-            String sql1 = "INSERT INTO ACCOUNT(USERNAME,PASSWORD,ROLE,USERID,ACTIVATED,DATEPUBLISHED) VALUES(?,?,?,?,?,?)";
-            PreparedStatement preparedStmt = conn.prepareStatement(sql1);
-            String passwordHash = toHexString(getSHA(passwordInput));
-            preparedStmt.setString(1, usernameInput);
-            preparedStmt.setString(2, passwordHash);
-            preparedStmt.setString(3, "User");
-            preparedStmt.setString(4, idInput);
-            preparedStmt.setInt(5, 1);
-            Date now = new Date();
-            long javaTime = now.getTime();
-            java.sql.Date sqlDate = new java.sql.Date(javaTime);
-            preparedStmt.setDate(6, sqlDate);
-            preparedStmt.execute();
+            a.signup(idInput, usernameInput, passwordInput, confirmPasswordInput);
             String success = "Sign up successfully";
             JOptionPane.showMessageDialog(this, success, "Succesful", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } else if (si == 2) {
+            Account a = new Account();
+            String usernameInput = tfUser.getText();
+            String passwordInput = new String(tfPwd.getPassword());
+            String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
+            StringBuilder sb = new StringBuilder();
+            int count = 0;
+            if (passwordInput.length() < 6) {
+                sb.append("Password must have at least 6 characters");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            for (int i = 0; i < passwordInput.length(); i++) {
+                char c = passwordInput.charAt(i);
+                if (c > 47 && c < 58) {
+                    count++;
+                }
+                if (c > 64 && c < 91) {
+                    count++;
+                }
+            }
+            if (count == 0) {
+                sb.append("Password must have at least 1 upper character, 1 number character, 1 lower character");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (passwordInput.equals("") || confirmPasswordInput.equals("")) {
+                sb.append("Please enter all information");
+            }
+            if (!passwordInput.equals(confirmPasswordInput)) {
+                sb.append("Password don't match");
+            }
+            if (sb.length() > 0) {
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (isAdmin == 1) {
+                a.createPassword(usernameInput, passwordInput, 1);
+            } else {
+                a.createPassword(usernameInput, passwordInput, 0);
+            }
+            String success = "Sign up successfully";
+            JOptionPane.showMessageDialog(this, success, "Succesful", JOptionPane.INFORMATION_MESSAGE);
         }
-
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
