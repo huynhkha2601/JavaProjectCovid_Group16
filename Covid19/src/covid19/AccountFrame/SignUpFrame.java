@@ -226,7 +226,9 @@ public class SignUpFrame extends javax.swing.JFrame {
             String passwordInput = new String(tfPwd.getPassword());
             String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
             StringBuilder sb = new StringBuilder();
-            int count = 0;
+            int upper = 0;
+            int lower = 0;
+            int number = 0;
             if (idInput.length() > 10) {
                 sb.append("ID up to 10 characters");
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
@@ -244,15 +246,18 @@ public class SignUpFrame extends javax.swing.JFrame {
             }
             for (int i = 0; i < passwordInput.length(); i++) {
                 char c = passwordInput.charAt(i);
+
                 if (c > 47 && c < 58) {
-                    count++;
+                    number++;
                 }
                 if (c > 64 && c < 91) {
-                    count++;
+                    upper++;
+                }
+                if (c > 96 && c < 123) {
+                    lower++;
                 }
             }
-            System.out.println(count);
-            if (count == 0) {
+            if (number == 0 || upper == 0 || lower == 0) {
                 sb.append("Password must have at least 1 upper character, 1 number character, 1 ");
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -288,7 +293,9 @@ public class SignUpFrame extends javax.swing.JFrame {
             String passwordInput = new String(tfPwd.getPassword());
             String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
             StringBuilder sb = new StringBuilder();
-            int count = 0;
+            int upper = 0;
+            int lower = 0;
+            int number = 0;
             if (passwordInput.length() < 6) {
                 sb.append("Password must have at least 6 characters");
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
@@ -297,13 +304,16 @@ public class SignUpFrame extends javax.swing.JFrame {
             for (int i = 0; i < passwordInput.length(); i++) {
                 char c = passwordInput.charAt(i);
                 if (c > 47 && c < 58) {
-                    count++;
+                    number++;
                 }
                 if (c > 64 && c < 91) {
-                    count++;
+                    upper++;
+                }
+                if (c > 96 && c < 123) {
+                    lower++;
                 }
             }
-            if (count == 0) {
+            if (number == 0 || upper == 0 || lower == 0) {
                 sb.append("Password must have at least 1 upper character, 1 number character, 1 lower character");
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
                 return;

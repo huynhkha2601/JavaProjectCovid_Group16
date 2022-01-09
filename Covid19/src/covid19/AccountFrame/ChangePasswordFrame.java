@@ -182,7 +182,9 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             String newpasswordInput = new String(tfNewPwd.getPassword());
             String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
             StringBuilder sb = new StringBuilder();
-            int count = 0;
+            int upper = 0;
+            int number=0;
+            int lower=0;
             if (newpasswordInput.length() < 6) {
                 sb.append(" New password must have at least 6 characters");
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
@@ -191,13 +193,16 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             for (int i = 0; i < newpasswordInput.length(); i++) {
                 char c = newpasswordInput.charAt(i);
                 if (c > 47 && c < 58) {
-                    count++;
+                    number++;
                 }
                 if (c > 64 && c < 91) {
-                    count++;
+                    upper++;
+                }
+                if (c > 96 && c < 123) {
+                    lower++;
                 }
             }
-            if (count == 0) {
+            if (number == 0||upper==0||lower==0) {
                 sb.append("New password must have at least 1 upper character, 1 number character, 1 lower character");
                 JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
                 return;
