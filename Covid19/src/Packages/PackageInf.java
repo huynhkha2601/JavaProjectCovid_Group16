@@ -45,6 +45,28 @@ public class PackageInf {
         return null;
     }
 
+    public static List<Packages> getBuyAllPackages() {
+        List<Packages> list = new ArrayList<>();
+        String sql = "Select * from PACKAGE where LIMITTIME > GETDATE() ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
+        try (
+                Connection connection = SQLConnection.getConnection();  
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Packages pk = new Packages(rs.getString("ID"), rs.getString("NAME"), rs.getInt("LIMITNUM"),
+                        rs.getDate("LIMITTIME").toLocalDate(), rs.getFloat("PRICE"), rs.getInt("QUANTITY"));
+//                System.out.println(pk.toString());
+                list.add(pk);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println("Can't get all packages");
+//            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public static boolean addPackages(Packages pk) {
         String sql = "Insert into PACKAGE (ID, NAME, LIMITNUM, LIMITTIME, PRICE, QUANTITY)"
                 + "VALUES (?,?,?,?,?,?)";
@@ -197,10 +219,56 @@ public class PackageInf {
         return null;
     }
 
+    public static List<Packages> searchBuyPackageByName(String name){
+        List<Packages> lst = new ArrayList<>();
+        String sql = "select * from PACKAGE where NAME=? and LIMITTIME > GETDATE() ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+   
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Packages pk = new Packages(rs.getString("ID"), rs.getString("NAME"), rs.getInt("LIMITNUM"),
+                        rs.getDate("LIMITTIME").toLocalDate(), rs.getFloat("PRICE"), rs.getInt("QUANTITY"));
+//                System.out.println(pk.toString());
+                lst.add(pk);
+            }
+            return lst;
+        } catch (SQLException e) {
+            System.out.println("Can't search package by name");
+            e.printStackTrace();
+        }
+        return null;
+    }
     
     public static List<Packages> filterPackageByName(String name){
         List<Packages> lst = new ArrayList<>();
         String sql = "select * from PACKAGE where NAME like N'%" + name + "%' ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+    
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Packages pk = new Packages(rs.getString("ID"), rs.getString("NAME"), rs.getInt("LIMITNUM"),
+                        rs.getDate("LIMITTIME").toLocalDate(), rs.getFloat("PRICE"), rs.getInt("QUANTITY"));
+//                System.out.println(pk.toString());
+                lst.add(pk);
+            }
+            return lst;
+        } catch (SQLException e) {
+            System.out.println("Can't filter package by name");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static List<Packages> filterBuyPackageByName(String name){
+        List<Packages> lst = new ArrayList<>();
+        String sql = "select * from PACKAGE where LIMITTIME > GETDATE() and NAME like N'%" + name + "%' ORDER BY REPLICATE(' ',6-LEN(ID)) + ID";
         try (
                  Connection connection = SQLConnection.getConnection();    
                 PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -232,7 +300,7 @@ public class PackageInf {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 String pk = rs.getString("ID") + " - "+rs.getString("NAME");
-//                System.out.println(pk.toString());
+                System.out.println(pk.toString());
                 lst.add(pk);
             }
             return lst.stream().toArray(String[]::new);
@@ -311,4 +379,6 @@ public class PackageInf {
         }
         return false;
     }
+    
+    
 }

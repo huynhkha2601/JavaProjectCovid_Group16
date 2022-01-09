@@ -4,7 +4,7 @@
  */
 package covid19;
 
-import covid19.AccountFrame.SignInFrame;    
+import covid19.AccountFrame.SignInFrame;
 import java.awt.Component;
 import javax.swing.JFrame;
 import Account.Account;
@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
  * @author PC
  */
 public class MainFrame extends javax.swing.JFrame {
+
     Account user = new Account();
     LocalDateTime login;
     private int role;
@@ -45,7 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {         
+    public MainFrame() {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -68,6 +69,7 @@ public class MainFrame extends javax.swing.JFrame {
             btnManageRelated.setEnabled(false);
         }
     }
+
     public MainFrame(Account a, int role, LocalDateTime now) {
         this.role = role;
         initComponents();
@@ -130,8 +132,8 @@ public class MainFrame extends javax.swing.JFrame {
         mitMStatusManagement = new javax.swing.JMenuItem();
         mitMPackageManagement = new javax.swing.JMenuItem();
         mitMFindAndPurchase = new javax.swing.JMenuItem();
-        menuAboutUs = new javax.swing.JMenu();
-        menuHelp = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 740));
@@ -442,35 +444,112 @@ public class MainFrame extends javax.swing.JFrame {
         mitMUserProfile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitMUserProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile.png"))); // NOI18N
         mitMUserProfile.setText("User Profile");
+        mitMUserProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitMUserProfileActionPerformed(evt);
+            }
+        });
+        mitMUserProfile.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mitMUserProfileKeyPressed(evt);
+            }
+        });
         menuManagement.add(mitMUserProfile);
 
         mitMPatientManagement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitMPatientManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/patients.png"))); // NOI18N
         mitMPatientManagement.setText("Patient Management");
+        mitMPatientManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitMPatientManagementActionPerformed(evt);
+            }
+        });
+        mitMPatientManagement.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mitMPatientManagementKeyPressed(evt);
+            }
+        });
         menuManagement.add(mitMPatientManagement);
 
         mitMStatusManagement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitMStatusManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/status_warn.png"))); // NOI18N
         mitMStatusManagement.setText("Status Management");
+        mitMStatusManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitMStatusManagementActionPerformed(evt);
+            }
+        });
+        mitMStatusManagement.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mitMStatusManagementKeyPressed(evt);
+            }
+        });
         menuManagement.add(mitMStatusManagement);
 
         mitMPackageManagement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitMPackageManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/package.png"))); // NOI18N
         mitMPackageManagement.setText("Package Management");
+        mitMPackageManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitMPackageManagementActionPerformed(evt);
+            }
+        });
+        mitMPackageManagement.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mitMPackageManagementKeyPressed(evt);
+            }
+        });
         menuManagement.add(mitMPackageManagement);
 
         mitMFindAndPurchase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitMFindAndPurchase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
         mitMFindAndPurchase.setText("Find & Purchase");
+        mitMFindAndPurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitMFindAndPurchaseActionPerformed(evt);
+            }
+        });
+        mitMFindAndPurchase.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mitMFindAndPurchaseKeyPressed(evt);
+            }
+        });
         menuManagement.add(mitMFindAndPurchase);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/about.png"))); // NOI18N
+        jMenuItem1.setText("About Us");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuItem1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jMenuItem1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jMenuItem1KeyReleased(evt);
+            }
+        });
+        menuManagement.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/help.png"))); // NOI18N
+        jMenuItem2.setText("Help");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuItem2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jMenuItem2KeyPressed(evt);
+            }
+        });
+        menuManagement.add(jMenuItem2);
+
         menuBar.add(menuManagement);
-
-        menuAboutUs.setText("Abous Us");
-        menuBar.add(menuAboutUs);
-
-        menuHelp.setText("Help");
-        menuBar.add(menuHelp);
 
         setJMenuBar(menuBar);
 
@@ -493,78 +572,24 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
-        if (profileFlag == 0) {
-            if (pfp == null){
-                pfp = new ProfilePanel();
-            }
-            tpnContent.add("Thông tin cá nhân", pfp);
-            profileFlag++;
-            tpnContent.setSelectedComponent(pfp);
-
-        } else {
-            tpnContent.remove(pfp);
-            profileFlag--;
-        }
+        showUserPanel();
     }//GEN-LAST:event_btnProfileActionPerformed
 
     private void btnManageRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRelatedActionPerformed
-        if (statusFlag == 0) {
-            if (rmp == null){
-                rmp = new StatusManagementPanel();
-            }
-            tpnContent.add("Quản lý người tiếp xúc", rmp);
-            statusFlag++;
-            tpnContent.setSelectedComponent(rmp);
-
-        } else {
-            tpnContent.remove(rmp);
-            statusFlag--;
-        }
+        showManageStatus();
     }//GEN-LAST:event_btnManageRelatedActionPerformed
 
     private void btnManagePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePersonActionPerformed
-        
-        if (patientFlag == 0) {
-            if (ptmp == null) {
-                ptmp = new PatientManagementPanel();
-            }
-            tpnContent.add("Quản lý người liên quan", ptmp);
-            patientFlag++;
-            tpnContent.setSelectedComponent(ptmp);
-
-        } else {
-            tpnContent.remove(ptmp);
-            patientFlag--;
-        }
+        showManagePatient();
     }//GEN-LAST:event_btnManagePersonActionPerformed
 
+
     private void btnManagePackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePackageActionPerformed
-
-        if (packageFlag == 0) {
-            if (pkmp == null){
-                pkmp = new PackageManagementPanel();
-            }
-            tpnContent.add("Quản lý các gói hỗ trợ", pkmp);
-            packageFlag++;
-            tpnContent.setSelectedComponent(pkmp);
-
-        } else {
-            tpnContent.remove(pkmp);
-            packageFlag--;
-        }
-
+        showManagePackage();
     }//GEN-LAST:event_btnManagePackageActionPerformed
 
     private void pnlFind1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnlFind1ActionPerformed
-        if (aboutUsFlag == 0) {
-            tpnContent.add("Về chúng tôi", abup);
-            aboutUsFlag++;
-            tpnContent.setSelectedComponent(abup);
-
-        } else {
-            tpnContent.remove(abup);
-            aboutUsFlag--;
-        }
+        showAboutUs();
     }//GEN-LAST:event_pnlFind1ActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -575,31 +600,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void pnlFind2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnlFind2ActionPerformed
-        if (helpFlag == 0) {
-            tpnContent.add("Trợ giúp", hpn);
-            helpFlag++;
-            tpnContent.setSelectedComponent(hpn);
-
-        } else {
-            tpnContent.remove(hpn);
-            helpFlag--;
-        }
+        showHelp();
     }//GEN-LAST:event_pnlFind2ActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        if (findFlag == 0) {
-            if (fpn == null){
-                fpn = new FindAndPurchasePanel();
-            }
-            tpnContent.add("Find & Purchase", fpn);
-            findFlag++;
-            tpnContent.setSelectedComponent(fpn);
-
-        } else {
-            tpnContent.remove(fpn);
-            findFlag--;
-        }
+        showFind();
     }//GEN-LAST:event_btnFindActionPerformed
+
 
     private void mitCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitCopyActionPerformed
         try {
@@ -639,35 +646,35 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void mitReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitReloadActionPerformed
         // TODO add your handling code here:
-        if (packageFlag == 1){
+        if (packageFlag == 1) {
             tpnContent.remove(pkmp);
             pkmp = null;
             packageFlag--;
         }
-        if (aboutUsFlag == 1){
+        if (aboutUsFlag == 1) {
             tpnContent.remove(abup);
             aboutUsFlag--;
         }
-        if (helpFlag == 1){
+        if (helpFlag == 1) {
             tpnContent.remove(hpn);
             helpFlag--;
         }
-        if (profileFlag == 1){
+        if (profileFlag == 1) {
             tpnContent.remove(pfp);
             pfp = null;
             profileFlag--;
         }
-        if (statusFlag == 1){
+        if (statusFlag == 1) {
             tpnContent.remove(rmp);
             rmp = null;
             statusFlag--;
         }
-        if (patientFlag == 1){
+        if (patientFlag == 1) {
             tpnContent.remove(ptmp);
             ptmp = null;
             patientFlag--;
         }
-        if (findFlag == 1){
+        if (findFlag == 1) {
             tpnContent.remove(fpn);
             fpn = null;
             findFlag--;
@@ -684,7 +691,172 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_mitNewActionPerformed
-    private void mitCutActionPerformed(java.awt.event.ActionEvent evt){
+
+    private void mitMUserProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitMUserProfileActionPerformed
+        showUserPanel();
+    }//GEN-LAST:event_mitMUserProfileActionPerformed
+
+    private void mitMPatientManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitMPatientManagementActionPerformed
+        showManagePatient();
+    }//GEN-LAST:event_mitMPatientManagementActionPerformed
+
+    private void mitMStatusManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitMStatusManagementActionPerformed
+
+        showManageStatus();        // TODO add your handling code here:
+    }//GEN-LAST:event_mitMStatusManagementActionPerformed
+
+    private void mitMPackageManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitMPackageManagementActionPerformed
+        showManagePackage();        // TODO add your handling code here:
+    }//GEN-LAST:event_mitMPackageManagementActionPerformed
+
+    private void mitMFindAndPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitMFindAndPurchaseActionPerformed
+
+        showFind();        // TODO add your handling code here:
+    }//GEN-LAST:event_mitMFindAndPurchaseActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+ 
+        showAboutUs();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    showHelp();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuItem1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1KeyReleased
+
+    private void mitMUserProfileKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mitMUserProfileKeyPressed
+showUserPanel();  // TODO add your handling code here:
+    }//GEN-LAST:event_mitMUserProfileKeyPressed
+
+    private void mitMPatientManagementKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mitMPatientManagementKeyPressed
+showManagePatient();        // TODO add your handling code here:
+    }//GEN-LAST:event_mitMPatientManagementKeyPressed
+
+    private void mitMStatusManagementKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mitMStatusManagementKeyPressed
+showManageStatus();        // TODO add your handling code here:
+    }//GEN-LAST:event_mitMStatusManagementKeyPressed
+
+    private void mitMPackageManagementKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mitMPackageManagementKeyPressed
+showManagePackage();        // TODO add your handling code here:
+    }//GEN-LAST:event_mitMPackageManagementKeyPressed
+
+    private void mitMFindAndPurchaseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mitMFindAndPurchaseKeyPressed
+showFind();        // TODO add your handling code here:
+    }//GEN-LAST:event_mitMFindAndPurchaseKeyPressed
+
+    private void jMenuItem1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuItem1KeyPressed
+showAboutUs();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1KeyPressed
+
+    private void jMenuItem2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuItem2KeyPressed
+showHelp();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2KeyPressed
+
+    private void showManageStatus() {
+        if (statusFlag == 0) {
+            if (rmp == null) {
+                rmp = new StatusManagementPanel();
+            }
+            tpnContent.add("Quản lý người tiếp xúc", rmp);
+            statusFlag++;
+            tpnContent.setSelectedComponent(rmp);
+
+        } else {
+            tpnContent.remove(rmp);
+            statusFlag--;
+        }
+    }
+
+    private void showManagePatient() {
+
+        if (patientFlag == 0) {
+            if (ptmp == null) {
+                ptmp = new PatientManagementPanel();
+            }
+            tpnContent.add("Quản lý người liên quan", ptmp);
+            patientFlag++;
+            tpnContent.setSelectedComponent(ptmp);
+
+        } else {
+            tpnContent.remove(ptmp);
+            patientFlag--;
+        }
+    }
+
+    private void showManagePackage() {
+
+        if (packageFlag == 0) {
+            if (pkmp == null) {
+                pkmp = new PackageManagementPanel();
+            }
+            tpnContent.add("Quản lý các gói hỗ trợ", pkmp);
+            packageFlag++;
+            tpnContent.setSelectedComponent(pkmp);
+
+        } else {
+            tpnContent.remove(pkmp);
+            packageFlag--;
+        }
+    }
+
+    private void showAboutUs() {
+        if (aboutUsFlag == 0) {
+            tpnContent.add("Về chúng tôi", abup);
+            aboutUsFlag++;
+            tpnContent.setSelectedComponent(abup);
+
+        } else {
+            tpnContent.remove(abup);
+            aboutUsFlag--;
+        }
+    }
+
+    private void showHelp() {
+        if (helpFlag == 0) {
+            tpnContent.add("Trợ giúp", hpn);
+            helpFlag++;
+            tpnContent.setSelectedComponent(hpn);
+
+        } else {
+            tpnContent.remove(hpn);
+            helpFlag--;
+        }
+    }
+
+    private void showFind() {
+        if (findFlag == 0) {
+            if (fpn == null) {
+                fpn = new FindAndPurchasePanel();
+            }
+            tpnContent.add("Find & Purchase", fpn);
+            findFlag++;
+            tpnContent.setSelectedComponent(fpn);
+
+        } else {
+            tpnContent.remove(fpn);
+            findFlag--;
+        }
+    }
+
+    private void showUserPanel() {
+        if (profileFlag == 0) {
+            if (pfp == null) {
+                pfp = new ProfilePanel();
+            }
+            tpnContent.add("Thông tin cá nhân", pfp);
+            profileFlag++;
+            tpnContent.setSelectedComponent(pfp);
+
+        } else {
+            tpnContent.remove(pfp);
+            profileFlag--;
+        }
+    }
+
+    private void mitCutActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             Robot r = new Robot();
             r.keyPress(KeyEvent.VK_CONTROL);
@@ -695,8 +867,8 @@ public class MainFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
-    
-    private void AddActionPerformed(){
+
+    private void AddActionPerformed() {
         mitNew.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -704,7 +876,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -749,13 +921,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnManagePerson;
     private javax.swing.JButton btnManageRelated;
     private javax.swing.JButton btnProfile;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lblAppTittle;
     private javax.swing.JLabel lblWelcome;
-    private javax.swing.JMenu menuAboutUs;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
-    private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuManagement;
     private javax.swing.JMenuItem mitCopy;
     private javax.swing.JMenuItem mitCut;

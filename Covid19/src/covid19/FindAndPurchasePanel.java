@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FindAndPurchasePanel extends javax.swing.JPanel {
     
-    private String userID;
+    private String userID="1";
     /**
      * Creates new form FindPanel
      */
@@ -40,8 +40,8 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
     
     public FindAndPurchasePanel() {
         initComponents();
-        //initValue();
-        //displayDataTable();
+        initValue();
+        displayDataTable();
     }
 
     /**
@@ -96,7 +96,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Limit Number", "Expiration", "Quantity"
+                "ID", "Name", "Limit Number", "Expiration", "Price"
             }
         ) {
             Class[] types = new Class [] {
@@ -186,13 +186,11 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                     .addComponent(lblQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblRegistered, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbbPackage, 0, 250, Short.MAX_VALUE)
-                    .addComponent(txtRegisterd)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPackageLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(pnlPackageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtRegisterd, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                    .addComponent(cbbPackage, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlPackageLayout.setVerticalGroup(
@@ -408,7 +406,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         }
 
         List<Packages> lst;
-        lst = PackageInf.searchPackageByName(txtfSearchbyName.getText());
+        lst = PackageInf.searchBuyPackageByName(txtfSearchbyName.getText());
         if (Objects.isNull(lst) || lst.isEmpty()) {
             MessageDialog.showMessageDialog(this, "Couldn't find the package of essentials you were looking for!", "Notification!");
             return;
@@ -424,7 +422,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         }
         
         List<Packages> lst;
-        lst = PackageInf.filterPackageByName(txtfSearchbyName.getText());
+        lst = PackageInf.filterBuyPackageByName(txtfSearchbyName.getText());
         if (Objects.isNull(lst) || lst.isEmpty()) {
             MessageDialog.showMessageDialog(this, "Couldn't find the package of essentials you were looking for!", "Notification!");
             return;
@@ -462,6 +460,8 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
                 MessageDialog.showErrorDialog(this, "Buy failed!", "Error!");
             }
         }
+        
+        initValue();
     }//GEN-LAST:event_btnBuyActionPerformed
 
     private void cbbPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbPackageActionPerformed
@@ -479,7 +479,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblPackage.getModel();
         model.setRowCount(0);
 
-        List<Packages> lst = PackageInf.getAllPackages();
+        List<Packages> lst = PackageInf.getBuyAllPackages();
         if (lst == null) {
             return;
         }
@@ -507,6 +507,10 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
 
     private void initValue() {
         String[] vt = PackageInf.getAllIdPackages();
+        for (String string : vt) {
+            System.out.println(string);
+        }
+        System.out.println(vt.length);
         cbbPackage.setModel(new DefaultComboBoxModel<>(vt));
         String[] i = ((String) cbbPackage.getModel().getSelectedItem()).split(" - ");
         txtRegisterd.setText(PackageInf.getQuantity("1" , i[0]));

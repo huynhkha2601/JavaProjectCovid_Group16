@@ -438,11 +438,11 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         });
         scrollpnlPatient.setViewportView(tblPatient);
         if (tblPatient.getColumnModel().getColumnCount() > 0) {
-            tblPatient.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblPatient.getColumnModel().getColumn(0).setPreferredWidth(20);
             tblPatient.getColumnModel().getColumn(1).setPreferredWidth(70);
             tblPatient.getColumnModel().getColumn(2).setPreferredWidth(55);
             tblPatient.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tblPatient.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tblPatient.getColumnModel().getColumn(4).setPreferredWidth(35);
             tblPatient.getColumnModel().getColumn(5).setPreferredWidth(50);
             tblPatient.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
