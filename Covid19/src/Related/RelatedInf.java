@@ -39,6 +39,31 @@ public class RelatedInf {
         return null;
     }
     
+    public static List<Related> getAllRelatedColumn(String id){
+        List<Related> lst = new ArrayList<>();
+        String sql = "select * from RELATED where PERSON_ID1 = ? order by REPLICATE(' ',6-LEN(PERSON_ID1)) + PERSON_ID1";
+        try (
+               Connection connection = SQLConnection.getConnection();    
+               PreparedStatement pstmt = connection.prepareStatement(sql);){
+            
+            
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                Related rlt = new Related(rs.getString("PERSON_ID1"),rs.getString("PERSON_ID2"),
+                rs.getTimestamp("RECORD").toLocalDateTime());
+                
+                lst.add(rlt);
+            }
+            
+            return lst;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
     public static boolean addRelated(Related rlt){
         String sql = "insert into RELATED VALUES (?,?,?)";
         try (

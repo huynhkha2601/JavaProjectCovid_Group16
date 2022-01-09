@@ -169,8 +169,9 @@ public class ManagedHistoryInf {
     }
 
     public static List<ManagedHistory> searchManageHistoryByDate(String record) {
+        System.out.println(record);
         List<ManagedHistory> list = new ArrayList<>();
-        String sql = "select * from MANAGEHISTORY where RECORD LIKE %"+record+"%" ;
+        String sql = "select * from MANAGEHISTORY where CAST(RECORD AS DATE) LIKE '%"+record+"%'" ;
         try (
                 Connection connection = SQLConnection.getConnection();PreparedStatement pstmt = connection.prepareStatement(sql);) {
 

@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package covid19;
+import Helper.MessageDialog;
+import Helper.Validator;
 import Profile.*;
 import Patient.*;
 import java.util.List;
@@ -637,7 +639,13 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnViewRelatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRelatedActionPerformed
-        ViewRelatedFrame viewRelatedFrame = new ViewRelatedFrame();
+        
+        if(Validator.validateEmpty(txfID)){
+            MessageDialog.showErrorDialog(this, "ID cannot be blank", "Error!");
+            return;
+        }
+        
+        ViewRelatedFrame viewRelatedFrame = new ViewRelatedFrame(txfID.getText());
         viewRelatedFrame.setTitle("Related management");
         viewRelatedFrame.setVisible(true);
     }//GEN-LAST:event_btnViewRelatedActionPerformed

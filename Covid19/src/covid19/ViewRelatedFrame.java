@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class ViewRelatedFrame extends javax.swing.JFrame {
 
     private StringBuilder sb;
-
+    private String user;
     /**
      * Creates new form ViewRelatedFrame
      */
@@ -33,7 +33,17 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         displayDataTable();
-    }
+    }   
+    
+    public ViewRelatedFrame(String uid) {
+        initComponents();
+        sb = new StringBuilder();
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.user = uid;
+        displayDataTable();
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -402,6 +412,9 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
             MessageDialog.showErrorDialog(this, "Add Related Failed!", "Error!");
             return;
         }
+        
+        displayDataTable();
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
@@ -494,7 +507,7 @@ public class ViewRelatedFrame extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblRelated.getModel();
             model.setRowCount(0);
 
-            List<Related> lst = RelatedInf.getAllRelatedColumn();
+            List<Related> lst = RelatedInf.getAllRelatedColumn(this.user);
             lst.forEach(related -> {
                 Object[] obj = {related.getSrcID(), related.getDesID(), DateFormatter.parse(related.getRecordDate())};
                 model.addRow(obj);

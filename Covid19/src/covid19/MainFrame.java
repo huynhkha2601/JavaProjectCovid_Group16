@@ -366,6 +366,11 @@ public class MainFrame extends javax.swing.JFrame {
         mitUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/undo.png"))); // NOI18N
         mitUndo.setText("Undo");
+        mitUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitUndoActionPerformed(evt);
+            }
+        });
         menuEdit.add(mitUndo);
 
         mitRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -739,6 +744,10 @@ showAboutUs();        // TODO add your handling code here:
     private void jMenuItem2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuItem2KeyPressed
 showHelp();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2KeyPressed
+
+    private void mitUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitUndoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mitUndoActionPerformed
 
     private void showManageStatus() {
         if (statusFlag == 0) {
