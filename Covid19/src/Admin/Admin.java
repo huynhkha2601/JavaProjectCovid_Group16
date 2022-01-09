@@ -420,14 +420,17 @@ public class Admin {
             con = Make_connection();
             if (con != null){
                 try {
-                    String query = "select * from MANAGEDPERSON where ID='"+acc.getUserid()+"'";
-                    pstm = con.prepareStatement(query);
-                    ResultSet rs = pstm.executeQuery();
-                    if (!rs.next()){
-                        query = "insert into MANAGEDPERSON(ID) values(?)";
+                    String query;
+                    if (acc.getRole().equals("User")) {
+                        query = "select * from MANAGEDPERSON where ID='"+acc.getUserid()+"'";
                         pstm = con.prepareStatement(query);
-                        pstm.setString(1, acc.getUserid());
-                        result = pstm.executeUpdate();
+                        ResultSet rs = pstm.executeQuery();
+                        if (!rs.next()){
+                            query = "insert into MANAGEDPERSON(ID) values(?)";
+                            pstm = con.prepareStatement(query);
+                            pstm.setString(1, acc.getUserid());
+                            result = pstm.executeUpdate();
+                        }
                     }
                     if (result >= 0){
                         query = "insert into ACCOUNT(USERNAME, PASSWORD, ROLE, "
