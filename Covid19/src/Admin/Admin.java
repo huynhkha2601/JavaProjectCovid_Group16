@@ -435,6 +435,12 @@ public class Admin {
                     System.out.println("Error while adding data.");
                     System.out.println("Error: " + ex);
                     mess = ex.getMessage();
+                    String[] temparr = mess.split(",");
+                    int length = temparr.length;
+                    if (temparr[length-2].equalsIgnoreCase(" table \"dbo.MANAGEDPERSON\"")
+                        && temparr[length-1].equalsIgnoreCase(" column 'ID'.")){
+                        mess = "Invalid UserID. UserID '" + acc.getUserid() + "' is not existed.";
+                    }
                 } finally{
                     try{
                         if (pstm != null){
