@@ -127,6 +127,8 @@ public class PatientInf {
         }
         return "";
     }
+    
+    
      public static List<Profile> getPatientByFilter(String keyword, String filter) {   
         List<Profile> result = new ArrayList<Profile>();
         try {
@@ -173,5 +175,22 @@ public class PatientInf {
         }
         return result;
     } 
+    
+     public static float getDebt(String id) {
+        try {
+            Class.forName(PatientInf.JDBC_DRIVER);
+            Connection conn = DriverManager.getConnection(PatientInf.DB_URL);
+            PreparedStatement stmt = conn.prepareStatement("SELECT TREATMENT FROM MANAGEDPERSON WHERE ID = ?");
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+                return rs.getFloat("DEBT");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientInf.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
      
 }

@@ -9,6 +9,7 @@ import Helper.MessageDialog;
 import Helper.Validator;
 import Packages.PackageInf;
 import Packages.Packages;
+import Patient.PatientInf;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -97,7 +98,7 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -448,9 +449,18 @@ public class FindAndPurchasePanel extends javax.swing.JPanel {
             return;
         }
         
+        float debt = PatientInf.getDebt(userID);
+       
+        
         int i = MessageDialog.showConfirmDialog(this, "Are you want buy this package?","Confirm!");
         if(i==0) {
             String[] s = ((String) cbbPackage.getModel().getSelectedItem()).split(" - ");
+            float getPrice = PackageInf.getPrice(s[0]);
+            if(debt + getPrice*Integer.parseInt(txtQuantity.getText()) > 100000){
+               MessageDialog.showErrorDialog(this, "Amount of outstanding debt. Please pay the debt before registering to purchase.\nThank you!", "Error!");
+               return;
+            }
+            
             if (PackageInf.buyPackage(userID, s[0], Integer.parseInt(txtQuantity.getText()))){
                 MessageDialog.showMessageDialog(this, "Buy succesfully!", "Notification");
             }else{

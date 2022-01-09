@@ -380,5 +380,24 @@ public class PackageInf {
         return false;
     }
     
+    public static float getPrice(String ID) {
+        String sql = "select * from PACKAGE where ID=?";
+        try (
+                 Connection connection = SQLConnection.getConnection();    
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+            ) {
+
+            pstmt.setString(1, ID);
+                
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getFloat("PRICE");
+            }
+        } catch (SQLException e) {
+            System.out.println("Can't search package by id");
+            e.printStackTrace();
+        }
+        return 0;
+    }
     
 }
