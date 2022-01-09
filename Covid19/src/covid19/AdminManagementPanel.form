@@ -1008,8 +1008,8 @@
         <Container class="javax.swing.JPanel" name="pnlActivityandTransaction">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Activity and Transaction History">
-                <Property name="tabTitle" type="java.lang.String" value="Activity and Transaction History"/>
+              <JTabbedPaneConstraints tabName="Activity History">
+                <Property name="tabTitle" type="java.lang.String" value="Activity History"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

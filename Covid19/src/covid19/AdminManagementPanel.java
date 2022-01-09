@@ -1347,7 +1347,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tbdpAdministratorManagement.addTab("Activity and Transaction History", pnlActivityandTransaction);
+        tbdpAdministratorManagement.addTab("Activity History", pnlActivityandTransaction);
 
         pnlTreatment.setPreferredSize(new java.awt.Dimension(1100, 403));
 

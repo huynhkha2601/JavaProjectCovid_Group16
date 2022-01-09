@@ -50,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         new SQLConnection();
         AddActionPerformed();
@@ -60,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(Account a, int role) {
         this.role = role;
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         user = a;
         this.setTitle("Project App Covid19");
@@ -662,6 +662,8 @@ public class MainFrame extends javax.swing.JFrame {
                 MainFrame mainFrame = new MainFrame(user, role);
                 FrameNum = FrameNum + 1;
                 mainFrame.setVisible(true);
+                mainFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                mainFrame.btnLogout.setEnabled(false);
             }
         });
     }//GEN-LAST:event_mitNewActionPerformed
