@@ -628,6 +628,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void mitFileLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitFileLogoutActionPerformed
         // TODO add your handling code here:
+        user.logout();
+        System.out.println("Username: "+user.getUsername());
         this.dispose();
         SignInFrame signInFrame = new SignInFrame();
         signInFrame.setTitle("Sign in");

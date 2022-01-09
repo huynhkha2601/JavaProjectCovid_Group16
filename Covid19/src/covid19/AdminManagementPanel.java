@@ -179,6 +179,13 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     
     /*Add needed action performed for buttons*/
     void AddActionPerformed(){
+        /*For frame*/
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void closingFrame(java.awt.event.WindowEvent windowEvent){
+                Admin.adminLogout();
+            }
+        });
+        
         /*For account tab*/
         btnFind.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -1819,7 +1826,7 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-        
+        Admin.adminLogout();
         this.setVisible(false);
         new SignInFrame().setVisible(true);
     }//GEN-LAST:event_btnLogOutActionPerformed

@@ -300,6 +300,11 @@ public class Admin {
                             error = "Only account with 'User' role can have"
                                   + "an user's id.";
                         }
+                        else if (Role.equalsIgnoreCase("User") 
+                            && Userid == null){
+                            error = "Account with 'User' role must have"
+                                  + "an unique user's id.";
+                        }
                         else{
                             listtemp = Admin.getAccounts(
                                        "where USERID='" + Userid + "'");
@@ -1125,5 +1130,13 @@ public class Admin {
             }
         }
         return mess;
+    }
+    
+    
+    public static void adminLogout(){
+        ArrayList<Account> listAcc = getAccounts("where Username='admin'");
+        for (Account adminAcc : listAcc){
+            adminAcc.logout();
+        }
     }
 }
