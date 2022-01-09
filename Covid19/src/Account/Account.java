@@ -154,9 +154,13 @@ public class Account {
                     } else {
                         switch (Role) {
                             case "Admin" -> {
+                                LocalDateTime ldt = LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
+                                this.setAccount(user_name, pass_word, Role, rs.getString("USERID"), rs.getInt("ACTIVATED"), ldt);
                                 return "ADMIN";
                             }
                             case "Manager" -> {
+                                LocalDateTime ldt = LocalDateTime.parse(rs.getString("DATEPUBLISHED").replace(' ', 'T'));
+                                this.setAccount(user_name, pass_word, Role, rs.getString("USERID"), rs.getInt("ACTIVATED"), ldt);
                                 return "Manager";
                             }
                             case "User" -> {
@@ -278,6 +282,22 @@ public class Account {
             preparedStmt.setString(2, usernameInput);
             preparedStmt.executeUpdate();
         } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void logout() {
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL);
+            String sql2 = "UPDATE ACCOUNTHISTORY SET RECORD_LOGOUT=? WHERE USERNAME=? and RECORD_LOGIN=RECORD_LOGOUT";
+            PreparedStatement preparedStmt = conn.prepareStatement(sql2);
+            LocalDateTime now = LocalDateTime.now();
+            ZonedDateTime zdt = now.atZone(ZoneId.of("GMT+07:00:00"));
+            preparedStmt.setTimestamp(1, new Timestamp(zdt.toInstant().toEpochMilli()));
+            preparedStmt.setString(2, this.username);
+            preparedStmt.executeUpdate();
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

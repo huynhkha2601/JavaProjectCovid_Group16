@@ -70,23 +70,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    public MainFrame(Account a, int role, LocalDateTime now) {
-        this.role = role;
-        initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        user = a;
-        if (role == 1) {
-            btnProfile.setEnabled(false);
-            btnFind.setEnabled(false);
-        } else if (role == 2) {
-            login = now;
-            btnManagePackage.setEnabled(false);
-            btnManagePerson.setEnabled(false);
-            btnManageRelated.setEnabled(false);
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -593,6 +576,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFind1ActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        user.logout();
+        System.out.println("Username: "+user.getUsername());
         this.dispose();
         SignInFrame signInFrame = new SignInFrame();
         signInFrame.setTitle("Sign in");

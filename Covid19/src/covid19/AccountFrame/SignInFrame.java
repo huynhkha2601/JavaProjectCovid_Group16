@@ -215,8 +215,7 @@ public class SignInFrame extends javax.swing.JFrame {
                 return;
             }
             case "Manager" -> {
-                LocalDateTime now = LocalDateTime.now();
-                new MainFrame(a, 1, now).setVisible(true);
+                new MainFrame(a, 1).setVisible(true);
                 this.setVisible(false);
                 return;
             }
