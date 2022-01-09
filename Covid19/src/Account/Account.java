@@ -267,7 +267,7 @@ public class Account {
         }
     }
 
-    public void changePassword(String usernameInput, String passwordInput, String confirmpasswordInput) {
+    public void changePassword(String usernameInput, String passwordInput) {
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL);

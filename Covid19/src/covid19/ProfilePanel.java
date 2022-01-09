@@ -4,6 +4,7 @@
  */
 package covid19;
 
+import Account.Account;
 import covid19.AccountFrame.ChangePasswordFrame;
 import covid19.AccountFrame.SignInFrame;
 import Profile.*;
@@ -37,11 +38,12 @@ public class ProfilePanel extends javax.swing.JPanel {
      * Creates new form ProfilePanel
      */
     private String id = "1";
-    public ProfilePanel() {
+    public Account user = new Account();
+    public ProfilePanel(Account a) {
         initComponents();
-        
- 
-        Profile resultProfile = ProfileInf.getProfile(id);
+        user = a;
+        Profile resultProfile = ProfileInf.getProfile(user.getUserid());
+        System.out.println(resultProfile.getID());
         txfCCCD.setText(resultProfile.getID());
         txfFullname.setText(resultProfile.getFullName());
         txfAddress.setText(resultProfile.getAddress());
@@ -560,7 +562,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPaymentActionPerformed
 
     private void btnChangePwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePwActionPerformed
-        ChangePasswordFrame changePasswordFrame = new ChangePasswordFrame();
+        ChangePasswordFrame changePasswordFrame = new ChangePasswordFrame(user);
         changePasswordFrame.setTitle("Change password");
         changePasswordFrame.setVisible(true);
     }//GEN-LAST:event_btnChangePwActionPerformed

@@ -22,7 +22,7 @@ public class ProfileInf {
             Class.forName(ProfileInf.JDBC_DRIVER);
             Connection conn = DriverManager.getConnection(ProfileInf.DB_URL); 
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON MP JOIN TREATMENTPLACE TP ON MP.TREATMENT = TP.ID WHERE MP.ID = '" + id + "'" );
+            ResultSet rs = stmt.executeQuery("SELECT * FROM MANAGEDPERSON MP LEFT JOIN TREATMENTPLACE TP ON MP.TREATMENT = TP.ID WHERE MP.ID = '" + id + "'" );
             while(rs.next())
                 resultProfile = new Profile(rs.getString("ID"), rs.getString("FULLNAME"), rs.getInt("YEAROFBIRTH"), rs.getString("ADDRESS"), rs.getString("STATUS"), rs.getString("NAME"), rs.getDouble("DEBT"));            
         } catch (ClassNotFoundException ex) {

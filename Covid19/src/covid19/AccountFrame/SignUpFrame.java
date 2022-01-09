@@ -269,6 +269,8 @@ public class SignUpFrame extends javax.swing.JFrame {
             }
             if (idInput.equals("") || usernameInput.equals("") || passwordInput.equals("") || confirmPasswordInput.equals("")) {
                 sb.append("Please enter all information");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             if (!passwordInput.equals(confirmPasswordInput)) {
                 sb.append("Password don't match");

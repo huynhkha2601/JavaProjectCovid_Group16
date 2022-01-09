@@ -844,7 +844,7 @@ showHelp();        // TODO add your handling code here:
     private void showUserPanel() {
         if (profileFlag == 0) {
             if (pfp == null) {
-                pfp = new ProfilePanel();
+                pfp = new ProfilePanel(user);
             }
             tpnContent.add("Thông tin cá nhân", pfp);
             profileFlag++;

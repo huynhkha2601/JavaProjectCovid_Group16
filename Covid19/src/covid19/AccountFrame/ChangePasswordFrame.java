@@ -5,6 +5,12 @@
 package covid19.AccountFrame;
 
 import Account.Account;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +22,34 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     /**
      * Creates new form ChangePassword
      */
+    public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
+        // Static getInstance method is called with hashing SHA 
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        // digest() method called 
+        // to calculate message digest of an input 
+        // and return array of byte
+        return md.digest(input.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static String toHexString(byte[] hash) {
+        // Convert byte array into signum representation 
+        BigInteger number = new BigInteger(1, hash);
+
+        // Convert message digest into hex value 
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        // Pad with leading zeros
+        while (hexString.length() < 32) {
+            hexString.insert(0, '0');
+        }
+
+        return hexString.toString();
+    }
+    public static Account user;
+
     public ChangePasswordFrame(Account a) {
+        user = a;
         initComponents();
         this.setResizable(false);
         this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
@@ -143,35 +176,54 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNewPwdActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
-        String newpasswordInput = new String(tfNewPwd.getPassword());
-        String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-        if (newpasswordInput.length() < 6) {
-            sb.append("Password must have at least 6 characters");
-            JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        for (int i = 0; i < newpasswordInput.length(); i++) {
-            char c = newpasswordInput.charAt(i);
-            if (c > 47 && c < 58) {
-                count++;
+        try {
+            String curpassword = new String(tfCurPwd.getPassword());
+            String passwordHash = toHexString(getSHA(curpassword));
+            String newpasswordInput = new String(tfNewPwd.getPassword());
+            String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
+            StringBuilder sb = new StringBuilder();
+            int count = 0;
+            if (newpasswordInput.length() < 6) {
+                sb.append(" New password must have at least 6 characters");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            if (c > 64 && c < 91) {
-                count++;
+            for (int i = 0; i < newpasswordInput.length(); i++) {
+                char c = newpasswordInput.charAt(i);
+                if (c > 47 && c < 58) {
+                    count++;
+                }
+                if (c > 64 && c < 91) {
+                    count++;
+                }
             }
-        }
-        if (count == 0) {
-            sb.append("Password must have at least 1 upper character, 1 number character, 1 lower character");
-            JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (newpasswordInput.equals("") || confirmPasswordInput.equals("")) {
-            sb.append("Please enter all information");
-        }
-        if (!newpasswordInput.equals(confirmPasswordInput)) {
-            sb.append("Password don't match");
+            if (count == 0) {
+                sb.append("New password must have at least 1 upper character, 1 number character, 1 lower character");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (newpasswordInput.equals("") || confirmPasswordInput.equals("") || curpassword.equals("")) {
+                sb.append("Please enter all information");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!newpasswordInput.equals(confirmPasswordInput)) {
+                sb.append("Password don't match");
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!user.getPassword().equals(passwordHash)) {
+                sb.append("Current password is wrong");
+            }
+            if (sb.length() > 0) {
+                JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            user.changePassword(user.getUsername(), newpasswordInput);
+            String success = "Change password successfully";
+            JOptionPane.showMessageDialog(this, success, "Succesful", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ChangePasswordFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -210,7 +262,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChangePasswordFrame().setVisible(true);
+                new ChangePasswordFrame(user).setVisible(true);
             }
         });
     }

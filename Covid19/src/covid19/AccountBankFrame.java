@@ -359,7 +359,7 @@ public class AccountBankFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaymentActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        new ChangePasswordFrame().setVisible(true);
+        //new ChangePasswordFrame(userBank.).setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
