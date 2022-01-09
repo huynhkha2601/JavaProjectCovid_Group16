@@ -4,6 +4,9 @@
  */
 package covid19.AccountFrame;
 
+import Account.Account;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Thong
@@ -13,7 +16,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     /**
      * Creates new form ChangePassword
      */
-    public ChangePasswordFrame() {
+    public ChangePasswordFrame(Account a) {
         initComponents();
         this.setResizable(false);
         this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
@@ -140,7 +143,36 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNewPwdActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        
+        String newpasswordInput = new String(tfNewPwd.getPassword());
+        String confirmPasswordInput = new String(tfConfirmPwd.getPassword());
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        if (newpasswordInput.length() < 6) {
+            sb.append("Password must have at least 6 characters");
+            JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        for (int i = 0; i < newpasswordInput.length(); i++) {
+            char c = newpasswordInput.charAt(i);
+            if (c > 47 && c < 58) {
+                count++;
+            }
+            if (c > 64 && c < 91) {
+                count++;
+            }
+        }
+        if (count == 0) {
+            sb.append("Password must have at least 1 upper character, 1 number character, 1 lower character");
+            JOptionPane.showMessageDialog(this, sb.toString(), "Invalidation", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (newpasswordInput.equals("") || confirmPasswordInput.equals("")) {
+            sb.append("Please enter all information");
+        }
+        if (!newpasswordInput.equals(confirmPasswordInput)) {
+            sb.append("Password don't match");
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

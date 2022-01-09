@@ -15,14 +15,11 @@ import covid19.AccountFrame.SignUpFrame;
 public class Covid19Main {
 
     public static void main(String[] args) {
-
-        new MainFrame().setVisible(true);
-//        Account a = new Account();
-//        if (a.check() == 1) {
-//            new SignInFrame().setVisible(true);
-//        } else if (a.check() == 2) {
-//            new SignUpFrame(1).setVisible(true);
-//        }
+        Account a = new Account();
+        if (a.check() == 1) {
+            new SignInFrame().setVisible(true);
+        } else if (a.check() == 2) {
+            new SignUpFrame(2,1,"").setVisible(true);
+        }
     }
-
 }

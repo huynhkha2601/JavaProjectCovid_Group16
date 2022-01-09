@@ -168,15 +168,6 @@ public class Account {
                     }
                 }
             }
-            if (rsBank.next()) {
-                String id = rsBank.getString("ID");
-                String pass_word = rsBank.getString("PASSWORD");
-                if (usernameInput.equals(id) && passwordHash.equals(pass_word)) {
-                    LocalDateTime ldt = LocalDateTime.parse(rsBank.getString("DATEPUBLISHED").replace(' ', 'T'));
-                    b.setAccountBank(id, pass_word, rsBank.getString("ROLE"), rsBank.getInt("ACTIVATED"), rsBank.getFloat("Balance"), rsBank.getString("UserID"), ldt);
-                    return "Bank";
-                }
-            }
         } catch (SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(SignInFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -271,6 +262,21 @@ public class Account {
                 preparedStmt.setString(2, usernameInput);
                 preparedStmt.executeUpdate();
             }
+        } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void changePassword(String usernameInput, String passwordInput, String confirmpasswordInput) {
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL);
+            String sql2 = "UPDATE ACCOUNT SET PASSWORD=? WHERE USERNAME=?";
+            PreparedStatement preparedStmt = conn.prepareStatement(sql2);
+            String passwordHash = toHexString(getSHA(passwordInput));
+            preparedStmt.setString(1, passwordHash);
+            preparedStmt.setString(2, usernameInput);
+            preparedStmt.executeUpdate();
         } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
