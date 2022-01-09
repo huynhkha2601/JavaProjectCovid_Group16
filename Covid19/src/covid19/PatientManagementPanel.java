@@ -48,7 +48,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         txfFullname.setText("");
         txfID.setText("");
         txfTreatment.setText("");
-        txfStatus.setText("");
+        //txfStatus.setText("");
         txfYoB.setText("");
     }
     
@@ -82,7 +82,6 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         txfYoB = new javax.swing.JTextField();
         txfAddress = new javax.swing.JTextField();
         txfTreatment = new javax.swing.JTextField();
-        txfStatus = new javax.swing.JTextField();
         txfFullname = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -90,6 +89,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         choice1 = new java.awt.Choice();
         choice2 = new java.awt.Choice();
         choice3 = new java.awt.Choice();
+        jComboBox1 = new javax.swing.JComboBox<>();
         lblSubtittleRight = new javax.swing.JLabel();
         pnlInforButton = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
@@ -152,12 +152,6 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        txfStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txfStatusActionPerformed(evt);
-            }
-        });
-
         txfFullname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txfFullnameActionPerformed(evt);
@@ -193,6 +187,8 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F0", "F1", "F2", "F3", "F4", "F5", "KHỎI BỆNH" }));
+
         javax.swing.GroupLayout pnlInforInputLayout = new javax.swing.GroupLayout(pnlInforInput);
         pnlInforInput.setLayout(pnlInforInputLayout);
         pnlInforInputLayout.setHorizontalGroup(
@@ -212,58 +208,61 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addGap(4, 4, 4)
                 .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfYoB, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(txfYoB, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(txfFullname, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfID, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfAddress, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txfTreatment)
-                    .addComponent(txfStatus)
                     .addComponent(choice3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(choice2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(choice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(choice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlInforInputLayout.setVerticalGroup(
             pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInforInputLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlInforInputLayout.createSequentialGroup()
-                        .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblYoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txfYoB, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblID)
+                    .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFullname)
+                    .addComponent(txfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInforInputLayout.createSequentialGroup()
+                        .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblYoB)
+                            .addComponent(txfYoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3))
-                    .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(choice1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(choice2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnlInforInputLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel5))
+                    .addGroup(pnlInforInputLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(choice3, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(choice3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAddress)
+                    .addComponent(txfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblStatus)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTreatment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(pnlInforInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTreatment)
+                    .addComponent(txfTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         lblSubtittleRight.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -342,7 +341,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlInforButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                            .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlInforButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -459,7 +458,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollpnlPatient, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                    .addComponent(scrollpnlPatient, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -527,18 +526,14 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txfTreatmentActionPerformed
 
-    private void txfStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txfStatusActionPerformed
-
     private void txfFullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFullnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfFullnameActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfID.getText().equals("") || txfStatus.getText().equals("") || txfTreatment.getText().equals("") || txfYoB.getText().equals(""))
+        if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfID.getText().equals("") || txfTreatment.getText().equals("") || txfYoB.getText().equals(""))
             JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.INFORMATION_MESSAGE);
-        else if(PatientInf.addPatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText() + ", " + choice3.getSelectedItem() + ", " + choice2.getSelectedItem() + ", " + choice1.getSelectedItem(), txfStatus.getText(), txfTreatment.getText())) {
+        else if(PatientInf.addPatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText() + ", " + choice3.getSelectedItem() + ", " + choice2.getSelectedItem() + ", " + choice1.getSelectedItem(), jComboBox1.getSelectedItem().toString(), txfTreatment.getText())) {
             JOptionPane.showMessageDialog(this, "Add successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
             refreshTable();
             clearTextField();
@@ -553,10 +548,10 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         else {
             int result = JOptionPane.showConfirmDialog(this, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
-                if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfStatus.getText().equals("") || txfYoB.getText().equals(""))
+                if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfYoB.getText().equals(""))
                     JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 else {
-                    if(PatientInf.updatePatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), txfStatus.getText())) {
+                    if(PatientInf.updatePatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), jComboBox1.getSelectedItem().toString())) {
                         JOptionPane.showMessageDialog(this, "Update successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
                         refreshTable();
                         clearTextField();
@@ -622,11 +617,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
            list = PatientInf.getPatientByFilter(txfAddress.getText(), "Address");
         }
         else if (filterOption.getSelectedItem().equals("Status")) {
-            if (txfStatus.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Status field cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-           list = PatientInf.getPatientByFilter(txfStatus.getText(), "Status"); 
+           list = PatientInf.getPatientByFilter(jComboBox1.getSelectedItem().toString(), "Status"); 
         }
         else if (filterOption.getSelectedItem().equals("Treatment")) {
             if (txfTreatment.getText().equals("")) {
@@ -639,7 +630,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
             DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
             model.setRowCount(0);
             for (int i = 0; i < list.size(); i++) 
-                model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), Integer.toString(list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), Double.toString(list.get(i).getDebt())});
+                model.addRow(new Object[]{list.get(i).getID(), list.get(i).getFullName(), (list.get(i).getYoB()), list.get(i).getAddress(), list.get(i).getStatus(), list.get(i).getTreatment(), (list.get(i).getDebt())});
         }
         else
             JOptionPane.showMessageDialog(this, "No result found", "Notification", JOptionPane.ERROR_MESSAGE);
@@ -675,7 +666,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
         if(model.getValueAt(selectedRowIndex, 2) != null)
             txfYoB.setText(model.getValueAt(selectedRowIndex, 2).toString());
         if(model.getValueAt(selectedRowIndex, 4) != null)
-            txfStatus.setText(model.getValueAt(selectedRowIndex, 4).toString());
+            jComboBox1.setSelectedItem(model.getValueAt(selectedRowIndex, 4).toString());
         if(model.getValueAt(selectedRowIndex, 5) != null)
             txfTreatment.setText(model.getValueAt(selectedRowIndex, 5).toString());
     }//GEN-LAST:event_tblPatientMouseClicked
@@ -923,6 +914,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     private java.awt.Choice choice2;
     private java.awt.Choice choice3;
     private java.awt.Choice filterOption;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -946,7 +938,6 @@ public class PatientManagementPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txfAddress;
     private javax.swing.JTextField txfFullname;
     private javax.swing.JTextField txfID;
-    private javax.swing.JTextField txfStatus;
     private javax.swing.JTextField txfTreatment;
     private javax.swing.JTextField txfYoB;
     // End of variables declaration//GEN-END:variables
