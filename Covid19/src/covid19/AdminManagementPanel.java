@@ -34,7 +34,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private AccountBank tempaccbank = null;
     
     private ArrayList<ActivityHistory> listah = new ArrayList<>(Admin.getActivityHistory(""));
-    private ArrayList<TransactionHistory> listth = new ArrayList<>(Admin.getTransactionHistory(""));
     
     private ArrayList<TreatmentPlace> listTMP = new ArrayList<>(Admin.getTreatmentPlace(""));
     private TreatmentPlace temptmp = null;
@@ -88,21 +87,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             });
         }
         tblAccountHistory.setModel(model);
-    }
-    
-    public void showTableTransactionHistory(){
-        listth.sort(com.thCom);
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{
-            "BankID", "Money", "Content", "Date"
-        });
-        for (TransactionHistory th : listth){
-            model.addRow(new Object[]{
-                th.getBankid(), th.getMoney(), th.getContent(), 
-                DateFormatter.parse(th.getDate())
-            });
-        }
-        tblTransactionHistory.setModel(model);
     }
     
     public void showTableTreamentPlace(){
@@ -180,9 +164,11 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     /*Add needed action performed for buttons*/
     void AddActionPerformed(){
         /*For frame*/
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void closingFrame(java.awt.event.WindowEvent windowEvent){
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent){
                 Admin.adminLogout();
+                System.exit(0);
             }
         });
         
@@ -237,20 +223,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActivityFindbyDateActionPerformed(evt);
-            }
-        });
-        
-        /*For activity and transaction history tab*/
-        btnAcitivyFindbyBankID.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActivityFindbyBankIDActionPerformed(evt);
-            }
-        });
-        btnActivityBankFindbyDate.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActivityBankFindbyDateActionPerformed(evt);
             }
         });
         
@@ -480,86 +452,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         showTableActivityHistory();
     }
     
-    public void btnActivityFindbyBankIDActionPerformed(java.awt.event.ActionEvent evt){
-        String input = txtfActivityBankID.getText().trim();
-        String condition = "";
-        if (input.length() > 0){
-            condition = "where Customer_ID like '%" + input + "%'";
-        }
-        listth = Admin.getTransactionHistory(condition);
-        showTableTransactionHistory();
-    }
-    public void btnActivityBankFindbyDateActionPerformed(java.awt.event.ActionEvent evt){
-        String dateStart = txtfActivityBankDateStart.getText();
-        String dateEnd = txtfActivityBankDateEnd.getText();
-        String condition = "where ";
-        if (dateStart.length() == 0 && dateEnd.length() == 0){
-            condition = "";
-        }
-        else{
-            int validDS = 0, validDE = 0;
-            String mess = "only accept format (int)dd (int)MM (int) yyy as date "
-                        + "and hh:mm:ss as time (time is optional)";
-            String[] temp;
-            if (dateStart.length() == 0) dateStart = null;
-            else{
-                dateStart = dateStart.split("\\.")[0];
-                validDS = Admin.checkDateTime(dateStart);
-                if (validDS == -1){
-                    MessageDialog.showErrorDialog(this, "Date Start " + mess, "Invalid input found");
-                    return;
-                }
-                else{
-                    if (validDS > 0){
-                        temp = dateStart.split(":");
-                        int length = temp.length;
-                        if (length == 1) dateStart = dateStart + ":00:00";
-                        else if(length == 2) dateStart = dateStart + ":00";
-                    }
-                    else dateStart = dateStart + " 00:00:00";
-                    System.out.println(dateStart);
-                    dateStart = Admin.toSQLDateTime(dateStart).replace(' ', 'T');
-                    System.out.println(dateStart);
-                    dateStart = LocalDateTime.parse(dateStart).toString().replace('T', ' ');
-                    dateStart = "'" + dateStart + "'";
-                }
-            }
-            if (dateEnd.length() == 0) dateEnd = null;
-            else{
-                dateEnd = dateEnd.split("\\.")[0];
-                validDE = Admin.checkDateTime(dateEnd);
-                if (validDE == -1){
-                    MessageDialog.showErrorDialog(this, "Date End " + mess, "Invalid input found");
-                    return;
-                }
-                else{
-                    if (validDE > 0){
-                        temp = dateEnd.split(":");
-                        int length = temp.length;
-                        if (length == 1) dateEnd = dateEnd + ":00:00";
-                        else if(length == 2) dateEnd = dateEnd + ":00";
-                    }
-                    else dateEnd = dateEnd + " 00:00:00";
-                    dateEnd = Admin.toSQLDateTime(dateEnd).replace(' ', 'T');
-                    dateEnd = LocalDateTime.parse(dateEnd).plusSeconds(1).toString().replace('T', ' ');
-                    dateEnd = "'" + dateEnd + "'";
-                }
-            }
-            String column = "Record";
-            if (dateStart != null && dateEnd == null){
-                condition = (condition + column + ">=" + dateStart);
-            }
-            else if (dateStart == null && dateEnd != null){
-                condition = (condition + column + "<" + dateEnd);
-            }
-            else{
-                condition = (condition + column + ">=" + dateStart + 
-                            " and " + column + "<" + dateEnd);
-            }
-        }
-        listth = Admin.getTransactionHistory(condition);
-        showTableTransactionHistory();
-    }
     
     
     public void btnTreamntRefreshActionPerformed(java.awt.event.ActionEvent evt){
@@ -678,15 +570,12 @@ public class AdminManagementPanel extends javax.swing.JFrame {
      * Creates new form GUIAdmin
      */
     public AdminManagementPanel() {
-        //this.setTitle("Administration Management");
         initComponents();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         showTableAccount();
         //showTableAccountBank();
         tbdpAdministratorManagement.remove(pnlBankAccountManagement);
         showTableActivityHistory();
-        showTableTransactionHistory();
         showTableTreamentPlace();
         AddActionPerformed();
     }
@@ -769,18 +658,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         pnlAccountHistory = new javax.swing.JPanel();
         scrlpAccountHistory = new javax.swing.JScrollPane();
         tblAccountHistory = new javax.swing.JTable();
-        pnlTransactionHistory = new javax.swing.JPanel();
-        scrlpTransactionHistory = new javax.swing.JScrollPane();
-        tblTransactionHistory = new javax.swing.JTable();
-        pnlAcitivyBankDetail = new javax.swing.JPanel();
-        lblActivityBankID = new javax.swing.JLabel();
-        txtfActivityBankID = new javax.swing.JTextField();
-        btnAcitivyFindbyBankID = new javax.swing.JButton();
-        btnActivityBankFindbyDate = new javax.swing.JButton();
-        lblActivityBankDateStart = new javax.swing.JLabel();
-        txtfActivityBankDateStart = new javax.swing.JTextField();
-        lblActivityBankDateEnd = new javax.swing.JLabel();
-        txtfActivityBankDateEnd = new javax.swing.JTextField();
         pnlTreatmentManagement = new javax.swing.JPanel();
         pnlTreatment = new javax.swing.JPanel();
         pnlTreamentDetail = new javax.swing.JPanel();
@@ -1368,27 +1245,28 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         pnlActivityUserDetail.setLayout(pnlActivityUserDetailLayout);
         pnlActivityUserDetailLayout.setHorizontalGroup(
             pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlActivityUserDetailLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblActivityDateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                    .addComponent(lblActivityUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblActivityDateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActivityUserDetailLayout.createSequentialGroup()
+                .addGap(135, 135, 135)
                 .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlActivityUserDetailLayout.createSequentialGroup()
+                        .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblActivityDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActivityDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtfActivityDateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                            .addComponent(txtfActivityDateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                             .addComponent(txtfActivityDateEnd))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbbActivityLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnActivityFindbyDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlActivityUserDetailLayout.createSequentialGroup()
-                        .addComponent(txtfActivityUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblActivityUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtfActivityUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnActivityFindbyUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(151, 151, 151))
         );
 
         pnlActivityUserDetailLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnActivityFindbyDate, btnActivityFindbyUsername});
@@ -1397,24 +1275,23 @@ public class AdminManagementPanel extends javax.swing.JFrame {
             pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActivityUserDetailLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblActivityUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtfActivityUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnActivityFindbyUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtfActivityUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActivityFindbyUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActivityUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlActivityUserDetailLayout.createSequentialGroup()
                         .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblActivityDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtfActivityDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblActivityDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfActivityDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnActivityFindbyDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbbActivityLogIn))
+                            .addComponent(txtfActivityDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActivityDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlActivityUserDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnActivityFindbyDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                        .addComponent(cbbActivityLogIn, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap())
         );
 
@@ -1446,133 +1323,27 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         );
         pnlAccountHistoryLayout.setVerticalGroup(
             pnlAccountHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrlpAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-        );
-
-        pnlTransactionHistory.setBorder(javax.swing.BorderFactory.createTitledBorder("TRANSACTION HISTORY"));
-
-        tblTransactionHistory.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "BankID", "Money", "Content", "Date"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        scrlpTransactionHistory.setViewportView(tblTransactionHistory);
-
-        javax.swing.GroupLayout pnlTransactionHistoryLayout = new javax.swing.GroupLayout(pnlTransactionHistory);
-        pnlTransactionHistory.setLayout(pnlTransactionHistoryLayout);
-        pnlTransactionHistoryLayout.setHorizontalGroup(
-            pnlTransactionHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrlpTransactionHistory)
-        );
-        pnlTransactionHistoryLayout.setVerticalGroup(
-            pnlTransactionHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrlpTransactionHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-
-        pnlAcitivyBankDetail.setPreferredSize(new java.awt.Dimension(572, 124));
-
-        lblActivityBankID.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblActivityBankID.setText("Bank ID:");
-
-        txtfActivityBankID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfActivityBankIDActionPerformed(evt);
-            }
-        });
-
-        btnAcitivyFindbyBankID.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnAcitivyFindbyBankID.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
-        btnAcitivyFindbyBankID.setText("Find by BankID");
-
-        btnActivityBankFindbyDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnActivityBankFindbyDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
-        btnActivityBankFindbyDate.setText("Find by Date");
-
-        lblActivityBankDateStart.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblActivityBankDateStart.setText("Date Start:");
-
-        lblActivityBankDateEnd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblActivityBankDateEnd.setText("Date End:");
-
-        javax.swing.GroupLayout pnlAcitivyBankDetailLayout = new javax.swing.GroupLayout(pnlAcitivyBankDetail);
-        pnlAcitivyBankDetail.setLayout(pnlAcitivyBankDetailLayout);
-        pnlAcitivyBankDetailLayout.setHorizontalGroup(
-            pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAcitivyBankDetailLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblActivityBankDateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                    .addComponent(lblActivityBankID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblActivityBankDateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtfActivityBankDateEnd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                    .addComponent(txtfActivityBankID, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                    .addComponent(txtfActivityBankDateStart))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnActivityBankFindbyDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAcitivyFindbyBankID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlAcitivyBankDetailLayout.setVerticalGroup(
-            pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAcitivyBankDetailLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAcitivyFindbyBankID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtfActivityBankID)
-                    .addComponent(lblActivityBankID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnActivityBankFindbyDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlAcitivyBankDetailLayout.createSequentialGroup()
-                        .addGroup(pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblActivityBankDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfActivityBankDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlAcitivyBankDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblActivityBankDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfActivityBankDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+            .addComponent(scrlpAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlActivityandTransactionLayout = new javax.swing.GroupLayout(pnlActivityandTransaction);
         pnlActivityandTransaction.setLayout(pnlActivityandTransactionLayout);
         pnlActivityandTransactionLayout.setHorizontalGroup(
             pnlActivityandTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlActivityandTransactionLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActivityandTransactionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlActivityandTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlActivityUserDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
-                    .addComponent(pnlAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlActivityandTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlTransactionHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlAcitivyBankDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)))
+                .addGroup(pnlActivityandTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlActivityUserDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 1175, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlActivityandTransactionLayout.setVerticalGroup(
             pnlActivityandTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActivityandTransactionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlActivityandTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlAcitivyBankDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlActivityUserDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlActivityUserDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlActivityandTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlTransactionHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlAccountHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1964,10 +1735,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         temptmp = null;
     }//GEN-LAST:event_btnTreatmentAddActionPerformed
 
-    private void txtfActivityBankIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfActivityBankIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfActivityBankIDActionPerformed
-
     private void cbbActivityLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbActivityLogInActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbActivityLogInActionPerformed
@@ -2027,8 +1794,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAcitivyFindbyBankID;
-    private javax.swing.JButton btnActivityBankFindbyDate;
     private javax.swing.JButton btnActivityFindbyDate;
     private javax.swing.JButton btnActivityFindbyUsername;
     private javax.swing.JButton btnAdd;
@@ -2057,9 +1822,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbState;
     private javax.swing.JComboBox<String> cbbTreatment;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel lblActivityBankDateEnd;
-    private javax.swing.JLabel lblActivityBankDateStart;
-    private javax.swing.JLabel lblActivityBankID;
     private javax.swing.JLabel lblActivityDateEnd;
     private javax.swing.JLabel lblActivityDateStart;
     private javax.swing.JLabel lblActivityUsername;
@@ -2085,7 +1847,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JPanel pnlAccountInfor;
     private javax.swing.JPanel pnlAccountList;
     private javax.swing.JPanel pnlAccountManagement;
-    private javax.swing.JPanel pnlAcitivyBankDetail;
     private javax.swing.JPanel pnlActivityUserDetail;
     private javax.swing.JPanel pnlActivityandTransaction;
     private javax.swing.JPanel pnlAttribute;
@@ -2097,7 +1858,6 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JPanel pnlButtonInfor;
     private javax.swing.JPanel pnlInfor;
     private javax.swing.JPanel pnlTitle;
-    private javax.swing.JPanel pnlTransactionHistory;
     private javax.swing.JPanel pnlTreamentDetail;
     private javax.swing.JPanel pnlTreatment;
     private javax.swing.JPanel pnlTreatmentButton;
@@ -2106,17 +1866,12 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrlpAccountHistory;
     private javax.swing.JScrollPane scrlpBankList;
     private javax.swing.JScrollPane scrlpList;
-    private javax.swing.JScrollPane scrlpTransactionHistory;
     private javax.swing.JScrollPane scrlpTreatment;
     private javax.swing.JTabbedPane tbdpAdministratorManagement;
     private javax.swing.JTable tblAccountHistory;
     private javax.swing.JTable tblBankList;
     private javax.swing.JTable tblList;
-    private javax.swing.JTable tblTransactionHistory;
     private javax.swing.JTable tblTreatment;
-    private javax.swing.JTextField txtfActivityBankDateEnd;
-    private javax.swing.JTextField txtfActivityBankDateStart;
-    private javax.swing.JTextField txtfActivityBankID;
     private javax.swing.JTextField txtfActivityDateEnd;
     private javax.swing.JTextField txtfActivityDateStart;
     private javax.swing.JTextField txtfActivityUsername;

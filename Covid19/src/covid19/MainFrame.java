@@ -9,6 +9,7 @@ import java.awt.Component;
 import javax.swing.JFrame;
 import Account.Account;
 import DbConnection.SQLConnection;
+import Helper.MessageDialog;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -26,6 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
     Account user = new Account();
     LocalDateTime login;
     private int role;
+    private static int FrameNum = 0;
 
     private int packageFlag = 0;
     private int aboutUsFlag = 0;
@@ -48,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         new SQLConnection();
         AddActionPerformed();
@@ -58,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(Account a, int role) {
         this.role = role;
         initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         user = a;
         this.setTitle("Project App Covid19");
@@ -553,12 +555,18 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFind1ActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        user.logout();
-        System.out.println("Username: "+user.getUsername());
-        this.dispose();
-        SignInFrame signInFrame = new SignInFrame();
-        signInFrame.setTitle("Sign in");
-        signInFrame.setVisible(true);
+        if (FrameNum == 0){
+            user.logout();
+            System.out.println("Username: "+user.getUsername());
+            this.dispose();
+            SignInFrame signInFrame = new SignInFrame();
+            signInFrame.setTitle("Sign in");
+            signInFrame.setVisible(true);
+        }
+        else{
+            MessageDialog.showErrorDialog(this, "Please close others frame before logging out", 
+                                        "Logout error");
+        }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void pnlFind2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnlFind2ActionPerformed
@@ -596,12 +604,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void mitFileLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitFileLogoutActionPerformed
         // TODO add your handling code here:
-        user.logout();
-        System.out.println("Username: "+user.getUsername());
-        this.dispose();
-        SignInFrame signInFrame = new SignInFrame();
-        signInFrame.setTitle("Sign in");
-        signInFrame.setVisible(true);
+        if (FrameNum == 0){
+            user.logout();
+            System.out.println("Username: "+user.getUsername());
+            this.dispose();
+            SignInFrame signInFrame = new SignInFrame();
+            signInFrame.setTitle("Sign in");
+            signInFrame.setVisible(true);
+        }
+        else{
+            MessageDialog.showErrorDialog(this, "Please close others frame before logging out", 
+                                        "Logout error");
+        }
     }//GEN-LAST:event_mitFileLogoutActionPerformed
 
     private void mitReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitReloadActionPerformed
@@ -645,11 +659,9 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainFrame mainFrame = new MainFrame();
-                //mainFrame.setTitle("Covid-19 Management");
+                MainFrame mainFrame = new MainFrame(user, role);
+                FrameNum = FrameNum + 1;
                 mainFrame.setVisible(true);
-                mainFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                mainFrame.btnLogout.setEnabled(false);
             }
         });
     }//GEN-LAST:event_mitNewActionPerformed
@@ -831,10 +843,16 @@ showHelp();        // TODO add your handling code here:
     }
 
     private void AddActionPerformed() {
-        mitNew.addActionListener(new java.awt.event.ActionListener() {
+        addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitNewActionPerformed(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                if (FrameNum == 0){
+                    user.logout();
+                    System.exit(0);
+                }
+                else{
+                    FrameNum = FrameNum - 1;
+                }
             }
         });
     }

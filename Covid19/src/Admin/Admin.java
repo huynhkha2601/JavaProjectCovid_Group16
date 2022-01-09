@@ -416,23 +416,34 @@ public class Admin {
     public static String addAccount(Account acc){
         String mess = checkInputAccountData("Add", acc);
         if (mess == null){
-            int result;
+            int result = 0;
             con = Make_connection();
             if (con != null){
                 try {
-                    String query = "insert into ACCOUNT(USERNAME, PASSWORD, ROLE, "
-                                + "USERID, ACTIVATED, DATEPUBLISHED) "
-                                + "VALUES(?, ?, ?, ?, ?, ?)";
-                    System.out.println(query);
+                    String query = "select * from MANAGEDPERSON where ID='"+acc.getUserid()+"'";
                     pstm = con.prepareStatement(query);
-                    pstm.setString(1, acc.getUsername());
-                    pstm.setString(2, acc.getPassword());
-                    pstm.setString(3, acc.getRole());
-                    pstm.setString(4, acc.getUserid());
-                    pstm.setInt(5, acc.getState());
-                    ZonedDateTime zdt = acc.getDatePublished().atZone(ZoneId.of("GMT+07:00:00"));
-                    pstm.setTimestamp(6, new Timestamp(zdt.toInstant().toEpochMilli()));
-                    result = pstm.executeUpdate();
+                    ResultSet rs = pstm.executeQuery();
+                    if (!rs.next()){
+                        query = "insert into MANAGEDPERSON(ID) values(?)";
+                        pstm = con.prepareStatement(query);
+                        pstm.setString(1, acc.getUserid());
+                        result = pstm.executeUpdate();
+                    }
+                    if (result >= 0){
+                        query = "insert into ACCOUNT(USERNAME, PASSWORD, ROLE, "
+                                    + "USERID, ACTIVATED, DATEPUBLISHED) "
+                                    + "VALUES(?, ?, ?, ?, ?, ?)";
+                        System.out.println(query);
+                        pstm = con.prepareStatement(query);
+                        pstm.setString(1, acc.getUsername());
+                        pstm.setString(2, acc.getPassword());
+                        pstm.setString(3, acc.getRole());
+                        pstm.setString(4, acc.getUserid());
+                        pstm.setInt(5, acc.getState());
+                        ZonedDateTime zdt = acc.getDatePublished().atZone(ZoneId.of("GMT+07:00:00"));
+                        pstm.setTimestamp(6, new Timestamp(zdt.toInstant().toEpochMilli()));
+                        result = pstm.executeUpdate();
+                    }
                     if (result < 0){
                         mess = "Failed to insert data";
                     }
