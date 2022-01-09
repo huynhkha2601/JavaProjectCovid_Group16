@@ -60,7 +60,7 @@ public class DateFormatter {
     }
 
     public static String parse(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
 
 }
