@@ -55,10 +55,10 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         txfID = new javax.swing.JTextField();
         txfFromStat = new javax.swing.JTextField();
         lblFromStat = new javax.swing.JLabel();
-        txfToStat = new javax.swing.JTextField();
         lblToStat = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
         txfDate = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         pnlButton = new javax.swing.JPanel();
         btnRefresh = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -86,6 +86,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         lblID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblID.setText("ID:");
 
+        txfID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txfID.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txfIDFocusLost(evt);
@@ -98,20 +99,22 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         });
 
         txfFromStat.setEditable(false);
-        txfFromStat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txfFromStat.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txfFromStat.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txfFromStat.setEnabled(false);
 
         lblFromStat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblFromStat.setText("From Status:");
-
-        txfToStat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblFromStat.setText("From status:");
 
         lblToStat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblToStat.setText("To Status:");
+        lblToStat.setText("To status:");
 
         lblDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblDate.setText("Date Time:");
+        lblDate.setText("Record:");
+
+        txfDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F0", "F1", "F2", "F3", "F4", "F5", "KHỎI BỆNH" }));
 
         javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
         pnlForm.setLayout(pnlFormLayout);
@@ -125,11 +128,11 @@ public class StatusManagementPanel extends javax.swing.JPanel {
                     .addComponent(lblID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txfToStat, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfDate, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfFromStat)
-                    .addComponent(txfID, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfDate, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(txfFromStat, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txfID)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlFormLayout.setVerticalGroup(
@@ -138,7 +141,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFromStat, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
@@ -146,11 +149,11 @@ public class StatusManagementPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblToStat, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .addComponent(txfToStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .addComponent(txfDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -251,17 +254,23 @@ public class StatusManagementPanel extends javax.swing.JPanel {
         pnlTable.setBorder(javax.swing.BorderFactory.createTitledBorder("Status List"));
         pnlTable.setPreferredSize(new java.awt.Dimension(512, 398));
 
+        tbtStat.setAutoCreateRowSorter(true);
         tbtStat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "From Status", "To Status", "Date"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbtStat.setPreferredSize(new java.awt.Dimension(504, 382));
         tbtStat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -342,12 +351,11 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-  
-        boolean flagID = Validator.validateEmpty(txfID), flagToStat = Validator.validateEmpty(txfToStat),
+        boolean flagID = Validator.validateEmpty(txfID), /*flagToStat = Validator.validateEmpty(txfToStat),*/
                 flagDate = Validator.validateEmpty(txfDate);
         boolean check = false;
-        if( flagDate && flagID && flagToStat){
-            sb.append("You can only search by ID or Date");
+        if(flagDate && flagID /*&& flagToStat*/){
+            sb.append("You can search by ID or Datetime");
             if (showStringBuilder()){
                 return;
             }
@@ -358,16 +366,17 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             check = true;
 
         }else if (!flagDate){
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//            LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
-            String record = DateFormatter.formatToSQLDate(txfDate.getText());
+            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            //LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
+            String record = DateFormatter.formatToSQLDateTime(txfDate.getText());
+            System.out.println(record);
             List<ManagedHistory> lst = ManagedHistoryInf.searchManageHistoryByDate(record);
             displayTable(lst);
             check = true;
         }   
         
         if (check == false){
-            MessageDialog.showErrorDialog(this, "Can't search!", "Error!");
+            MessageDialog.showErrorDialog(this, "Cannot search", "Error");
         }
         
     }//GEN-LAST:event_btnFindActionPerformed
@@ -375,7 +384,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         txfID.setText("");
         txfFromStat.setText("");
-        txfToStat.setText("");
+        //txfToStat.setText("");
         txfDate.setText("");
         displayTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
@@ -386,46 +395,45 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             return;
         }
         ManagedHistory mh = getManagedHistoryInformation();
-        constraintCheck(mh);
+        //constraintCheck(mh);
         if (showStringBuilder()) {
             return;
         }
         // get ToStatus to change other related to ToStatus++;
         int src = Arrays.asList(this.statLst).indexOf(txfFromStat.getText());
-        int idx = Arrays.asList(this.statLst).indexOf(txfToStat.getText());
-        System.out.println(idx + " " + src);
+        int idx = Arrays.asList(this.statLst).indexOf(jComboBox1.getSelectedItem().toString());
+        //System.out.println(idx + " " + src);
         if (src == idx){
-            MessageDialog.showMessageDialog(this, "From and To status can not be same!" ,"Error!");
+            MessageDialog.showErrorDialog(this, "From and To status can not be same" ,"Error");
             return;
         }
         
         if (idx < 6) {
             idx++;
         }
-
         List<String> lstRelated = RelatedInf.searchRelated(txfID.getText());
-        
         for (String id : lstRelated) {
             Profile prf = PatientInf.searchProfile(id);
             src = Arrays.asList(this.statLst).indexOf(prf.getStatus());
-            System.out.println("id " + id + "Profile: "+ prf.toString() + "idx: "+ idx + " des: " + src);
+            //System.out.println("id " + id + "Profile: "+ prf.toString() + "idx: "+ idx + " des: " + src);
             if (src >= idx) {
                 PatientInf.updatePatient(prf.getID(), prf.getFullName(), prf.getYoB(), prf.getAddress(), this.statLst[idx]);
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//                String s = LocalDateTime.now().format(formatter);
+                //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                //String s = LocalDateTime.now().format(formatter);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
                 ManagedHistory obj = new ManagedHistory(prf.getID(), prf.getStatus(), this.statLst[idx], record);
                 ManagedHistoryInf.addManagedHistory(obj);
-                System.out.println("Managed: " + obj);
+                //System.out.println("Managed: " + obj);
                 updateRelated(obj);
             }
         }   
 
         if (ManagedHistoryInf.addManagedHistory(mh)) {
-            MessageDialog.showMessageDialog(this, "Add status successfully!", "Notification!");
+            MessageDialog.showMessageDialog(this, "Add status successfully", "Notification");
+            displayTable();
         } else {
-            MessageDialog.showErrorDialog(this, "Add status Failed!", "Error!");
+            MessageDialog.showErrorDialog(this, "Add status failed", "Error");
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -462,7 +470,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
             DefaultTableModel model = (DefaultTableModel) tbtStat.getModel();
             int rowSelected = tbtStat.getSelectedRow();
             txfID.setText((String) model.getValueAt(rowSelected, 0));
-            txfToStat.setText((String) model.getValueAt(rowSelected, 2));
+            jComboBox1.setSelectedItem((String) model.getValueAt(rowSelected, 2));
             txfDate.setText((String) model.getValueAt(rowSelected, 3));
             changeFrom();
         } catch (Exception e) {
@@ -473,7 +481,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
 
         String id = txfID.getText();
         String fromStatus = txfFromStat.getText();
-        String toStatus = txfToStat.getText();
+        String toStatus = jComboBox1.getSelectedItem().toString();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
@@ -482,22 +490,23 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     }
 
     private void validateAllField() {
-        Validator.validateEmpty(txfID, sb, "Empty ID!");
-        Validator.validateEmpty(txfFromStat, sb, "Empty Name!");
-        Validator.validateEmpty(txfToStat, sb, "Empty Price!");
-        Validator.validateEmpty(txfDate, sb, "Empty Quantity!");
+        Validator.validateEmpty(txfID, sb, "Empty ID");
+        //Validator.validateEmpty(txfFromStat, sb, "Empty Name!");
+        //Validator.validateEmpty(txfToStat, sb, "Empty Price!");
+        Validator.validateEmpty(txfDate, sb, "Empty Datetime");
     }
-
+    /*
     private void constraintCheck(ManagedHistory mh) {
         Validator.validate((!Arrays.asList(this.statLst).contains(mh.getFromStatus().toUpperCase().trim())),
                 txfFromStat, sb, "Error in From Status input!");
-        Validator.validate((!Arrays.asList(this.statLst).contains(mh.getToStatus().toUpperCase().trim())),
-                txfToStat, sb, "Error in From Status input!");
+        //Validator.validate((!Arrays.asList(this.statLst).contains(mh.getToStatus().toUpperCase().trim())),
+        //        txfToStat, sb, "Error in From Status input!");
     }
+    */
 
     private boolean showStringBuilder() {
         if (sb.length() > 0) {
-            MessageDialog.showMessageDialog(this, sb.toString(), "Error!");
+            MessageDialog.showErrorDialog(this, sb.toString(), "Error");
             sb.setLength(0);
             return true;
         }
@@ -544,19 +553,19 @@ public class StatusManagementPanel extends javax.swing.JPanel {
 
         List<String> lstRelated = RelatedInf.searchRelated(currentMH.getmID());
         for (String id : lstRelated) {
-            System.out.println(id);
+            //System.out.println(id);
             Profile prf = PatientInf.searchProfile(id);
-            System.out.println("Profile: " + prf.toString());
+            //System.out.println("Profile: " + prf.toString());
             int des = Arrays.asList(this.statLst).indexOf(prf.getStatus());
-            System.out.println("des:" + des);
+            //System.out.println("des:" + des);
             if (des >= idx) {
                 PatientInf.updatePatient(prf.getID(), prf.getFullName(), prf.getYoB(), prf.getAddress(), this.statLst[idx]);
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//                String s = LocalDateTime.now().format(formatter);
+                //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                //String s = LocalDateTime.now().format(formatter);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime record = LocalDateTime.parse(DateFormatter.formatToSQLDateTime(txfDate.getText()), formatter);
                 ManagedHistory obj = new ManagedHistory(prf.getID(), prf.getStatus(), this.statLst[idx], record);
-                System.out.println("ManagedHistory: " + obj.toString());
+                //System.out.println("ManagedHistory: " + obj.toString());
                 ManagedHistoryInf.addManagedHistory(obj);
                 updateRelated(obj);
             }
@@ -570,6 +579,7 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnView;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblFromStat;
@@ -586,6 +596,5 @@ public class StatusManagementPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txfDate;
     private javax.swing.JTextField txfFromStat;
     private javax.swing.JTextField txfID;
-    private javax.swing.JTextField txfToStat;
     // End of variables declaration//GEN-END:variables
 }
