@@ -553,7 +553,7 @@ public class PatientManagementPanel extends javax.swing.JPanel {
                 if(txfAddress.getText().equals("") || txfFullname.getText().equals("") || txfYoB.getText().equals(""))
                     JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
                 else {
-                    if(PatientInf.updatePatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText(), jComboBox1.getSelectedItem().toString())) {
+                    if(PatientInf.updatePatient(txfID.getText(), txfFullname.getText(), Integer.parseInt(txfYoB.getText()), txfAddress.getText()/*, jComboBox1.getSelectedItem().toString())*/)) {
                         JOptionPane.showMessageDialog(this, "Update successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
                         refreshTable();
                         clearTextField();

@@ -59,16 +59,16 @@ public class PatientInf {
         return false;
     } 
     
-    public static boolean updatePatient(String id, String fullName, int YoB, String address, String status) {
+    public static boolean updatePatient(String id, String fullName, int YoB, String address/*, String status*/) {
         try {
             Class.forName(PatientInf.JDBC_DRIVER);
             Connection conn = DriverManager.getConnection(PatientInf.DB_URL);
-            PreparedStatement stmt = conn.prepareStatement("UPDATE MANAGEDPERSON SET FULLNAME = ?, YEAROFBIRTH = ?, ADDRESS = ?, STATUS = ? WHERE ID = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE MANAGEDPERSON SET FULLNAME = ?, YEAROFBIRTH = ?, ADDRESS = ? WHERE ID = ?");
             stmt.setString(1, fullName);
             stmt.setInt(2, YoB);
             stmt.setString(3, address);
-            stmt.setString(4, status);
-            stmt.setString(5, id);
+            //stmt.setString(4, status);
+            stmt.setString(4, id);
             stmt.executeUpdate();
             return true;
         } catch (ClassNotFoundException ex) {
