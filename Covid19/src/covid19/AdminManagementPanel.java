@@ -159,6 +159,25 @@ public class AdminManagementPanel extends javax.swing.JFrame {
         tmp.setTreatmentPlace(ID, Name, Capacity, Quantity);
         return tmp;
     }
+     public TreatmentPlace getInputTreamentPlace(String command){
+        String ID = txtfTreatmentID.getText().trim();
+        String Name = txtfTreatmentName.getText().trim();
+        int Capacity;
+        try{
+            Capacity = Integer.parseInt(txtfTreatmentCapacity.getText().trim());
+        } catch (NumberFormatException ex){
+            Capacity = 0;
+        }
+        int Quantity;
+        if (command.equals("add"))
+            Quantity = 0;
+        else
+            Quantity = Integer.parseInt(txtfTreatmentQuantity.getText());
+        TreatmentPlace tmp = new TreatmentPlace();
+        tmp.setTreatmentPlace(ID, Name, Capacity, Quantity);
+        return tmp;
+    }
+
 
     
     /*Add needed action performed for buttons*/
@@ -527,9 +546,15 @@ public class AdminManagementPanel extends javax.swing.JFrame {
     }
     
     public void btnTreatmentEditActionPerformed(java.awt.event.ActionEvent evt){
-        temptmp = getInputTreamentPlaceData();
-        String mess = Admin.editTreatmentPlace(temptmp);
+        temptmp = getInputTreamentPlace("edit");
+        //System.out.println(temptmp.getQuantity());
+        String mess = null;
+        if (temptmp.getCapacity() > 0)
+            mess = Admin.editTreatmentPlace(temptmp);
+        else
+            MessageDialog.showErrorDialog(this, "Capacity can't be zero and negative value", "Error while editing treament place.");
         if (mess == null){
+            /*
             for (TreatmentPlace tmp : listTMP){
                 if (tmp.getID().equalsIgnoreCase(temptmp.getID())){ 
                     listTMP.set(listTMP.indexOf(tmp), temptmp);
@@ -537,6 +562,8 @@ public class AdminManagementPanel extends javax.swing.JFrame {
                     break;
                 }
             }
+            */
+            btnTreamntRefreshActionPerformed(evt);
         }
         else{
             MessageDialog.showErrorDialog(this, mess, "Error while editing treament place.");
@@ -1723,8 +1750,12 @@ public class AdminManagementPanel extends javax.swing.JFrame {
 
     private void btnTreatmentAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTreatmentAddActionPerformed
         // TODO add your handling code here:
-        temptmp = getInputTreamentPlaceData();
-        String mess = Admin.addTreatmentPlace(temptmp);
+        temptmp = getInputTreamentPlace("add");
+        String mess = null;
+        if (temptmp.getCapacity() > 0)
+            mess = Admin.addTreatmentPlace(temptmp);
+        else
+            MessageDialog.showErrorDialog(this, "Capacity can't be zero and negative value", "Error while adding treatment place.");
         if (mess == null){
             listTMP.add(temptmp);
             showTableTreamentPlace();

@@ -1031,13 +1031,13 @@ public class Admin {
             if (con != null){
                 try {
                     String query = "insert into TREATMENTPLACE(ID, NAME, CAPACITY, QUANTITY) "
-                                + "VALUES(?, ?, ?, ?)";
+                                + "VALUES(?, ?, ?, 0)";
                     System.out.println(query);
                     pstm = con.prepareStatement(query);
                     pstm.setString(1, tmp.getID());
                     pstm.setString(2, tmp.getName());
                     pstm.setInt(3, tmp.getCapacity());
-                    pstm.setInt(4, tmp.getQuantity());
+                    //pstm.setInt(4, tmp.getQuantity());
                     result = pstm.executeUpdate();
                     if (result < 0){
                         mess = "Failed to insert data";
@@ -1067,14 +1067,14 @@ public class Admin {
             con = Make_connection();
             if (con != null){
                 try {
-                    String query = "update TREATMENTPLACE set NAME=?, CAPACITY=?, QUANTITY=? "
+                    String query = "update TREATMENTPLACE set NAME=?, CAPACITY=? "
                                 + "where ID=?";
                     System.out.println(query);
                     pstm = con.prepareStatement(query);
                     pstm.setString(1, tmp.getName());
                     pstm.setInt(2, tmp.getCapacity());
-                    pstm.setInt(3, tmp.getQuantity());
-                    pstm.setString(4, tmp.getID());
+                    //pstm.setInt(3, tmp.getQuantity());
+                    pstm.setString(3, tmp.getID());
                     result = pstm.executeUpdate();
                     if (result < 0){
                         mess = "Failed to update data.";

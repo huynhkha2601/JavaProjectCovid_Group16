@@ -257,17 +257,23 @@ public class HospitalTransferFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if(txfFromTreatment.getText().equals("") || txfToTreatment1.getText().equals(""))
-            JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
-        else if(txfFromTreatment.getText().equals(txfToTreatment1.getText()))
+        //if(txfFromTreatment.getText().equals("") || txfToTreatment1.getText().equals(""))
+            //JOptionPane.showMessageDialog(this, "Required fields cannot be blank", "Notification", JOptionPane.ERROR_MESSAGE);
+        if(txfFromTreatment.getText().equals(txfToTreatment1.getText()))
             JOptionPane.showMessageDialog(this, "Choose another treatment place", "Notification", JOptionPane.ERROR_MESSAGE);
         else {
             int result = JOptionPane.showConfirmDialog(this, "Do you want to save the changes", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 if(PatientInf.transferPatient(id, txfToTreatment1.getText())) {
                     JOptionPane.showMessageDialog(this, "Change successfully", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    DefaultTableModel model = (DefaultTableModel) tblHospitalTransferDetail.getModel();
+                    model.setRowCount(0);
+                    List<Treatment> list = TreatmentInf.getAllPatient();
+                    for (int i = 0; i < list.size(); i++) 
+                        model.addRow(new Object[]{list.get(i).getID(), list.get(i).getName(), (list.get(i).getCapacity()), (list.get(i).getQuantity())});
                     txfFromTreatment.setText(txfToTreatment1.getText());
                     txfToTreatment1.setText("");
+                    
                 }
                 else 
                     JOptionPane.showMessageDialog(this, "Change failed", "Notification", JOptionPane.ERROR_MESSAGE);
